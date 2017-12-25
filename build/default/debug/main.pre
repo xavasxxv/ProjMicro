@@ -9077,10 +9077,10 @@ menu_tmp--;
 while (PORTAbits.RA2 == 0);
 }
 
-if (menu_tmp > 4)
+if (menu_tmp > 2)
 menu_tmp = 1;
 if (menu_tmp < 1)
-menu_tmp = 4;
+menu_tmp = 2;
 
 if (lastMenu != menu_tmp) {
 update = 1;
@@ -9096,12 +9096,6 @@ escreveLinhaLCD(192, "Monitorizacao        ");
 break;
 case 2:
 escreveLinhaLCD(192, "Temp. de alarme      ");
-break;
-case 3:
-escreveLinhaLCD(192, "Teste do teclado     ");
-break;
-case 4:
-escreveLinhaLCD(192, "Feedback EUSART      ");
 break;
 }
 update = 0;
@@ -9193,7 +9187,7 @@ void defTempAlarme(void) {
 char c1, c2;
 char tmp_Alarme = 0;
 
-# 261
+# 255
 do {
 
 escreveLinhaLCD(128, "Introduza o alarme  ");

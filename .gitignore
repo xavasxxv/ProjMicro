@@ -52,10 +52,10 @@ Mkfile.old
 dkms.conf
 
 
-/*build
-/*debug
-/*dist
-/*nbproject
+**/build
+**/debug
+**/dist
+**/nbproject
 Backup Of PROTEUS.pdsbak
 Last Loaded PROTEUS.pdsbak
 Makefile
