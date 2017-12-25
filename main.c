@@ -126,10 +126,10 @@ void menu(void) {
             while (BOTAO_DOWN_GetValue() == 0);
         }
 
-        if (menu_tmp > 2)
+        if (menu_tmp > 4)
             menu_tmp = 1;
         if (menu_tmp < 1)
-            menu_tmp = 2;
+            menu_tmp = 4;
 
         if (lastMenu != menu_tmp) {
             update = 1;
@@ -145,6 +145,12 @@ void menu(void) {
                     break;
                 case 2:
                     escreveLinhaLCD(LINE2, "Temp. de alarme      ");
+                    break;
+                case 3:
+                    escreveLinhaLCD(LINE2, "Teste do teclado     ");
+                    break;
+                case 4:
+                    escreveLinhaLCD(LINE2, "Feedback EUSART      ");
                     break;
             }
             update = 0;

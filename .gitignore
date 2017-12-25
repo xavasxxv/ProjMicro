@@ -50,14 +50,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-
-
-**/build
-**/debug
-**/dist
-**/nbproject
-Backup Of PROTEUS.pdsbak
-Last Loaded PROTEUS.pdsbak
-Makefile
-*.zip
-PROTEUS.pdsprj.XAVIER-PC.Xavier.workspace
+/build/
+/dist/
+/nbproject/
+/debug/
