@@ -137,6 +137,11 @@ void ADC_ISR(void) {
     if (var1 >= 0.5)
         tempAtual++;
 
+    if (tempAtual > tempAlarme)
+        alarme = 1;
+    else
+        alarme = 0;
+
     if (eusart_Tx_On == 0 && eusart_Tx_En == 0) {
         sprintf(strUSART, "\fTM=%2d_TA=%2d_AA=%1d\r", tempAtual, tempAlarme, alarme);
         for (i = 0; strUSART[i] != '\0'; i++) {
@@ -151,21 +156,40 @@ void ADC_ISR(void) {
         regNum = 0;
 
     memAddr = regNum * 8;
-    memAddrBytes[0] = (memAddr >> 8);
-    memAddrBytes[1] = (memAddr & 0xff);
 
-    sprintf(i2cWriteBlock, "%c%cM%2dA%2dE%1d", memAddrBytes[0], memAddrBytes[1], tempAtual, tempAlarme, alarme);
+    i2cWriteBlock[0] = ( memAddr >> 8 ); //byte high do endereço de memória
+    i2cWriteBlock[1] = ( memAddr & 0xff ); //byte low do endereço de memória
+    i2cWriteBlock[2] = 'M';
+    i2cWriteBlock[3] = tempAtual;
+    i2cWriteBlock[4] = 'A';
+    i2cWriteBlock[5] = tempAlarme;
+    i2cWriteBlock[6] = 'E';
+    i2cWriteBlock[7] = alarme;
+    i2cWriteBlock[8] = 0;
+    i2cWriteBlock[9] = 0;
 
     I2C1_MasterWrite(i2cWriteBlock, 10, eepromAddr, stateMsgI2c);
 
     do {
 
-        while (stateMsgI2c == I2C1_MESSAGE_PENDING);
-
-        if (stateMsgI2c != I2C1_MESSAGE_PENDING && stateMsgI2c != I2C1_MESSAGE_COMPLETE) {
+        if (stateMsgI2c != I2C1_MESSAGE_PENDING && stateMsgI2c != I2C1_MESSAGE_COMPLETE)
             I2C1_MasterWrite(i2cWriteBlock, 10, eepromAddr, stateMsgI2c);
-        }
-    } while (stateMsgI2c != I2C1_MESSAGE_COMPLETE);
+
+    } while (( stateMsgI2c != I2C1_MESSAGE_COMPLETE ) == ( stateMsgI2c != I2C1_MESSAGE_PENDING ));
+
+    i2cWriteInit[0] = 0;
+    i2cWriteInit[1] = 0;
+    i2cWriteInit[2] = ( regNum >> 8 );
+    i2cWriteInit[3] = ( regNum & 0xff );
+
+    I2C1_MasterWrite(i2cWriteInit, 4, eepromAddr, stateMsgI2c);
+
+    do {
+
+        if (stateMsgI2c != I2C1_MESSAGE_PENDING && stateMsgI2c != I2C1_MESSAGE_COMPLETE)
+            I2C1_MasterWrite(i2cWriteInit, 4, eepromAddr, stateMsgI2c);
+
+    } while (( stateMsgI2c != I2C1_MESSAGE_COMPLETE ) == ( stateMsgI2c != I2C1_MESSAGE_PENDING ));
 
     // Clear the ADC interrupt flag
     PIR1bits.ADIF = 0;

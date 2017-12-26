@@ -37,6 +37,7 @@ extern "C" {
     volatile char strLCD[StrSIZE];
     volatile char strUSART[StrSIZE];
     volatile char i2cWriteBlock[10];
+    volatile char i2cWriteInit[4];
     volatile char TeclaTMP;
     volatile double tmpTemp;
     volatile char lastMenu;
@@ -58,7 +59,6 @@ extern "C" {
     volatile bool eusart_Tx_En = 0;
     volatile bool eusart_Tx_On = 0;
     volatile signed int memAddr = 0;
-    volatile char memAddrBytes[2];
     volatile signed int regNum = 0;
     volatile I2C1_MESSAGE_STATUS stateMsgI2c;
 

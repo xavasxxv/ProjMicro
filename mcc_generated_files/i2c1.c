@@ -589,9 +589,10 @@ void I2C1_Stop(I2C1_MESSAGE_STATUS completion_code)
     {
         // update the flag with the completion code
         *(p_i2c1_current->pTrFlag) = completion_code;
-        stateMsgI2c = completion_code;
     }
 
+    stateMsgI2c = completion_code;
+    
     // Done, back to idle
     i2c1_state = S_MASTER_IDLE;
     

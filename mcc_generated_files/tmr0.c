@@ -159,8 +159,7 @@ void TMR0_ISR(void) {
     if (clk1_4Hz && clk1_2Hz && clk1Hz && clk2Hz && clk4Hz)
         clk1_8Hz = !clk1_8Hz;
 
-    if (( int ) tempAtual > tempAlarme) {
-        alarme = 1;
+    if (alarme == 1) {
 
         TMR2_StartTimer();
 
@@ -178,7 +177,6 @@ void TMR0_ISR(void) {
                 break;
         }
     } else {
-        alarme = 0;
         TMR2_StopTimer();
         RB7_SetLow();
     }
