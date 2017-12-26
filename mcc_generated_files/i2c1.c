@@ -48,6 +48,7 @@
 */
 
 #include "i2c1.h"
+#include "../GlobalDefinitions.h"
 
 /**
   I2C Driver Queue Status Type
@@ -84,8 +85,8 @@ typedef union
 typedef struct
 {
     uint8_t                             count;          // a count of trb's in the trb list
-    I2C1_TRANSACTION_REQUEST_BLOCK *ptrb_list;     // pointer to the trb list
-    I2C1_MESSAGE_STATUS            *pTrFlag;       // set with the error of the last trb sent.
+    I2C1_TRANSACTION_REQUEST_BLOCK      *ptrb_list;     // pointer to the trb list
+    I2C1_MESSAGE_STATUS                 *pTrFlag;       // set with the error of the last trb sent.
                                                         // if all trb's are sent successfully,
                                                         // then this is I2C1_MESSAGE_COMPLETE
 } I2C_TR_QUEUE_ENTRY;
@@ -104,9 +105,9 @@ typedef struct
 typedef struct
 {
     /* Read/Write Queue */
-    I2C_TR_QUEUE_ENTRY          *pTrTail;       // tail of the queue
-    I2C_TR_QUEUE_ENTRY          *pTrHead;       // head of the queue
-    I2C_TR_QUEUE_STATUS         trStatus;       // status of the last transaction
+    I2C_TR_QUEUE_ENTRY              *pTrTail;       // tail of the queue
+    I2C_TR_QUEUE_ENTRY              *pTrHead;       // head of the queue
+    I2C_TR_QUEUE_STATUS             trStatus;       // status of the last transaction
     uint8_t                         i2cDoneFlag;    // flag to indicate the current
                                                     // transaction is done
     uint8_t                         i2cErrors;      // keeps track of errors
@@ -588,6 +589,7 @@ void I2C1_Stop(I2C1_MESSAGE_STATUS completion_code)
     {
         // update the flag with the completion code
         *(p_i2c1_current->pTrFlag) = completion_code;
+        stateMsgI2c = completion_code;
     }
 
     // Done, back to idle

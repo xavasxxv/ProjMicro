@@ -3,13 +3,50 @@
 [d edition pro ]
 [d chip 18F45K22 ]
 [d frameptr 4065 ]
-"81 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/adc.c
+"63 D:\Documentos\GitHub\ProjMCC.X/GlobalDefinitions.h
+[e E7307 . `uc
+I2C1_MESSAGE_COMPLETE 0
+I2C1_MESSAGE_FAIL 1
+I2C1_MESSAGE_PENDING 2
+I2C1_STUCK_START 3
+I2C1_MESSAGE_ADDRESS_NO_ACK 4
+I2C1_DATA_NO_ACK 5
+I2C1_LOST_STATE 6
+]
+[e E7325 . `uc
+I2C1_MESSAGE_COMPLETE 0
+I2C1_MESSAGE_FAIL 1
+I2C1_MESSAGE_PENDING 2
+I2C1_STUCK_START 3
+I2C1_MESSAGE_ADDRESS_NO_ACK 4
+I2C1_DATA_NO_ACK 5
+I2C1_LOST_STATE 6
+]
+[e E7002 . `uc
+I2C1_MESSAGE_COMPLETE 0
+I2C1_MESSAGE_FAIL 1
+I2C1_MESSAGE_PENDING 2
+I2C1_STUCK_START 3
+I2C1_MESSAGE_ADDRESS_NO_ACK 4
+I2C1_DATA_NO_ACK 5
+I2C1_LOST_STATE 6
+]
+"82 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/adc.c
 [e E6975 . `uc
 channel_CTMU 29
 channel_DAC 30
 channel_FVRBuf2 31
 ]
-"184 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/i2c1.c
+"63 D:\Documentos\GitHub\ProjMCC.X/GlobalDefinitions.h
+[e E7270 . `uc
+I2C1_MESSAGE_COMPLETE 0
+I2C1_MESSAGE_FAIL 1
+I2C1_MESSAGE_PENDING 2
+I2C1_STUCK_START 3
+I2C1_MESSAGE_ADDRESS_NO_ACK 4
+I2C1_DATA_NO_ACK 5
+I2C1_LOST_STATE 6
+]
 [e E6972 . `uc
 I2C1_MESSAGE_COMPLETE 0
 I2C1_MESSAGE_FAIL 1
@@ -19,8 +56,8 @@ I2C1_MESSAGE_ADDRESS_NO_ACK 4
 I2C1_DATA_NO_ACK 5
 I2C1_LOST_STATE 6
 ]
-"186
-[e E7040 . `uc
+"187 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/i2c1.c
+[e E7372 . `uc
 S_MASTER_IDLE 0
 S_MASTER_RESTART 1
 S_MASTER_SEND_ADDR 2
@@ -33,6 +70,16 @@ S_MASTER_ACK_RCV_DATA 8
 S_MASTER_NOACK_STOP 9
 S_MASTER_SEND_ADDR_10BIT_LSB 10
 S_MASTER_10BIT_RESTART 11
+]
+"63 D:\Documentos\GitHub\ProjMCC.X\GlobalDefinitions.h
+[e E7011 . `uc
+I2C1_MESSAGE_COMPLETE 0
+I2C1_MESSAGE_FAIL 1
+I2C1_MESSAGE_PENDING 2
+I2C1_STUCK_START 3
+I2C1_MESSAGE_ADDRESS_NO_ACK 4
+I2C1_DATA_NO_ACK 5
+I2C1_LOST_STATE 6
 ]
 "32 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\awtoft.c
 [v ___awtoft __awtoft `(f  1 e 3 0 ]
@@ -83,23 +130,23 @@ S_MASTER_10BIT_RESTART 11
 [v _escreveLinhaLCD escreveLinhaLCD `(v  1 e 1 0 ]
 "113
 [v _menu menu `(v  1 e 1 0 ]
-"176
+"182
 [v _monitorizacao monitorizacao `(v  1 e 1 0 ]
-"216
+"222
 [v _testeTeclado testeTeclado `(v  1 e 1 0 ]
-"234
+"240
 [v _defTempAlarme defTempAlarme `(v  1 e 1 0 ]
-"282
+"288
 [v _getKBInput getKBInput `(uc  1 e 1 0 ]
-"318
+"324
 [v _feedbackUSART feedbackUSART `(v  1 e 1 0 ]
-"59 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/adc.c
+"60 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/adc.c
 [v _ADC_Initialize ADC_Initialize `(v  1 e 1 0 ]
-"88
+"89
 [v _ADC_StartConversion ADC_StartConversion `(v  1 e 1 0 ]
-"98
+"99
 [v _ADC_GetConversionResult ADC_GetConversionResult `(ui  1 e 2 0 ]
-"121
+"122
 [v _ADC_ISR ADC_ISR `(v  1 e 1 0 ]
 "63 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/epwm1.c
 [v _EPWM1_Initialize EPWM1_Initialize `(v  1 e 1 0 ]
@@ -138,21 +185,23 @@ S_MASTER_10BIT_RESTART 11
 [v _INT0_DefaultInterruptHandler INT0_DefaultInterruptHandler `(v  1 e 1 0 ]
 "213
 [v _EXT_INT_Initialize EXT_INT_Initialize `(v  1 e 1 0 ]
-"198 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/i2c1.c
+"199 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/i2c1.c
 [v _I2C1_Initialize I2C1_Initialize `(v  1 e 1 0 ]
-"233
+"234
 [v _I2C1_ISR I2C1_ISR `(v  1 e 1 0 ]
-"563
+"564
 [v _I2C1_FunctionComplete I2C1_FunctionComplete `(v  1 e 1 0 ]
-"581
+"582
 [v _I2C1_Stop I2C1_Stop `(v  1 e 1 0 ]
-"641
+"600
+[v _I2C1_MasterWrite I2C1_MasterWrite `(v  1 e 1 0 ]
+"643
 [v _I2C1_MasterTRBInsert I2C1_MasterTRBInsert `(v  1 e 1 0 ]
-"694
+"696
 [v _I2C1_MasterReadTRBBuild I2C1_MasterReadTRBBuild `(v  1 e 1 0 ]
-"707
+"709
 [v _I2C1_MasterWriteTRBBuild I2C1_MasterWriteTRBBuild `(v  1 e 1 0 ]
-"728
+"730
 [v _I2C1_BusCollisionISR I2C1_BusCollisionISR `(v  1 e 1 0 ]
 "51 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/interrupt_manager.c
 [v _INTERRUPT_Initialize INTERRUPT_Initialize `(v  1 e 1 0 ]
@@ -210,14 +259,14 @@ S_MASTER_10BIT_RESTART 11
 [v _ANSELD ANSELD `VEuc  1 e 1 @3899 ]
 "258
 [v _ANSELE ANSELE `VEuc  1 e 1 @3900 ]
-[s S1140 . 1 `uc 1 C1TSEL 1 0 :2:0 
+[s S1166 . 1 `uc 1 C1TSEL 1 0 :2:0 
 `uc 1 . 1 0 :1:2 
 `uc 1 C2TSEL 1 0 :2:3 
 `uc 1 . 1 0 :1:5 
 `uc 1 C3TSEL 1 0 :2:6 
 ]
 "1411
-[s S1146 . 1 `uc 1 C1TSEL0 1 0 :1:0 
+[s S1172 . 1 `uc 1 C1TSEL0 1 0 :1:0 
 `uc 1 C1TSEL1 1 0 :1:1 
 `uc 1 . 1 0 :1:2 
 `uc 1 C2TSEL0 1 0 :1:3 
@@ -226,11 +275,11 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 C3TSEL0 1 0 :1:6 
 `uc 1 C3TSEL1 1 0 :1:7 
 ]
-[u S1155 . 1 `S1140 1 . 1 0 `S1146 1 . 1 0 ]
-[v _CCPTMRS0bits CCPTMRS0bits `VES1155  1 e 1 @3913 ]
+[u S1181 . 1 `S1166 1 . 1 0 `S1172 1 . 1 0 ]
+[v _CCPTMRS0bits CCPTMRS0bits `VES1181  1 e 1 @3913 ]
 "2717
 [v _WPUB WPUB `VEuc  1 e 1 @3937 ]
-[s S2000 . 1 `uc 1 RA0 1 0 :1:0 
+[s S2097 . 1 `uc 1 RA0 1 0 :1:0 
 `uc 1 RA1 1 0 :1:1 
 `uc 1 RA2 1 0 :1:2 
 `uc 1 RA3 1 0 :1:3 
@@ -240,65 +289,65 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 RA7 1 0 :1:7 
 ]
 "6363
-[s S2009 . 1 `uc 1 AN0 1 0 :1:0 
+[s S2106 . 1 `uc 1 AN0 1 0 :1:0 
 `uc 1 AN1 1 0 :1:1 
 `uc 1 AN2 1 0 :1:2 
 `uc 1 AN3 1 0 :1:3 
 `uc 1 . 1 0 :1:4 
 `uc 1 AN4 1 0 :1:5 
 ]
-[s S2016 . 1 `uc 1 C12IN0M 1 0 :1:0 
+[s S2113 . 1 `uc 1 C12IN0M 1 0 :1:0 
 `uc 1 C12IN1M 1 0 :1:1 
 `uc 1 C2INP 1 0 :1:2 
 `uc 1 C1INP 1 0 :1:3 
 `uc 1 C1OUT 1 0 :1:4 
 `uc 1 C2OUT 1 0 :1:5 
 ]
-[s S2023 . 1 `uc 1 C12IN0N 1 0 :1:0 
+[s S2120 . 1 `uc 1 C12IN0N 1 0 :1:0 
 `uc 1 C12IN1N 1 0 :1:1 
 `uc 1 VREFM 1 0 :1:2 
 `uc 1 VREFP 1 0 :1:3 
 `uc 1 T0CKI 1 0 :1:4 
 `uc 1 SS 1 0 :1:5 
 ]
-[s S2030 . 1 `uc 1 . 1 0 :5:0 
+[s S2127 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 NOT_SS 1 0 :1:5 
 ]
-[s S2033 . 1 `uc 1 . 1 0 :2:0 
+[s S2130 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 VREFN 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
 `uc 1 SRQ 1 0 :1:4 
 `uc 1 nSS 1 0 :1:5 
 ]
-[s S2039 . 1 `uc 1 . 1 0 :2:0 
+[s S2136 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 CVREF 1 0 :1:2 
 `uc 1 . 1 0 :2:3 
 `uc 1 LVDIN 1 0 :1:5 
 ]
-[s S2044 . 1 `uc 1 . 1 0 :2:0 
+[s S2141 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 DACOUT 1 0 :1:2 
 `uc 1 . 1 0 :2:3 
 `uc 1 HLVDIN 1 0 :1:5 
 ]
-[s S2049 . 1 `uc 1 . 1 0 :5:0 
+[s S2146 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 SS1 1 0 :1:5 
 ]
-[s S2052 . 1 `uc 1 . 1 0 :5:0 
+[s S2149 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 NOT_SS1 1 0 :1:5 
 ]
-[s S2055 . 1 `uc 1 . 1 0 :5:0 
+[s S2152 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 nSS1 1 0 :1:5 
 ]
-[s S2058 . 1 `uc 1 . 1 0 :5:0 
+[s S2155 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 SRNQ 1 0 :1:5 
 ]
-[s S2061 . 1 `uc 1 ULPWUIN 1 0 :1:0 
+[s S2158 . 1 `uc 1 ULPWUIN 1 0 :1:0 
 `uc 1 . 1 0 :6:1 
 `uc 1 RJPU 1 0 :1:7 
 ]
-[u S2065 . 1 `S2000 1 . 1 0 `S2009 1 . 1 0 `S2016 1 . 1 0 `S2023 1 . 1 0 `S2030 1 . 1 0 `S2033 1 . 1 0 `S2039 1 . 1 0 `S2044 1 . 1 0 `S2049 1 . 1 0 `S2052 1 . 1 0 `S2055 1 . 1 0 `S2058 1 . 1 0 `S2061 1 . 1 0 ]
-[v _PORTAbits PORTAbits `VES2065  1 e 1 @3968 ]
-[s S619 . 1 `uc 1 RB0 1 0 :1:0 
+[u S2162 . 1 `S2097 1 . 1 0 `S2106 1 . 1 0 `S2113 1 . 1 0 `S2120 1 . 1 0 `S2127 1 . 1 0 `S2130 1 . 1 0 `S2136 1 . 1 0 `S2141 1 . 1 0 `S2146 1 . 1 0 `S2149 1 . 1 0 `S2152 1 . 1 0 `S2155 1 . 1 0 `S2158 1 . 1 0 ]
+[v _PORTAbits PORTAbits `VES2162  1 e 1 @3968 ]
+[s S627 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
 `uc 1 RB2 1 0 :1:2 
 `uc 1 RB3 1 0 :1:3 
@@ -308,7 +357,7 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 RB7 1 0 :1:7 
 ]
 "6633
-[s S628 . 1 `uc 1 INT0 1 0 :1:0 
+[s S636 . 1 `uc 1 INT0 1 0 :1:0 
 `uc 1 INT1 1 0 :1:1 
 `uc 1 INT2 1 0 :1:2 
 `uc 1 CCP2 1 0 :1:3 
@@ -317,7 +366,7 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 KBI2 1 0 :1:6 
 `uc 1 KBI3 1 0 :1:7 
 ]
-[s S637 . 1 `uc 1 AN12 1 0 :1:0 
+[s S645 . 1 `uc 1 AN12 1 0 :1:0 
 `uc 1 AN10 1 0 :1:1 
 `uc 1 AN8 1 0 :1:2 
 `uc 1 AN9 1 0 :1:3 
@@ -326,43 +375,43 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 PGC 1 0 :1:6 
 `uc 1 PGD 1 0 :1:7 
 ]
-[s S646 . 1 `uc 1 FLT0 1 0 :1:0 
+[s S654 . 1 `uc 1 FLT0 1 0 :1:0 
 `uc 1 C12IN3M 1 0 :1:1 
 `uc 1 . 1 0 :1:2 
 `uc 1 C12IN2M 1 0 :1:3 
 `uc 1 T5G 1 0 :1:4 
 `uc 1 T1G 1 0 :1:5 
 ]
-[s S653 . 1 `uc 1 SRI 1 0 :1:0 
+[s S661 . 1 `uc 1 SRI 1 0 :1:0 
 `uc 1 C12IN3N 1 0 :1:1 
 `uc 1 . 1 0 :1:2 
 `uc 1 C12IN2N 1 0 :1:3 
 `uc 1 . 1 0 :1:4 
 `uc 1 CCP3 1 0 :1:5 
 ]
-[s S660 . 1 `uc 1 . 1 0 :2:0 
+[s S668 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 CTED1 1 0 :1:2 
 `uc 1 CTED2 1 0 :1:3 
 `uc 1 . 1 0 :1:4 
 `uc 1 T3CKI 1 0 :1:5 
 ]
-[s S666 . 1 `uc 1 . 1 0 :3:0 
+[s S674 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 P2A 1 0 :1:3 
 `uc 1 . 1 0 :1:4 
 `uc 1 P3A 1 0 :1:5 
 ]
-[s S671 . 1 `uc 1 . 1 0 :3:0 
+[s S679 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 CCP2_PA2 1 0 :1:3 
 ]
-[u S674 . 1 `S619 1 . 1 0 `S628 1 . 1 0 `S637 1 . 1 0 `S646 1 . 1 0 `S653 1 . 1 0 `S660 1 . 1 0 `S666 1 . 1 0 `S671 1 . 1 0 ]
-[v _PORTBbits PORTBbits `VES674  1 e 1 @3969 ]
+[u S682 . 1 `S627 1 . 1 0 `S636 1 . 1 0 `S645 1 . 1 0 `S654 1 . 1 0 `S661 1 . 1 0 `S668 1 . 1 0 `S674 1 . 1 0 `S679 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES682  1 e 1 @3969 ]
 "7140
 [v _PORTD PORTD `VEuc  1 e 1 @3971 ]
 "7558
 [v _LATA LATA `VEuc  1 e 1 @3977 ]
 "7670
 [v _LATB LATB `VEuc  1 e 1 @3978 ]
-[s S974 . 1 `uc 1 LATB0 1 0 :1:0 
+[s S995 . 1 `uc 1 LATB0 1 0 :1:0 
 `uc 1 LATB1 1 0 :1:1 
 `uc 1 LATB2 1 0 :1:2 
 `uc 1 LATB3 1 0 :1:3 
@@ -372,7 +421,7 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 LATB7 1 0 :1:7 
 ]
 "7697
-[s S983 . 1 `uc 1 LB0 1 0 :1:0 
+[s S1004 . 1 `uc 1 LB0 1 0 :1:0 
 `uc 1 LB1 1 0 :1:1 
 `uc 1 LB2 1 0 :1:2 
 `uc 1 LB3 1 0 :1:3 
@@ -381,13 +430,13 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 LB6 1 0 :1:6 
 `uc 1 LB7 1 0 :1:7 
 ]
-[u S992 . 1 `S974 1 . 1 0 `S983 1 . 1 0 ]
-[v _LATBbits LATBbits `VES992  1 e 1 @3978 ]
+[u S1013 . 1 `S995 1 . 1 0 `S1004 1 . 1 0 ]
+[v _LATBbits LATBbits `VES1013  1 e 1 @3978 ]
 "7782
 [v _LATC LATC `VEuc  1 e 1 @3979 ]
 "7894
 [v _LATD LATD `VEuc  1 e 1 @3980 ]
-[s S1871 . 1 `uc 1 LATD0 1 0 :1:0 
+[s S1960 . 1 `uc 1 LATD0 1 0 :1:0 
 `uc 1 LATD1 1 0 :1:1 
 `uc 1 LATD2 1 0 :1:2 
 `uc 1 LATD3 1 0 :1:3 
@@ -397,7 +446,7 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 LATD7 1 0 :1:7 
 ]
 "7921
-[s S1880 . 1 `uc 1 LD0 1 0 :1:0 
+[s S1969 . 1 `uc 1 LD0 1 0 :1:0 
 `uc 1 LD1 1 0 :1:1 
 `uc 1 LD2 1 0 :1:2 
 `uc 1 LD3 1 0 :1:3 
@@ -406,8 +455,8 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 LD6 1 0 :1:6 
 `uc 1 LD7 1 0 :1:7 
 ]
-[u S1889 . 1 `S1871 1 . 1 0 `S1880 1 . 1 0 ]
-[v _LATDbits LATDbits `VES1889  1 e 1 @3980 ]
+[u S1978 . 1 `S1960 1 . 1 0 `S1969 1 . 1 0 ]
+[v _LATDbits LATDbits `VES1978  1 e 1 @3980 ]
 "8006
 [v _LATE LATE `VEuc  1 e 1 @3981 ]
 "8058
@@ -418,7 +467,7 @@ S_MASTER_10BIT_RESTART 11
 [v _TRISC TRISC `VEuc  1 e 1 @3988 ]
 "8724
 [v _TRISD TRISD `VEuc  1 e 1 @3989 ]
-[s S1831 . 1 `uc 1 TRISD0 1 0 :1:0 
+[s S1920 . 1 `uc 1 TRISD0 1 0 :1:0 
 `uc 1 TRISD1 1 0 :1:1 
 `uc 1 TRISD2 1 0 :1:2 
 `uc 1 TRISD3 1 0 :1:3 
@@ -428,7 +477,7 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 TRISD7 1 0 :1:7 
 ]
 "8756
-[s S1840 . 1 `uc 1 RD0 1 0 :1:0 
+[s S1929 . 1 `uc 1 RD0 1 0 :1:0 
 `uc 1 RD1 1 0 :1:1 
 `uc 1 RD2 1 0 :1:2 
 `uc 1 RD3 1 0 :1:3 
@@ -437,8 +486,8 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 RD6 1 0 :1:6 
 `uc 1 RD7 1 0 :1:7 
 ]
-[u S1849 . 1 `S1831 1 . 1 0 `S1840 1 . 1 0 ]
-[v _TRISDbits TRISDbits `VES1849  1 e 1 @3989 ]
+[u S1938 . 1 `S1920 1 . 1 0 `S1929 1 . 1 0 ]
+[v _TRISDbits TRISDbits `VES1938  1 e 1 @3989 ]
 "8946
 [v _TRISE TRISE `VEuc  1 e 1 @3990 ]
 "9062
@@ -550,7 +599,7 @@ S_MASTER_10BIT_RESTART 11
 [v _IPR2bits IPR2bits `VES298  1 e 1 @4002 ]
 "10343
 [v _RCSTA1 RCSTA1 `VEuc  1 e 1 @4011 ]
-[s S1384 . 1 `uc 1 RX9D 1 0 :1:0 
+[s S1441 . 1 `uc 1 RX9D 1 0 :1:0 
 `uc 1 OERR 1 0 :1:1 
 `uc 1 FERR 1 0 :1:2 
 `uc 1 ADDEN 1 0 :1:3 
@@ -560,10 +609,10 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 SPEN 1 0 :1:7 
 ]
 "10396
-[s S1393 . 1 `uc 1 . 1 0 :3:0 
+[s S1450 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 ADEN 1 0 :1:3 
 ]
-[s S1396 . 1 `uc 1 RX9D1 1 0 :1:0 
+[s S1453 . 1 `uc 1 RX9D1 1 0 :1:0 
 `uc 1 OERR1 1 0 :1:1 
 `uc 1 FERR1 1 0 :1:2 
 `uc 1 ADDEN1 1 0 :1:3 
@@ -572,18 +621,18 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 RX91 1 0 :1:6 
 `uc 1 SPEN1 1 0 :1:7 
 ]
-[s S1405 . 1 `uc 1 RCD8 1 0 :1:0 
+[s S1462 . 1 `uc 1 RCD8 1 0 :1:0 
 `uc 1 . 1 0 :5:1 
 `uc 1 RC8_9 1 0 :1:6 
 ]
-[s S1409 . 1 `uc 1 . 1 0 :6:0 
+[s S1466 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC9 1 0 :1:6 
 ]
-[s S1412 . 1 `uc 1 . 1 0 :5:0 
+[s S1469 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 SRENA 1 0 :1:5 
 ]
-[u S1415 . 1 `S1384 1 . 1 0 `S1393 1 . 1 0 `S1396 1 . 1 0 `S1405 1 . 1 0 `S1409 1 . 1 0 `S1412 1 . 1 0 ]
-[v _RCSTA1bits RCSTA1bits `VES1415  1 e 1 @4011 ]
+[u S1472 . 1 `S1441 1 . 1 0 `S1450 1 . 1 0 `S1453 1 . 1 0 `S1462 1 . 1 0 `S1466 1 . 1 0 `S1469 1 . 1 0 ]
+[v _RCSTA1bits RCSTA1bits `VES1472  1 e 1 @4011 ]
 "10799
 [v _TXSTA1 TXSTA1 `VEuc  1 e 1 @4012 ]
 "11174
@@ -604,12 +653,12 @@ S_MASTER_10BIT_RESTART 11
 [v _PSTR1CON PSTR1CON `VEuc  1 e 1 @4025 ]
 "13196
 [v _T2CON T2CON `VEuc  1 e 1 @4026 ]
-[s S1092 . 1 `uc 1 T2CKPS 1 0 :2:0 
+[s S1118 . 1 `uc 1 T2CKPS 1 0 :2:0 
 `uc 1 TMR2ON 1 0 :1:2 
 `uc 1 T2OUTPS 1 0 :4:3 
 ]
 "13217
-[s S1096 . 1 `uc 1 T2CKPS0 1 0 :1:0 
+[s S1122 . 1 `uc 1 T2CKPS0 1 0 :1:0 
 `uc 1 T2CKPS1 1 0 :1:1 
 `uc 1 . 1 0 :1:2 
 `uc 1 T2OUTPS0 1 0 :1:3 
@@ -617,8 +666,8 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 T2OUTPS2 1 0 :1:5 
 `uc 1 T2OUTPS3 1 0 :1:6 
 ]
-[u S1104 . 1 `S1092 1 . 1 0 `S1096 1 . 1 0 ]
-[v _T2CONbits T2CONbits `VES1104  1 e 1 @4026 ]
+[u S1130 . 1 `S1118 1 . 1 0 `S1122 1 . 1 0 ]
+[v _T2CONbits T2CONbits `VES1130  1 e 1 @4026 ]
 "13267
 [v _PR2 PR2 `VEuc  1 e 1 @4027 ]
 "13287
@@ -635,15 +684,15 @@ S_MASTER_10BIT_RESTART 11
 [v _ADCON1 ADCON1 `VEuc  1 e 1 @4033 ]
 "13575
 [v _ADCON0 ADCON0 `VEuc  1 e 1 @4034 ]
-[s S1208 . 1 `uc 1 . 1 0 :1:0 
+[s S1242 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO_NOT_DONE 1 0 :1:1 
 ]
 "13620
-[s S1211 . 1 `uc 1 ADON 1 0 :1:0 
+[s S1245 . 1 `uc 1 ADON 1 0 :1:0 
 `uc 1 GO_nDONE 1 0 :1:1 
 `uc 1 CHS 1 0 :5:2 
 ]
-[s S1215 . 1 `uc 1 . 1 0 :1:0 
+[s S1249 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO 1 0 :1:1 
 `uc 1 CHS0 1 0 :1:2 
 `uc 1 CHS1 1 0 :1:3 
@@ -651,28 +700,28 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 CHS3 1 0 :1:5 
 `uc 1 CHS4 1 0 :1:6 
 ]
-[s S1223 . 1 `uc 1 . 1 0 :1:0 
+[s S1257 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 DONE 1 0 :1:1 
 ]
-[s S1226 . 1 `uc 1 . 1 0 :1:0 
+[s S1260 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 NOT_DONE 1 0 :1:1 
 ]
-[s S1229 . 1 `uc 1 . 1 0 :1:0 
+[s S1263 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 nDONE 1 0 :1:1 
 ]
-[s S1232 . 1 `uc 1 . 1 0 :1:0 
+[s S1266 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GO_DONE 1 0 :1:1 
 ]
-[s S1235 . 1 `uc 1 . 1 0 :1:0 
+[s S1269 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 GODONE 1 0 :1:1 
 ]
-[u S1238 . 1 `S1208 1 . 1 0 `S1211 1 . 1 0 `S1215 1 . 1 0 `S1223 1 . 1 0 `S1226 1 . 1 0 `S1229 1 . 1 0 `S1232 1 . 1 0 `S1235 1 . 1 0 ]
-[v _ADCON0bits ADCON0bits `VES1238  1 e 1 @4034 ]
+[u S1272 . 1 `S1242 1 . 1 0 `S1245 1 . 1 0 `S1249 1 . 1 0 `S1257 1 . 1 0 `S1260 1 . 1 0 `S1263 1 . 1 0 `S1266 1 . 1 0 `S1269 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES1272  1 e 1 @4034 ]
 "13707
 [v _ADRESL ADRESL `VEuc  1 e 1 @4035 ]
 "13727
 [v _ADRESH ADRESH `VEuc  1 e 1 @4036 ]
-[s S1617 . 1 `uc 1 SEN 1 0 :1:0 
+[s S1679 . 1 `uc 1 SEN 1 0 :1:0 
 `uc 1 RSEN 1 0 :1:1 
 `uc 1 PEN 1 0 :1:2 
 `uc 1 RCEN 1 0 :1:3 
@@ -682,7 +731,7 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 GCEN 1 0 :1:7 
 ]
 "13795
-[s S1626 . 1 `uc 1 SEN1 1 0 :1:0 
+[s S1688 . 1 `uc 1 SEN1 1 0 :1:0 
 `uc 1 ADMSK1 1 0 :1:1 
 `uc 1 ADMSK2 1 0 :1:2 
 `uc 1 ADMSK3 1 0 :1:3 
@@ -691,37 +740,37 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 ACKSTAT1 1 0 :1:6 
 `uc 1 GCEN1 1 0 :1:7 
 ]
-[s S1635 . 1 `uc 1 . 1 0 :1:0 
+[s S1697 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 ADMSK11 1 0 :1:1 
 `uc 1 ADMSK21 1 0 :1:2 
 `uc 1 ADMSK31 1 0 :1:3 
 `uc 1 ADMSK4 1 0 :1:4 
 `uc 1 ADMSK5 1 0 :1:5 
 ]
-[s S1642 . 1 `uc 1 . 1 0 :1:0 
+[s S1704 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 RSEN1 1 0 :1:1 
 `uc 1 PEN1 1 0 :1:2 
 `uc 1 RCEN1 1 0 :1:3 
 `uc 1 ADMSK41 1 0 :1:4 
 `uc 1 ADMSK51 1 0 :1:5 
 ]
-[u S1649 . 1 `S1617 1 . 1 0 `S1626 1 . 1 0 `S1635 1 . 1 0 `S1642 1 . 1 0 ]
-[v _SSP1CON2bits SSP1CON2bits `VES1649  1 e 1 @4037 ]
+[u S1711 . 1 `S1679 1 . 1 0 `S1688 1 . 1 0 `S1697 1 . 1 0 `S1704 1 . 1 0 ]
+[v _SSP1CON2bits SSP1CON2bits `VES1711  1 e 1 @4037 ]
 "14101
 [v _SSP1CON1 SSP1CON1 `VEuc  1 e 1 @4038 ]
-[s S1572 . 1 `uc 1 SSPM 1 0 :4:0 
+[s S1634 . 1 `uc 1 SSPM 1 0 :4:0 
 `uc 1 CKP 1 0 :1:4 
 `uc 1 SSPEN 1 0 :1:5 
 `uc 1 SSPOV 1 0 :1:6 
 `uc 1 WCOL 1 0 :1:7 
 ]
 "14136
-[s S1578 . 1 `uc 1 SSPM0 1 0 :1:0 
+[s S1640 . 1 `uc 1 SSPM0 1 0 :1:0 
 `uc 1 SSPM1 1 0 :1:1 
 `uc 1 SSPM2 1 0 :1:2 
 `uc 1 SSPM3 1 0 :1:3 
 ]
-[s S1583 . 1 `uc 1 SSPM01 1 0 :1:0 
+[s S1645 . 1 `uc 1 SSPM01 1 0 :1:0 
 `uc 1 SSPM11 1 0 :1:1 
 `uc 1 SSPM21 1 0 :1:2 
 `uc 1 SSPM31 1 0 :1:3 
@@ -730,8 +779,8 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 SSPOV1 1 0 :1:6 
 `uc 1 WCOL1 1 0 :1:7 
 ]
-[u S1592 . 1 `S1572 1 . 1 0 `S1578 1 . 1 0 `S1583 1 . 1 0 ]
-[v _SSP1CON1bits SSP1CON1bits `VES1592  1 e 1 @4038 ]
+[u S1654 . 1 `S1634 1 . 1 0 `S1640 1 . 1 0 `S1645 1 . 1 0 ]
+[v _SSP1CON1bits SSP1CON1bits `VES1654  1 e 1 @4038 ]
 "14339
 [v _SSP1STAT SSP1STAT `VEuc  1 e 1 @4039 ]
 "14969
@@ -778,7 +827,7 @@ S_MASTER_10BIT_RESTART 11
 [v _OSCCON OSCCON `VEuc  1 e 1 @4051 ]
 "16093
 [v _T0CON T0CON `VEuc  1 e 1 @4053 ]
-[s S930 . 1 `uc 1 T0PS 1 0 :3:0 
+[s S951 . 1 `uc 1 T0PS 1 0 :3:0 
 `uc 1 PSA 1 0 :1:3 
 `uc 1 T0SE 1 0 :1:4 
 `uc 1 T0CS 1 0 :1:5 
@@ -786,12 +835,12 @@ S_MASTER_10BIT_RESTART 11
 `uc 1 TMR0ON 1 0 :1:7 
 ]
 "16113
-[s S937 . 1 `uc 1 T0PS0 1 0 :1:0 
+[s S958 . 1 `uc 1 T0PS0 1 0 :1:0 
 `uc 1 T0PS1 1 0 :1:1 
 `uc 1 T0PS2 1 0 :1:2 
 ]
-[u S941 . 1 `S930 1 . 1 0 `S937 1 . 1 0 ]
-[v _T0CONbits T0CONbits `VES941  1 e 1 @4053 ]
+[u S962 . 1 `S951 1 . 1 0 `S958 1 . 1 0 ]
+[v _T0CONbits T0CONbits `VES962  1 e 1 @4053 ]
 "16170
 [v _TMR0L TMR0L `VEuc  1 e 1 @4054 ]
 "16190
@@ -862,76 +911,86 @@ S_MASTER_10BIT_RESTART 11
 [v _INTCONbits INTCONbits `VES341  1 e 1 @4082 ]
 "354 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\doprnt.c
 [v _dpowers dpowers `C[5]ui  1 s 10 dpowers ]
-"34 D:\Documentos\GitHub\ProjMCC.X\GlobalDefinitions.h
+"37 D:\Documentos\GitHub\ProjMCC.X\GlobalDefinitions.h
 [v _strLCD strLCD `VE[42]uc  1 e 42 0 ]
-"35
-[v _strUSART strUSART `VE[42]uc  1 e 42 0 ]
-"36
-[v _TeclaTMP TeclaTMP `VEuc  1 e 1 0 ]
-"37
-[v _tmpTemp tmpTemp `VEd  1 e 3 0 ]
 "38
-[v _lastMenu lastMenu `VEuc  1 e 1 0 ]
+[v _strUSART strUSART `VE[42]uc  1 e 42 0 ]
 "39
-[v _update update `VEuc  1 e 1 0 ]
+[v _i2cWriteBlock i2cWriteBlock `VE[10]uc  1 e 10 0 ]
 "40
-[v _i i `VEuc  1 e 1 0 ]
+[v _TeclaTMP TeclaTMP `VEuc  1 e 1 0 ]
 "41
-[v _j j `VEc  1 e 1 0 ]
+[v _tmpTemp tmpTemp `VEd  1 e 3 0 ]
 "42
-[v _menu_tmp menu_tmp `VEuc  1 e 1 0 ]
+[v _lastMenu lastMenu `VEuc  1 e 1 0 ]
 "43
-[v _tempAlarme tempAlarme `VEuc  1 e 1 0 ]
+[v _update update `VEuc  1 e 1 0 ]
 "44
-[v _tempAtual tempAtual `VEuc  1 e 1 0 ]
+[v _i i `VEuc  1 e 1 0 ]
 "45
-[v _clk4Hz clk4Hz `VEuc  1 e 1 0 ]
+[v _j j `VEc  1 e 1 0 ]
 "46
-[v _clk2Hz clk2Hz `VEuc  1 e 1 0 ]
+[v _menu_tmp menu_tmp `VEuc  1 e 1 0 ]
 "47
-[v _clk1Hz clk1Hz `VEuc  1 e 1 0 ]
+[v _tempAlarme tempAlarme `VEuc  1 e 1 0 ]
 "48
-[v _clk1_2Hz clk1_2Hz `VEuc  1 e 1 0 ]
+[v _tempAtual tempAtual `VEuc  1 e 1 0 ]
 "49
-[v _clk1_4Hz clk1_4Hz `VEuc  1 e 1 0 ]
+[v _clk4Hz clk4Hz `VEuc  1 e 1 0 ]
 "50
-[v _clk1_8Hz clk1_8Hz `VEuc  1 e 1 0 ]
+[v _clk2Hz clk2Hz `VEuc  1 e 1 0 ]
 "51
-[v _alarme alarme `VEuc  1 e 1 0 ]
+[v _clk1Hz clk1Hz `VEuc  1 e 1 0 ]
 "52
-[v _binADC binADC `VEi  1 e 2 0 ]
+[v _clk1_2Hz clk1_2Hz `VEuc  1 e 1 0 ]
 "53
-[v _WrEnFl WrEnFl `VEuc  1 e 1 0 ]
+[v _clk1_4Hz clk1_4Hz `VEuc  1 e 1 0 ]
 "54
-[v _eusart_Tx_En eusart_Tx_En `VEuc  1 e 1 0 ]
+[v _clk1_8Hz clk1_8Hz `VEuc  1 e 1 0 ]
 "55
+[v _alarme alarme `VEuc  1 e 1 0 ]
+"56
+[v _binADC binADC `VEi  1 e 2 0 ]
+"57
+[v _WrEnFl WrEnFl `VEuc  1 e 1 0 ]
+"58
+[v _eusart_Tx_En eusart_Tx_En `VEuc  1 e 1 0 ]
+"59
 [v _eusart_Tx_On eusart_Tx_On `VEuc  1 e 1 0 ]
+"60
+[v _memAddr memAddr `VEi  1 e 2 0 ]
+"61
+[v _memAddrBytes memAddrBytes `VE[2]uc  1 e 2 0 ]
+"62
+[v _regNum regNum `VEi  1 e 2 0 ]
+"63
+[v _stateMsgI2c stateMsgI2c `VEE7307  1 e 1 0 ]
 "39 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/ext_int.c
 [v _INT1_InterruptHandler INT1_InterruptHandler `*.37(v  1 e 2 0 ]
 "40
 [v _INT2_InterruptHandler INT2_InterruptHandler `*.37(v  1 e 2 0 ]
 "41
 [v _INT0_InterruptHandler INT0_InterruptHandler `*.37(v  1 e 2 0 ]
-[s S1492 . 6 `ui 1 address 2 0 `uc 1 length 1 2 `*.2uc 1 pbuffer 3 3 ]
-"184 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/i2c1.c
-[s S1504 . 6 `uc 1 count 1 0 `*.39S1492 1 ptrb_list 2 1 `*.2E6972 1 pTrFlag 3 3 ]
-[v _i2c1_tr_queue i2c1_tr_queue `[1]S1504  1 s 6 i2c1_tr_queue ]
-"185
-[s S1508 . 1 `uc 1 full 1 0 :1:0 
+[s S1562 . 5 `ui 1 address 2 0 `uc 1 length 1 2 `*.39uc 1 pbuffer 2 3 ]
+"185 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/i2c1.c
+[s S1566 . 5 `uc 1 count 1 0 `*.39S1562 1 ptrb_list 2 1 `*.39E6972 1 pTrFlag 2 3 ]
+[v _i2c1_tr_queue i2c1_tr_queue `[1]S1566  1 s 5 i2c1_tr_queue ]
+"186
+[s S1570 . 1 `uc 1 full 1 0 :1:0 
 `uc 1 empty 1 0 :1:1 
 `uc 1 reserved 1 0 :6:2 
 ]
-[u S1512 . 1 `S1508 1 s 1 0 `uc 1 status 1 0 ]
-[s S1515 . 7 `*.39S1504 1 pTrTail 2 0 `*.39S1504 1 pTrHead 2 2 `S1512 1 trStatus 1 4 `uc 1 i2cDoneFlag 1 5 `uc 1 i2cErrors 1 6 ]
-[v _i2c1_object i2c1_object `S1515  1 s 7 i2c1_object ]
-"186
-[v _i2c1_state i2c1_state `E7040  1 s 1 i2c1_state ]
+[u S1574 . 1 `S1570 1 s 1 0 `uc 1 status 1 0 ]
+[s S1577 . 7 `*.39S1566 1 pTrTail 2 0 `*.39S1566 1 pTrHead 2 2 `S1574 1 trStatus 1 4 `uc 1 i2cDoneFlag 1 5 `uc 1 i2cErrors 1 6 ]
+[v _i2c1_object i2c1_object `S1577  1 s 7 i2c1_object ]
 "187
+[v _i2c1_state i2c1_state `E7372  1 s 1 i2c1_state ]
+"188
 [v _i2c1_trb_count i2c1_trb_count `uc  1 s 1 i2c1_trb_count ]
-"189
-[v _p_i2c1_trb_current p_i2c1_trb_current `*.39S1492  1 s 2 p_i2c1_trb_current ]
 "190
-[v _p_i2c1_current p_i2c1_current `*.39S1504  1 s 2 p_i2c1_current ]
+[v _p_i2c1_trb_current p_i2c1_trb_current `*.39S1562  1 s 2 p_i2c1_trb_current ]
+"191
+[v _p_i2c1_current p_i2c1_current `*.39S1566  1 s 2 p_i2c1_current ]
 "62 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/tmr0.c
 [v _TMR0_InterruptHandler TMR0_InterruptHandler `*.37(v  1 e 2 0 ]
 "64
@@ -944,24 +1003,24 @@ S_MASTER_10BIT_RESTART 11
 "113
 [v _menu menu `(v  1 e 1 0 ]
 {
-"174
+"180
 } 0
-"216
+"222
 [v _testeTeclado testeTeclado `(v  1 e 1 0 ]
 {
-"218
+"224
 [v testeTeclado@input input `uc  1 a 1 35 ]
-"232
+"238
 } 0
-"176
+"182
 [v _monitorizacao monitorizacao `(v  1 e 1 0 ]
 {
-"214
+"220
 } 0
-"318
+"324
 [v _feedbackUSART feedbackUSART `(v  1 e 1 0 ]
 {
-"354
+"360
 } 0
 "103 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/eusart1.c
 [v _EUSART1_Write EUSART1_Write `(v  1 e 1 0 ]
@@ -971,15 +1030,15 @@ S_MASTER_10BIT_RESTART 11
 [v EUSART1_Write@txData txData `uc  1 a 1 0 ]
 "106
 } 0
-"234 D:\Documentos\GitHub\ProjMCC.X\main.c
+"240 D:\Documentos\GitHub\ProjMCC.X\main.c
 [v _defTempAlarme defTempAlarme `(v  1 e 1 0 ]
 {
-"236
+"242
 [v defTempAlarme@c2 c2 `uc  1 a 1 39 ]
 [v defTempAlarme@c1 c1 `uc  1 a 1 38 ]
-"237
+"243
 [v defTempAlarme@tmp_Alarme tmp_Alarme `uc  1 a 1 37 ]
-"280
+"286
 } 0
 "492 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\doprnt.c
 [v _sprintf sprintf `(i  1 e 2 0 ]
@@ -1046,10 +1105,10 @@ S_MASTER_10BIT_RESTART 11
 [v ___lwdiv@divisor divisor `ui  1 p 2 2 ]
 "31
 } 0
-"282 D:\Documentos\GitHub\ProjMCC.X\main.c
+"288 D:\Documentos\GitHub\ProjMCC.X\main.c
 [v _getKBInput getKBInput `(uc  1 e 1 0 ]
 {
-"316
+"322
 } 0
 "104
 [v _escreveLinhaLCD escreveLinhaLCD `(v  1 e 1 0 ]
@@ -1116,10 +1175,10 @@ S_MASTER_10BIT_RESTART 11
 {
 "82
 } 0
-"198 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/i2c1.c
+"199 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/i2c1.c
 [v _I2C1_Initialize I2C1_Initialize `(v  1 e 1 0 ]
 {
-"222
+"223
 } 0
 "213 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/ext_int.c
 [v _EXT_INT_Initialize EXT_INT_Initialize `(v  1 e 1 0 ]
@@ -1154,10 +1213,10 @@ S_MASTER_10BIT_RESTART 11
 {
 "88
 } 0
-"59 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/adc.c
+"60 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/adc.c
 [v _ADC_Initialize ADC_Initialize `(v  1 e 1 0 ]
 {
-"79
+"80
 } 0
 "56 D:\Documentos\GitHub\ProjMCC.X\xlcd.c
 [v _OpenXLCD OpenXLCD `(v  1 e 1 0 ]
@@ -1202,34 +1261,34 @@ S_MASTER_10BIT_RESTART 11
 [v _EUSART1_Receive_ISR EUSART1_Receive_ISR `(v  1 e 1 0 ]
 {
 "152
-[v EUSART1_Receive_ISR@tmpAlarme tmpAlarme `uc  1 a 1 31 ]
+[v EUSART1_Receive_ISR@tmpAlarme tmpAlarme `uc  1 a 1 32 ]
 "145
-[v EUSART1_Receive_ISR@i2 i2 `i  1 a 2 29 ]
-[v EUSART1_Receive_ISR@i1 i1 `i  1 a 2 27 ]
+[v EUSART1_Receive_ISR@i2 i2 `i  1 a 2 30 ]
+[v EUSART1_Receive_ISR@i1 i1 `i  1 a 2 28 ]
 "166
 } 0
-"121 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/adc.c
+"122 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/adc.c
 [v _ADC_ISR ADC_ISR `(v  1 e 1 0 ]
 {
-"130
-[v ADC_ISR@var1 var1 `d  1 a 3 18 ]
 "131
-[v ADC_ISR@var2 var2 `uc  1 a 1 17 ]
-"149
+[v ADC_ISR@var1 var1 `d  1 a 3 28 ]
+"132
+[v ADC_ISR@var2 var2 `uc  1 a 1 27 ]
+"172
 } 0
 "492 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\doprnt.c
 [v i1_sprintf sprintf `(i  1 e 2 0 ]
 {
-[v i1sprintf@width sprintf `i  1 a 2 14 ]
-[v i1sprintf@val sprintf `ui  1 a 2 12 ]
-[v i1sprintf@len sprintf `ui  1 a 2 10 ]
-[v i1sprintf@ap sprintf `[1]*.39v  1 a 2 8 ]
-[v i1sprintf@cp sprintf `*.39Cuc  1 a 2 4 ]
-[v i1sprintf@c sprintf `c  1 a 1 16 ]
-[v i1sprintf@flag sprintf `uc  1 a 1 7 ]
-[v i1sprintf@prec sprintf `c  1 a 1 6 ]
-[v i1sprintf@sp sp `*.39uc  1 p 2 34 ]
-[v i1sprintf@f f `*.25Cuc  1 p 2 36 ]
+[v i1sprintf@width sprintf `i  1 a 2 24 ]
+[v i1sprintf@val sprintf `ui  1 a 2 22 ]
+[v i1sprintf@len sprintf `ui  1 a 2 20 ]
+[v i1sprintf@ap sprintf `[1]*.39v  1 a 2 18 ]
+[v i1sprintf@cp sprintf `*.39Cuc  1 a 2 14 ]
+[v i1sprintf@c sprintf `c  1 a 1 26 ]
+[v i1sprintf@flag sprintf `uc  1 a 1 17 ]
+[v i1sprintf@prec sprintf `c  1 a 1 16 ]
+[v i1sprintf@sp sp `*.39uc  1 p 2 0 ]
+[v i1sprintf@f f `*.25Cuc  1 p 2 2 ]
 "1541
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\isdigit.c
@@ -1238,32 +1297,32 @@ S_MASTER_10BIT_RESTART 11
 [v i1isdigit@c c `uc  1 a 1 wreg ]
 [v i1isdigit@c c `uc  1 a 1 wreg ]
 "14
-[v i1isdigit@c c `uc  1 a 1 24 ]
+[v i1isdigit@c c `uc  1 a 1 25 ]
 "15
 } 0
 "15 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\Umul16.c
 [v i1___wmul __wmul `(ui  1 e 2 0 ]
 {
-[v i1___wmul@product __wmul `ui  1 a 2 26 ]
-[v i1___wmul@multiplier multiplier `ui  1 p 2 22 ]
-[v i1___wmul@multiplicand multiplicand `ui  1 p 2 24 ]
+[v i1___wmul@product __wmul `ui  1 a 2 27 ]
+[v i1___wmul@multiplier multiplier `ui  1 p 2 23 ]
+[v i1___wmul@multiplicand multiplicand `ui  1 p 2 25 ]
 "53
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\lwmod.c
 [v i1___lwmod __lwmod `(ui  1 e 2 0 ]
 {
-[v i1___lwmod@counter __lwmod `uc  1 a 1 33 ]
-[v i1___lwmod@dividend dividend `ui  1 p 2 29 ]
-[v i1___lwmod@divisor divisor `ui  1 p 2 31 ]
+[v i1___lwmod@counter __lwmod `uc  1 a 1 34 ]
+[v i1___lwmod@dividend dividend `ui  1 p 2 30 ]
+[v i1___lwmod@divisor divisor `ui  1 p 2 32 ]
 "26
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\lwdiv.c
 [v i1___lwdiv __lwdiv `(ui  1 e 2 0 ]
 {
-[v i1___lwdiv@quotient __lwdiv `ui  1 a 2 27 ]
-[v i1___lwdiv@counter __lwdiv `uc  1 a 1 26 ]
-[v i1___lwdiv@dividend dividend `ui  1 p 2 22 ]
-[v i1___lwdiv@divisor divisor `ui  1 p 2 24 ]
+[v i1___lwdiv@quotient __lwdiv `ui  1 a 2 28 ]
+[v i1___lwdiv@counter __lwdiv `uc  1 a 1 27 ]
+[v i1___lwdiv@dividend dividend `ui  1 p 2 23 ]
+[v i1___lwdiv@divisor divisor `ui  1 p 2 25 ]
 "31
 } 0
 "103 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/eusart1.c
@@ -1271,7 +1330,7 @@ S_MASTER_10BIT_RESTART 11
 {
 [v i1EUSART1_Write@txData txData `uc  1 a 1 wreg ]
 [v i1EUSART1_Write@txData txData `uc  1 a 1 wreg ]
-[v i1EUSART1_Write@txData txData `uc  1 a 1 22 ]
+[v i1EUSART1_Write@txData txData `uc  1 a 1 23 ]
 "106
 } 0
 "27 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\lbtoft.c
@@ -1280,19 +1339,19 @@ S_MASTER_10BIT_RESTART 11
 [v ___lbtoft@c c `uc  1 a 1 wreg ]
 [v ___lbtoft@c c `uc  1 a 1 wreg ]
 "29
-[v ___lbtoft@c c `uc  1 a 1 33 ]
+[v ___lbtoft@c c `uc  1 a 1 34 ]
 "30
 } 0
 "44 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\fttol.c
 [v ___fttol __fttol `(l  1 e 4 0 ]
 {
 "47
-[v ___fttol@lval lval `ul  1 a 4 32 ]
+[v ___fttol@lval lval `ul  1 a 4 33 ]
 "46
-[v ___fttol@exp1 exp1 `uc  1 a 1 36 ]
-[v ___fttol@sign1 sign1 `uc  1 a 1 31 ]
+[v ___fttol@exp1 exp1 `uc  1 a 1 37 ]
+[v ___fttol@sign1 sign1 `uc  1 a 1 32 ]
 "44
-[v ___fttol@f1 f1 `f  1 p 3 22 ]
+[v ___fttol@f1 f1 `f  1 p 3 23 ]
 "73
 } 0
 "20 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\ftsub.c
@@ -1306,12 +1365,12 @@ S_MASTER_10BIT_RESTART 11
 [v ___ftadd __ftadd `(f  1 e 3 0 ]
 {
 "88
-[v ___ftadd@exp1 exp1 `uc  1 a 1 41 ]
-[v ___ftadd@exp2 exp2 `uc  1 a 1 40 ]
-[v ___ftadd@sign sign `uc  1 a 1 39 ]
+[v ___ftadd@exp1 exp1 `uc  1 a 1 42 ]
+[v ___ftadd@exp2 exp2 `uc  1 a 1 41 ]
+[v ___ftadd@sign sign `uc  1 a 1 40 ]
 "86
-[v ___ftadd@f1 f1 `f  1 p 3 30 ]
-[v ___ftadd@f2 f2 `f  1 p 3 33 ]
+[v ___ftadd@f1 f1 `f  1 p 3 31 ]
+[v ___ftadd@f2 f2 `f  1 p 3 34 ]
 "148
 } 0
 "62 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\ftmul.c
@@ -1324,38 +1383,83 @@ S_MASTER_10BIT_RESTART 11
 [v ___ftmul@cntr cntr `uc  1 a 1 4 ]
 [v ___ftmul@exp exp `uc  1 a 1 0 ]
 "62
-[v ___ftmul@f1 f1 `f  1 p 3 34 ]
-[v ___ftmul@f2 f2 `f  1 p 3 37 ]
+[v ___ftmul@f1 f1 `f  1 p 3 35 ]
+[v ___ftmul@f2 f2 `f  1 p 3 38 ]
 "157
 } 0
 "4 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\ftge.c
 [v ___ftge __ftge `(b  1 e 0 0 ]
 {
-[v ___ftge@ff1 ff1 `f  1 p 3 22 ]
-[v ___ftge@ff2 ff2 `f  1 p 3 25 ]
+[v ___ftge@ff1 ff1 `f  1 p 3 23 ]
+[v ___ftge@ff2 ff2 `f  1 p 3 26 ]
 "13
 } 0
 "32 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\awtoft.c
 [v ___awtoft __awtoft `(f  1 e 3 0 ]
 {
 "34
-[v ___awtoft@sign sign `uc  1 a 1 33 ]
+[v ___awtoft@sign sign `uc  1 a 1 34 ]
 "32
-[v ___awtoft@c c `i  1 p 2 30 ]
+[v ___awtoft@c c `i  1 p 2 31 ]
 "42
 } 0
 "62 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\float.c
 [v ___ftpack __ftpack `(f  1 e 3 0 ]
 {
-[v ___ftpack@arg arg `um  1 p 3 22 ]
-[v ___ftpack@exp exp `uc  1 p 1 25 ]
-[v ___ftpack@sign sign `uc  1 p 1 26 ]
+[v ___ftpack@arg arg `um  1 p 3 23 ]
+[v ___ftpack@exp exp `uc  1 p 1 26 ]
+[v ___ftpack@sign sign `uc  1 p 1 27 ]
 "86
 } 0
-"98 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/adc.c
+"600 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/i2c1.c
+[v _I2C1_MasterWrite I2C1_MasterWrite `(v  1 e 1 0 ]
+{
+"601
+[v I2C1_MasterWrite@pdata pdata `*.39uc  1 p 2 32 ]
+"602
+[v I2C1_MasterWrite@length length `uc  1 p 1 34 ]
+"603
+[v I2C1_MasterWrite@address address `ui  1 p 2 35 ]
+"604
+[v I2C1_MasterWrite@pflag pflag `*.39E6972  1 p 2 37 ]
+[s S1562 . 5 `ui 1 address 2 0 `uc 1 length 1 2 `*.39uc 1 pbuffer 2 3 ]
+"606
+[v I2C1_MasterWrite@trBlock trBlock `S1562  1 s 5 trBlock ]
+"619
+} 0
+"709
+[v _I2C1_MasterWriteTRBBuild I2C1_MasterWriteTRBBuild `(v  1 e 1 0 ]
+{
+[s S1562 . 5 `ui 1 address 2 0 `uc 1 length 1 2 `*.39uc 1 pbuffer 2 3 ]
+"710
+[v I2C1_MasterWriteTRBBuild@ptrb ptrb `*.39S1562  1 p 2 23 ]
+"711
+[v I2C1_MasterWriteTRBBuild@pdata pdata `*.39uc  1 p 2 25 ]
+"712
+[v I2C1_MasterWriteTRBBuild@length length `uc  1 p 1 27 ]
+"713
+[v I2C1_MasterWriteTRBBuild@address address `ui  1 p 2 28 ]
+"718
+} 0
+"643
+[v _I2C1_MasterTRBInsert I2C1_MasterTRBInsert `(v  1 e 1 0 ]
+{
+"644
+[v I2C1_MasterTRBInsert@count count `uc  1 a 1 wreg ]
+[v I2C1_MasterTRBInsert@count count `uc  1 a 1 wreg ]
+[s S1562 . 5 `ui 1 address 2 0 `uc 1 length 1 2 `*.39uc 1 pbuffer 2 3 ]
+"645
+[v I2C1_MasterTRBInsert@ptrb_list ptrb_list `*.39S1562  1 p 2 23 ]
+"646
+[v I2C1_MasterTRBInsert@pflag pflag `*.39E6972  1 p 2 25 ]
+"650
+[v I2C1_MasterTRBInsert@count count `uc  1 a 1 28 ]
+"694
+} 0
+"99 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/adc.c
 [v _ADC_GetConversionResult ADC_GetConversionResult `(ui  1 e 2 0 ]
 {
-"101
+"102
 } 0
 "84 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/interrupt_manager.c
 [v _INTERRUPT_InterruptManagerHigh INTERRUPT_InterruptManagerHigh `II(v  1 e 1 0 ]
@@ -1397,10 +1501,10 @@ S_MASTER_10BIT_RESTART 11
 [v EPWM1_LoadDutyValue@dutyValue dutyValue `ui  1 p 2 0 ]
 "97
 } 0
-"88 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/adc.c
+"89 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/adc.c
 [v _ADC_StartConversion ADC_StartConversion `(v  1 e 1 0 ]
 {
-"91
+"92
 } 0
 "99 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/ext_int.c
 [v _INT2_ISR INT2_ISR `(v  1 e 1 0 ]
@@ -1447,31 +1551,35 @@ S_MASTER_10BIT_RESTART 11
 {
 "200
 } 0
-"233 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/i2c1.c
+"234 D:\Documentos\GitHub\ProjMCC.X\mcc_generated_files/i2c1.c
 [v _I2C1_ISR I2C1_ISR `(v  1 e 1 0 ]
 {
-"236
-[v I2C1_ISR@pi2c_buf_ptr pi2c_buf_ptr `*.2uc  1 s 2 pi2c_buf_ptr ]
 "237
-[v I2C1_ISR@i2c_address i2c_address `ui  1 s 2 i2c_address ]
+[v I2C1_ISR@pi2c_buf_ptr pi2c_buf_ptr `*.39uc  1 s 2 pi2c_buf_ptr ]
 "238
-[v I2C1_ISR@i2c_bytes_left i2c_bytes_left `uc  1 s 1 i2c_bytes_left ]
+[v I2C1_ISR@i2c_address i2c_address `ui  1 s 2 i2c_address ]
 "239
+[v I2C1_ISR@i2c_bytes_left i2c_bytes_left `uc  1 s 1 i2c_bytes_left ]
+"240
 [v I2C1_ISR@i2c_10bit_address_restart i2c_10bit_address_restart `uc  1 s 1 i2c_10bit_address_restart ]
-"561
+"562
 } 0
-"581
+"582
 [v _I2C1_Stop I2C1_Stop `(v  1 e 1 0 ]
 {
-"596
+[v I2C1_Stop@completion_code completion_code `E6972  1 a 1 wreg ]
+[v I2C1_Stop@completion_code completion_code `E6972  1 a 1 wreg ]
+"585
+[v I2C1_Stop@completion_code completion_code `E6972  1 a 1 2 ]
+"598
 } 0
-"563
+"564
 [v _I2C1_FunctionComplete I2C1_FunctionComplete `(v  1 e 1 0 ]
 {
-"579
+"580
 } 0
-"728
+"730
 [v _I2C1_BusCollisionISR I2C1_BusCollisionISR `(v  1 e 1 0 ]
 {
-"731
+"733
 } 0

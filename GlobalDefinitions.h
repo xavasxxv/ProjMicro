@@ -14,6 +14,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "xlcd.h"
+#include "mcc_generated_files/i2c1.h"
 
 #ifdef	__cplusplus
 extern "C" {
@@ -29,10 +30,13 @@ extern "C" {
 
     //Equivalente em ºC de 1LSB
 #define adcLsb 0.24841333435
+    
+#define eepromAddr 0b01010000
 
     //Variaveis globais
     volatile char strLCD[StrSIZE];
     volatile char strUSART[StrSIZE];
+    volatile char i2cWriteBlock[10];
     volatile char TeclaTMP;
     volatile double tmpTemp;
     volatile char lastMenu;
@@ -53,6 +57,10 @@ extern "C" {
     volatile bool WrEnFl = 0;
     volatile bool eusart_Tx_En = 0;
     volatile bool eusart_Tx_On = 0;
+    volatile signed int memAddr = 0;
+    volatile char memAddrBytes[2];
+    volatile signed int regNum = 0;
+    volatile I2C1_MESSAGE_STATUS stateMsgI2c;
 
     //prototipos das funcoes
     void escreveLinhaLCD(char linha, char texto[StrSIZE]);

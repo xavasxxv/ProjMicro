@@ -1,4 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
+"63 GlobalDefinitions.h
+[c E7011 0 1 2 3 4 5 6 .. ]
+[n E7011 . I2C1_MESSAGE_COMPLETE I2C1_MESSAGE_FAIL I2C1_MESSAGE_PENDING I2C1_STUCK_START I2C1_MESSAGE_ADDRESS_NO_ACK I2C1_DATA_NO_ACK I2C1_LOST_STATE  ]
 [p mainexit ]
 "75 mcc_generated_files/mcc.h
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
@@ -22,7 +25,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _OpenXLCD `(v ~T0 @X0 0 ef1`uc ]
 "109
 [v _WriteCmdXLCD `(v ~T0 @X0 0 ef1`uc ]
-"59 GlobalDefinitions.h
+"67 GlobalDefinitions.h
 [v _menu `(v ~T0 @X0 0 ef ]
 "124 xlcd.h
 [v _putsXLCD `(v ~T0 @X0 0 ef1`*uc ]
@@ -72,15 +75,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _PORTAbits `VS326 ~T0 @X0 0 e@3968 ]
 "194 C:\Program Files (x86)\Microchip\xc8\v1.44\include\stdio.h
 [v _sprintf `(i ~T0 @X0 0 e1v`*uc`*Cuc ]
-"60 GlobalDefinitions.h
+"68 GlobalDefinitions.h
 [v _monitorizacao `(v ~T0 @X0 0 ef ]
-"62
+"70
 [v _defTempAlarme `(v ~T0 @X0 0 ef ]
-"61
+"69
 [v _testeTeclado `(v ~T0 @X0 0 ef ]
-"64
+"72
 [v _feedbackUSART `(v ~T0 @X0 0 ef ]
-"63
+"71
 [v _getKBInput `(uc ~T0 @X0 0 ef ]
 [v F6934 `(v ~T0 @X0 1 tf1`ul ]
 "164 C:\Program Files (x86)\Microchip\xc8\v1.44\include\pic18.h
@@ -6934,127 +6937,148 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;xlcd.h: 132: extern void DelayFor18TCY(void);
 [; ;xlcd.h: 133: extern void DelayPORXLCD(void);
 [; ;xlcd.h: 134: extern void DelayXLCD(void);
-"34 GlobalDefinitions.h
+"37 GlobalDefinitions.h
 [v _strLCD `Vuc ~T0 @X0 -> 42 `i e ]
-[; ;GlobalDefinitions.h: 34: volatile char strLCD[42];
-"35
-[v _strUSART `Vuc ~T0 @X0 -> 42 `i e ]
-[; ;GlobalDefinitions.h: 35: volatile char strUSART[42];
-"36
-[v _TeclaTMP `Vuc ~T0 @X0 1 e ]
-[; ;GlobalDefinitions.h: 36: volatile char TeclaTMP;
-"37
-[v _tmpTemp `Vd ~T0 @X0 1 e ]
-[; ;GlobalDefinitions.h: 37: volatile double tmpTemp;
+[; ;GlobalDefinitions.h: 37: volatile char strLCD[42];
 "38
-[v _lastMenu `Vuc ~T0 @X0 1 e ]
-[; ;GlobalDefinitions.h: 38: volatile char lastMenu;
+[v _strUSART `Vuc ~T0 @X0 -> 42 `i e ]
+[; ;GlobalDefinitions.h: 38: volatile char strUSART[42];
 "39
+[v _i2cWriteBlock `Vuc ~T0 @X0 -> 10 `i e ]
+[; ;GlobalDefinitions.h: 39: volatile char i2cWriteBlock[10];
+"40
+[v _TeclaTMP `Vuc ~T0 @X0 1 e ]
+[; ;GlobalDefinitions.h: 40: volatile char TeclaTMP;
+"41
+[v _tmpTemp `Vd ~T0 @X0 1 e ]
+[; ;GlobalDefinitions.h: 41: volatile double tmpTemp;
+"42
+[v _lastMenu `Vuc ~T0 @X0 1 e ]
+[; ;GlobalDefinitions.h: 42: volatile char lastMenu;
+"43
 [v _update `Vuc ~T0 @X0 1 e ]
 [i _update
 -> -> 1 `i `uc
 ]
-[; ;GlobalDefinitions.h: 39: volatile char update = 1;
-"40
+[; ;GlobalDefinitions.h: 43: volatile char update = 1;
+"44
 [v _i `Vuc ~T0 @X0 1 e ]
-[; ;GlobalDefinitions.h: 40: volatile char i;
-"41
+[; ;GlobalDefinitions.h: 44: volatile char i;
+"45
 [v _j `Vc ~T0 @X0 1 e ]
 [i _j
 -> -> 0 `i `c
 ]
-[; ;GlobalDefinitions.h: 41: volatile signed char j = 0;
-"42
+[; ;GlobalDefinitions.h: 45: volatile signed char j = 0;
+"46
 [v _menu_tmp `Vuc ~T0 @X0 1 e ]
 [i _menu_tmp
 -> -> 1 `i `uc
 ]
-[; ;GlobalDefinitions.h: 42: volatile char menu_tmp = 1;
-"43
+[; ;GlobalDefinitions.h: 46: volatile char menu_tmp = 1;
+"47
 [v _tempAlarme `Vuc ~T0 @X0 1 e ]
 [i _tempAlarme
 -> -> 25 `i `uc
 ]
-[; ;GlobalDefinitions.h: 43: volatile char tempAlarme = 25;
-"44
+[; ;GlobalDefinitions.h: 47: volatile char tempAlarme = 25;
+"48
 [v _tempAtual `Vuc ~T0 @X0 1 e ]
 [i _tempAtual
 -> -> 25 `i `uc
 ]
-[; ;GlobalDefinitions.h: 44: volatile char tempAtual = 25;
-"45
+[; ;GlobalDefinitions.h: 48: volatile char tempAtual = 25;
+"49
 [v _clk4Hz `Vuc ~T0 @X0 1 e ]
 [i _clk4Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 45: volatile bool clk4Hz = 0;
-"46
+[; ;GlobalDefinitions.h: 49: volatile bool clk4Hz = 0;
+"50
 [v _clk2Hz `Vuc ~T0 @X0 1 e ]
 [i _clk2Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 46: volatile bool clk2Hz = 0;
-"47
+[; ;GlobalDefinitions.h: 50: volatile bool clk2Hz = 0;
+"51
 [v _clk1Hz `Vuc ~T0 @X0 1 e ]
 [i _clk1Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 47: volatile bool clk1Hz = 0;
-"48
+[; ;GlobalDefinitions.h: 51: volatile bool clk1Hz = 0;
+"52
 [v _clk1_2Hz `Vuc ~T0 @X0 1 e ]
 [i _clk1_2Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 48: volatile bool clk1_2Hz = 0;
-"49
+[; ;GlobalDefinitions.h: 52: volatile bool clk1_2Hz = 0;
+"53
 [v _clk1_4Hz `Vuc ~T0 @X0 1 e ]
 [i _clk1_4Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 49: volatile bool clk1_4Hz = 0;
-"50
+[; ;GlobalDefinitions.h: 53: volatile bool clk1_4Hz = 0;
+"54
 [v _clk1_8Hz `Vuc ~T0 @X0 1 e ]
 [i _clk1_8Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 50: volatile bool clk1_8Hz = 0;
-"51
+[; ;GlobalDefinitions.h: 54: volatile bool clk1_8Hz = 0;
+"55
 [v _alarme `Vuc ~T0 @X0 1 e ]
 [i _alarme
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 51: volatile bool alarme = 0;
-"52
+[; ;GlobalDefinitions.h: 55: volatile bool alarme = 0;
+"56
 [v _binADC `Vi ~T0 @X0 1 e ]
 [i _binADC
 -> 0 `i
 ]
-[; ;GlobalDefinitions.h: 52: volatile int binADC = 0;
-"53
+[; ;GlobalDefinitions.h: 56: volatile int binADC = 0;
+"57
 [v _WrEnFl `Vuc ~T0 @X0 1 e ]
 [i _WrEnFl
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 53: volatile bool WrEnFl = 0;
-"54
+[; ;GlobalDefinitions.h: 57: volatile bool WrEnFl = 0;
+"58
 [v _eusart_Tx_En `Vuc ~T0 @X0 1 e ]
 [i _eusart_Tx_En
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 54: volatile bool eusart_Tx_En = 0;
-"55
+[; ;GlobalDefinitions.h: 58: volatile bool eusart_Tx_En = 0;
+"59
 [v _eusart_Tx_On `Vuc ~T0 @X0 1 e ]
 [i _eusart_Tx_On
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 55: volatile bool eusart_Tx_On = 0;
-[; ;GlobalDefinitions.h: 58: void escreveLinhaLCD(char linha, char texto[42]);
-[; ;GlobalDefinitions.h: 59: void menu(void);
-[; ;GlobalDefinitions.h: 60: void monitorizacao(void);
-[; ;GlobalDefinitions.h: 61: void testeTeclado(void);
-[; ;GlobalDefinitions.h: 62: void defTempAlarme(void);
-[; ;GlobalDefinitions.h: 63: char getKBInput(void);
-[; ;GlobalDefinitions.h: 64: void feedbackUSART(void);
+[; ;GlobalDefinitions.h: 59: volatile bool eusart_Tx_On = 0;
+"60
+[v _memAddr `Vi ~T0 @X0 1 e ]
+[i _memAddr
+-> 0 `i
+]
+[; ;GlobalDefinitions.h: 60: volatile signed int memAddr = 0;
+"61
+[v _memAddrBytes `Vuc ~T0 @X0 -> 2 `i e ]
+[; ;GlobalDefinitions.h: 61: volatile char memAddrBytes[2];
+"62
+[v _regNum `Vi ~T0 @X0 1 e ]
+[i _regNum
+-> 0 `i
+]
+[; ;GlobalDefinitions.h: 62: volatile signed int regNum = 0;
+"63
+[v _stateMsgI2c `VE7011 ~T0 @X0 1 e ]
+[; ;GlobalDefinitions.h: 63: volatile I2C1_MESSAGE_STATUS stateMsgI2c;
+[; ;GlobalDefinitions.h: 66: void escreveLinhaLCD(char linha, char texto[42]);
+[; ;GlobalDefinitions.h: 67: void menu(void);
+[; ;GlobalDefinitions.h: 68: void monitorizacao(void);
+[; ;GlobalDefinitions.h: 69: void testeTeclado(void);
+[; ;GlobalDefinitions.h: 70: void defTempAlarme(void);
+[; ;GlobalDefinitions.h: 71: char getKBInput(void);
+[; ;GlobalDefinitions.h: 72: void feedbackUSART(void);
 [v $root$_main `(v ~T0 @X0 0 e ]
 "52 main.c
 [v _main `(v ~T0 @X0 1 ef ]
@@ -7200,9 +7224,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 881 ]
 [; ;main.c: 127: }
-[; ;main.c: 129: if (menu_tmp > 2)
+[; ;main.c: 129: if (menu_tmp > 4)
 "129
-[e $ ! > -> _menu_tmp `i -> 2 `i 885  ]
+[e $ ! > -> _menu_tmp `i -> 4 `i 885  ]
 [; ;main.c: 130: menu_tmp = 1;
 "130
 [e = _menu_tmp -> -> 1 `i `uc ]
@@ -7210,9 +7234,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 131: if (menu_tmp < 1)
 "131
 [e $ ! < -> _menu_tmp `i -> 1 `i 886  ]
-[; ;main.c: 132: menu_tmp = 2;
+[; ;main.c: 132: menu_tmp = 4;
 "132
-[e = _menu_tmp -> -> 2 `i `uc ]
+[e = _menu_tmp -> -> 4 `i `uc ]
 [e :U 886 ]
 [; ;main.c: 134: if (lastMenu != menu_tmp) {
 "134
@@ -7260,636 +7284,658 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 148: break;
 "148
 [e $U 889  ]
+[; ;main.c: 149: case 3:
 "149
+[e :U 893 ]
+[; ;main.c: 150: escreveLinhaLCD(192, "Teste do teclado     ");
+"150
+[e ( _escreveLinhaLCD (2 , -> -> 192 `i `uc -> :s 5C `*uc ]
+[; ;main.c: 151: break;
+"151
+[e $U 889  ]
+[; ;main.c: 152: case 4:
+"152
+[e :U 894 ]
+[; ;main.c: 153: escreveLinhaLCD(192, "Feedback EUSART      ");
+"153
+[e ( _escreveLinhaLCD (2 , -> -> 192 `i `uc -> :s 6C `*uc ]
+[; ;main.c: 154: break;
+"154
+[e $U 889  ]
+"155
 }
-[; ;main.c: 149: }
+[; ;main.c: 155: }
 [e $U 889  ]
 "142
 [e :U 890 ]
 [e [\ _menu_tmp , $ -> -> 1 `i `uc 891
  , $ -> -> 2 `i `uc 892
+ , $ -> -> 3 `i `uc 893
+ , $ -> -> 4 `i `uc 894
  889 ]
-"149
+"155
 [e :U 889 ]
-[; ;main.c: 150: update = 0;
-"150
+[; ;main.c: 156: update = 0;
+"156
 [e = _update -> -> 0 `i `uc ]
-"151
+"157
 }
 [e :U 888 ]
-[; ;main.c: 151: }
-[; ;main.c: 153: if (PORTAbits.RA1 == 0) {
-"153
-[e $ ! == -> . . _PORTAbits 0 1 `i -> 0 `i 893  ]
-{
-[; ;main.c: 154: while (PORTAbits.RA1 == 0);
-"154
-[e $U 894  ]
-[e :U 895 ]
-[e :U 894 ]
-[e $ == -> . . _PORTAbits 0 1 `i -> 0 `i 895  ]
-[e :U 896 ]
-[; ;main.c: 155: switch (menu_tmp) {
-"155
-[e $U 898  ]
-{
-[; ;main.c: 156: case 1:
-"156
-[e :U 899 ]
-[; ;main.c: 157: monitorizacao();
-"157
-[e ( _monitorizacao ..  ]
-[; ;main.c: 158: break;
-"158
-[e $U 897  ]
-[; ;main.c: 159: case 2:
+[; ;main.c: 157: }
+[; ;main.c: 159: if (PORTAbits.RA1 == 0) {
 "159
-[e :U 900 ]
-[; ;main.c: 160: defTempAlarme();
+[e $ ! == -> . . _PORTAbits 0 1 `i -> 0 `i 895  ]
+{
+[; ;main.c: 160: while (PORTAbits.RA1 == 0);
 "160
-[e ( _defTempAlarme ..  ]
-[; ;main.c: 161: break;
+[e $U 896  ]
+[e :U 897 ]
+[e :U 896 ]
+[e $ == -> . . _PORTAbits 0 1 `i -> 0 `i 897  ]
+[e :U 898 ]
+[; ;main.c: 161: switch (menu_tmp) {
 "161
-[e $U 897  ]
-[; ;main.c: 162: case 3:
+[e $U 900  ]
+{
+[; ;main.c: 162: case 1:
 "162
 [e :U 901 ]
-[; ;main.c: 163: testeTeclado();
+[; ;main.c: 163: monitorizacao();
 "163
-[e ( _testeTeclado ..  ]
+[e ( _monitorizacao ..  ]
 [; ;main.c: 164: break;
 "164
-[e $U 897  ]
-[; ;main.c: 165: case 4:
+[e $U 899  ]
+[; ;main.c: 165: case 2:
 "165
 [e :U 902 ]
-[; ;main.c: 166: feedbackUSART();
+[; ;main.c: 166: defTempAlarme();
 "166
-[e ( _feedbackUSART ..  ]
+[e ( _defTempAlarme ..  ]
 [; ;main.c: 167: break;
 "167
-[e $U 897  ]
+[e $U 899  ]
+[; ;main.c: 168: case 3:
 "168
-}
-[; ;main.c: 168: }
-[e $U 897  ]
-"155
-[e :U 898 ]
-[e [\ _menu_tmp , $ -> -> 1 `i `uc 899
- , $ -> -> 2 `i `uc 900
- , $ -> -> 3 `i `uc 901
- , $ -> -> 4 `i `uc 902
- 897 ]
-"168
-[e :U 897 ]
-[; ;main.c: 169: update = 1;
+[e :U 903 ]
+[; ;main.c: 169: testeTeclado();
 "169
-[e = _update -> -> 1 `i `uc ]
-[; ;main.c: 170: escreveLinhaLCD(128, "Menu         Opcao:");
+[e ( _testeTeclado ..  ]
+[; ;main.c: 170: break;
 "170
-[e ( _escreveLinhaLCD (2 , -> -> 128 `i `uc -> :s 5C `*uc ]
+[e $U 899  ]
+[; ;main.c: 171: case 4:
 "171
-}
-[e :U 893 ]
+[e :U 904 ]
+[; ;main.c: 172: feedbackUSART();
+"172
+[e ( _feedbackUSART ..  ]
+[; ;main.c: 173: break;
 "173
+[e $U 899  ]
+"174
+}
+[; ;main.c: 174: }
+[e $U 899  ]
+"161
+[e :U 900 ]
+[e [\ _menu_tmp , $ -> -> 1 `i `uc 901
+ , $ -> -> 2 `i `uc 902
+ , $ -> -> 3 `i `uc 903
+ , $ -> -> 4 `i `uc 904
+ 899 ]
+"174
+[e :U 899 ]
+[; ;main.c: 175: update = 1;
+"175
+[e = _update -> -> 1 `i `uc ]
+[; ;main.c: 176: escreveLinhaLCD(128, "Menu         Opcao:");
+"176
+[e ( _escreveLinhaLCD (2 , -> -> 128 `i `uc -> :s 7C `*uc ]
+"177
+}
+[e :U 895 ]
+"179
 }
 [e :U 874 ]
 "117
 [e $U 875  ]
 [e :U 876 ]
-[; ;main.c: 171: }
-[; ;main.c: 173: }
-[; ;main.c: 174: }
-"174
+[; ;main.c: 177: }
+[; ;main.c: 179: }
+[; ;main.c: 180: }
+"180
 [e :UE 873 ]
 }
-"176
+"182
 [v _monitorizacao `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 176: void monitorizacao(void) {
+[; ;main.c: 182: void monitorizacao(void) {
 [e :U _monitorizacao ]
 [f ]
-[; ;main.c: 178: sprintf(strLCD, "Temp. Atual:  %2d oC ", tempAtual);
-"178
-[e ( _sprintf (1 , (. , -> &U _strLCD `*uc :s 6C -> _tempAtual `i ]
-[; ;main.c: 179: escreveLinhaLCD(128, strLCD);
-"179
-[e ( _escreveLinhaLCD (2 , -> -> 128 `i `uc -> &U _strLCD `*uc ]
-[; ;main.c: 180: sprintf(strLCD, "Temp. Alarme: %2d oC ", tempAlarme);
-"180
-[e ( _sprintf (1 , (. , -> &U _strLCD `*uc :s 7C -> _tempAlarme `i ]
-[; ;main.c: 181: escreveLinhaLCD(192, strLCD);
-"181
-[e ( _escreveLinhaLCD (2 , -> -> 192 `i `uc -> &U _strLCD `*uc ]
-[; ;main.c: 183: do {
-"183
-[e :U 906 ]
-{
-[; ;main.c: 184: while (clk4Hz) {
+[; ;main.c: 184: sprintf(strLCD, "Temp. Atual:  %2d oC ", tempAtual);
 "184
-[e $U 907  ]
+[e ( _sprintf (1 , (. , -> &U _strLCD `*uc :s 8C -> _tempAtual `i ]
+[; ;main.c: 185: escreveLinhaLCD(128, strLCD);
+"185
+[e ( _escreveLinhaLCD (2 , -> -> 128 `i `uc -> &U _strLCD `*uc ]
+[; ;main.c: 186: sprintf(strLCD, "Temp. Alarme: %2d oC ", tempAlarme);
+"186
+[e ( _sprintf (1 , (. , -> &U _strLCD `*uc :s 9C -> _tempAlarme `i ]
+[; ;main.c: 187: escreveLinhaLCD(192, strLCD);
+"187
+[e ( _escreveLinhaLCD (2 , -> -> 192 `i `uc -> &U _strLCD `*uc ]
+[; ;main.c: 189: do {
+"189
 [e :U 908 ]
 {
-[; ;main.c: 186: if (alarme) {
-"186
-[e $ ! != -> _alarme `i -> -> -> 0 `i `Vuc `i 910  ]
-{
-[; ;main.c: 187: switch (clk1_2Hz) {
-"187
-[e $U 912  ]
-{
-[; ;main.c: 188: case 1:
-"188
-[e :U 913 ]
-[; ;main.c: 189: sprintf(strLCD, "!ALARME! TEMP>");
-"189
-[e ( _sprintf (1 , -> &U _strLCD `*uc :s 8C ]
-[; ;main.c: 190: update = 1;
+[; ;main.c: 190: while (clk4Hz) {
 "190
-[e = _update -> -> 1 `i `uc ]
-[; ;main.c: 191: break;
-"191
-[e $U 911  ]
-[; ;main.c: 192: case 0:
-"192
-[e :U 914 ]
-[; ;main.c: 193: sprintf(strLCD, "Temp. Alarme: ");
-"193
-[e ( _sprintf (1 , -> &U _strLCD `*uc :s 9C ]
-[; ;main.c: 194: break;
-"194
-[e $U 911  ]
-"195
-}
-[; ;main.c: 195: }
-[e $U 911  ]
-"187
-[e :U 912 ]
-[e [\ _clk1_2Hz , $ -> -> 1 `i `uc 913
- , $ -> -> 0 `i `uc 914
- 911 ]
-"195
-[e :U 911 ]
-[; ;main.c: 196: escreveLinhaLCD(192, strLCD);
-"196
-[e ( _escreveLinhaLCD (2 , -> -> 192 `i `uc -> &U _strLCD `*uc ]
-"197
-}
-[; ;main.c: 197: } else if (update) {
-[e $U 915  ]
+[e $U 909  ]
 [e :U 910 ]
-[e $ ! != -> _update `i -> -> -> 0 `i `Vuc `i 916  ]
 {
-[; ;main.c: 198: sprintf(strLCD, "Temp. Alarme: ");
-"198
+[; ;main.c: 192: if (alarme) {
+"192
+[e $ ! != -> _alarme `i -> -> -> 0 `i `Vuc `i 912  ]
+{
+[; ;main.c: 193: switch (clk1_2Hz) {
+"193
+[e $U 914  ]
+{
+[; ;main.c: 194: case 1:
+"194
+[e :U 915 ]
+[; ;main.c: 195: sprintf(strLCD, "!ALARME! TEMP>");
+"195
 [e ( _sprintf (1 , -> &U _strLCD `*uc :s 10C ]
-[; ;main.c: 199: escreveLinhaLCD(192, strLCD);
+[; ;main.c: 196: update = 1;
+"196
+[e = _update -> -> 1 `i `uc ]
+[; ;main.c: 197: break;
+"197
+[e $U 913  ]
+[; ;main.c: 198: case 0:
+"198
+[e :U 916 ]
+[; ;main.c: 199: sprintf(strLCD, "Temp. Alarme: ");
 "199
-[e ( _escreveLinhaLCD (2 , -> -> 192 `i `uc -> &U _strLCD `*uc ]
-[; ;main.c: 200: update = 0;
+[e ( _sprintf (1 , -> &U _strLCD `*uc :s 11C ]
+[; ;main.c: 200: break;
 "200
-[e = _update -> -> 0 `i `uc ]
+[e $U 913  ]
 "201
 }
-[e :U 916 ]
-"203
-[e :U 915 ]
 [; ;main.c: 201: }
-[; ;main.c: 203: sprintf(strLCD, "%2d", tempAtual);
-[e ( _sprintf (1 , (. , -> &U _strLCD `*uc :s 11C -> _tempAtual `i ]
-[; ;main.c: 204: escreveLinhaLCD(128 + 14, strLCD);
-"204
-[e ( _escreveLinhaLCD (2 , -> + -> 128 `i -> 14 `i `uc -> &U _strLCD `*uc ]
-[; ;main.c: 205: sprintf(strLCD, "%2d", tempAlarme);
-"205
-[e ( _sprintf (1 , (. , -> &U _strLCD `*uc :s 12C -> _tempAlarme `i ]
-[; ;main.c: 206: escreveLinhaLCD(192 + 14, strLCD);
-"206
-[e ( _escreveLinhaLCD (2 , -> + -> 192 `i -> 14 `i `uc -> &U _strLCD `*uc ]
-[; ;main.c: 208: while (clk4Hz);
-"208
+[e $U 913  ]
+"193
+[e :U 914 ]
+[e [\ _clk1_2Hz , $ -> -> 1 `i `uc 915
+ , $ -> -> 0 `i `uc 916
+ 913 ]
+"201
+[e :U 913 ]
+[; ;main.c: 202: escreveLinhaLCD(192, strLCD);
+"202
+[e ( _escreveLinhaLCD (2 , -> -> 192 `i `uc -> &U _strLCD `*uc ]
+"203
+}
+[; ;main.c: 203: } else if (update) {
 [e $U 917  ]
+[e :U 912 ]
+[e $ ! != -> _update `i -> -> -> 0 `i `Vuc `i 918  ]
+{
+[; ;main.c: 204: sprintf(strLCD, "Temp. Alarme: ");
+"204
+[e ( _sprintf (1 , -> &U _strLCD `*uc :s 12C ]
+[; ;main.c: 205: escreveLinhaLCD(192, strLCD);
+"205
+[e ( _escreveLinhaLCD (2 , -> -> 192 `i `uc -> &U _strLCD `*uc ]
+[; ;main.c: 206: update = 0;
+"206
+[e = _update -> -> 0 `i `uc ]
+"207
+}
 [e :U 918 ]
-[e :U 917 ]
-[e $ != -> _clk4Hz `i -> -> -> 0 `i `Vuc `i 918  ]
-[e :U 919 ]
 "209
-}
-[e :U 907 ]
-"184
-[e $ != -> _clk4Hz `i -> -> -> 0 `i `Vuc `i 908  ]
-[e :U 909 ]
+[e :U 917 ]
+[; ;main.c: 207: }
+[; ;main.c: 209: sprintf(strLCD, "%2d", tempAtual);
+[e ( _sprintf (1 , (. , -> &U _strLCD `*uc :s 13C -> _tempAtual `i ]
+[; ;main.c: 210: escreveLinhaLCD(128 + 14, strLCD);
 "210
-}
-[; ;main.c: 209: }
-[; ;main.c: 210: } while (PORTAbits.RA1 != 0);
-[e $ != -> . . _PORTAbits 0 1 `i -> 0 `i 906  ]
-[e :U 905 ]
-[; ;main.c: 212: while (PORTAbits.RA1 == 0);
+[e ( _escreveLinhaLCD (2 , -> + -> 128 `i -> 14 `i `uc -> &U _strLCD `*uc ]
+[; ;main.c: 211: sprintf(strLCD, "%2d", tempAlarme);
+"211
+[e ( _sprintf (1 , (. , -> &U _strLCD `*uc :s 14C -> _tempAlarme `i ]
+[; ;main.c: 212: escreveLinhaLCD(192 + 14, strLCD);
 "212
-[e $U 920  ]
-[e :U 921 ]
-[e :U 920 ]
-[e $ == -> . . _PORTAbits 0 1 `i -> 0 `i 921  ]
-[e :U 922 ]
-[; ;main.c: 214: }
+[e ( _escreveLinhaLCD (2 , -> + -> 192 `i -> 14 `i `uc -> &U _strLCD `*uc ]
+[; ;main.c: 214: while (clk4Hz);
 "214
-[e :UE 903 ]
+[e $U 919  ]
+[e :U 920 ]
+[e :U 919 ]
+[e $ != -> _clk4Hz `i -> -> -> 0 `i `Vuc `i 920  ]
+[e :U 921 ]
+"215
 }
+[e :U 909 ]
+"190
+[e $ != -> _clk4Hz `i -> -> -> 0 `i `Vuc `i 910  ]
+[e :U 911 ]
 "216
+}
+[; ;main.c: 215: }
+[; ;main.c: 216: } while (PORTAbits.RA1 != 0);
+[e $ != -> . . _PORTAbits 0 1 `i -> 0 `i 908  ]
+[e :U 907 ]
+[; ;main.c: 218: while (PORTAbits.RA1 == 0);
+"218
+[e $U 922  ]
+[e :U 923 ]
+[e :U 922 ]
+[e $ == -> . . _PORTAbits 0 1 `i -> 0 `i 923  ]
+[e :U 924 ]
+[; ;main.c: 220: }
+"220
+[e :UE 905 ]
+}
+"222
 [v _testeTeclado `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 216: void testeTeclado(void) {
+[; ;main.c: 222: void testeTeclado(void) {
 [e :U _testeTeclado ]
 [f ]
-"218
+"224
 [v _input `uc ~T0 @X0 1 a ]
-[; ;main.c: 218: char input;
-[; ;main.c: 220: escreveLinhaLCD(128, "Teste Teclado       ");
-"220
-[e ( _escreveLinhaLCD (2 , -> -> 128 `i `uc -> :s 13C `*uc ]
-[; ;main.c: 221: escreveLinhaLCD(192, "Numero:             ");
-"221
-[e ( _escreveLinhaLCD (2 , -> -> 192 `i `uc -> :s 14C `*uc ]
-[; ;main.c: 224: while (PORTAbits.RA1 != 0) {
-"224
-[e $U 924  ]
-[e :U 925 ]
-{
-[; ;main.c: 225: input = getKBInput();
-"225
-[e = _input ( _getKBInput ..  ]
-[; ;main.c: 226: sprintf(strLCD, "%c", input);
+[; ;main.c: 224: char input;
+[; ;main.c: 226: escreveLinhaLCD(128, "Teste Teclado       ");
 "226
-[e ( _sprintf (1 , (. , -> &U _strLCD `*uc :s 15C -> _input `i ]
-[; ;main.c: 227: escreveLinhaLCD(192 + 8, strLCD);
+[e ( _escreveLinhaLCD (2 , -> -> 128 `i `uc -> :s 15C `*uc ]
+[; ;main.c: 227: escreveLinhaLCD(192, "Numero:             ");
 "227
-[e ( _escreveLinhaLCD (2 , -> + -> 192 `i -> 8 `i `uc -> &U _strLCD `*uc ]
-"228
-}
-[e :U 924 ]
-"224
-[e $ != -> . . _PORTAbits 0 1 `i -> 0 `i 925  ]
-[e :U 926 ]
-[; ;main.c: 228: }
-[; ;main.c: 230: while (PORTAbits.RA1 == 0);
+[e ( _escreveLinhaLCD (2 , -> -> 192 `i `uc -> :s 16C `*uc ]
+[; ;main.c: 230: while (PORTAbits.RA1 != 0) {
 "230
-[e $U 927  ]
-[e :U 928 ]
+[e $U 926  ]
 [e :U 927 ]
-[e $ == -> . . _PORTAbits 0 1 `i -> 0 `i 928  ]
-[e :U 929 ]
-[; ;main.c: 232: }
+{
+[; ;main.c: 231: input = getKBInput();
+"231
+[e = _input ( _getKBInput ..  ]
+[; ;main.c: 232: sprintf(strLCD, "%c", input);
 "232
-[e :UE 923 ]
-}
+[e ( _sprintf (1 , (. , -> &U _strLCD `*uc :s 17C -> _input `i ]
+[; ;main.c: 233: escreveLinhaLCD(192 + 8, strLCD);
+"233
+[e ( _escreveLinhaLCD (2 , -> + -> 192 `i -> 8 `i `uc -> &U _strLCD `*uc ]
 "234
+}
+[e :U 926 ]
+"230
+[e $ != -> . . _PORTAbits 0 1 `i -> 0 `i 927  ]
+[e :U 928 ]
+[; ;main.c: 234: }
+[; ;main.c: 236: while (PORTAbits.RA1 == 0);
+"236
+[e $U 929  ]
+[e :U 930 ]
+[e :U 929 ]
+[e $ == -> . . _PORTAbits 0 1 `i -> 0 `i 930  ]
+[e :U 931 ]
+[; ;main.c: 238: }
+"238
+[e :UE 925 ]
+}
+"240
 [v _defTempAlarme `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 234: void defTempAlarme(void) {
+[; ;main.c: 240: void defTempAlarme(void) {
 [e :U _defTempAlarme ]
 [f ]
-"236
+"242
 [v _c1 `uc ~T0 @X0 1 a ]
 [v _c2 `uc ~T0 @X0 1 a ]
-"237
+"243
 [v _tmp_Alarme `uc ~T0 @X0 1 a ]
-[; ;main.c: 236: char c1, c2;
-[; ;main.c: 237: char tmp_Alarme = 0;
+[; ;main.c: 242: char c1, c2;
+[; ;main.c: 243: char tmp_Alarme = 0;
 [e = _tmp_Alarme -> -> 0 `i `uc ]
-[; ;main.c: 255: do {
-"255
-[e :U 933 ]
-{
-[; ;main.c: 257: escreveLinhaLCD(128, "Introduza o alarme  ");
-"257
-[e ( _escreveLinhaLCD (2 , -> -> 128 `i `uc -> :s 16C `*uc ]
-[; ;main.c: 258: escreveLinhaLCD(192, "Temp:    oC         ");
-"258
-[e ( _escreveLinhaLCD (2 , -> -> 192 `i `uc -> :s 17C `*uc ]
-[; ;main.c: 260: c1 = getKBInput();
-"260
-[e = _c1 ( _getKBInput ..  ]
-[; ;main.c: 261: sprintf(strLCD, "%c", c1);
+[; ;main.c: 261: do {
 "261
-[e ( _sprintf (1 , (. , -> &U _strLCD `*uc :s 18C -> _c1 `i ]
-[; ;main.c: 262: escreveLinhaLCD(192 + 6, strLCD);
-"262
-[e ( _escreveLinhaLCD (2 , -> + -> 192 `i -> 6 `i `uc -> &U _strLCD `*uc ]
-[; ;main.c: 263: c2 = getKBInput();
+[e :U 935 ]
+{
+[; ;main.c: 263: escreveLinhaLCD(128, "Introduza o alarme  ");
 "263
-[e = _c2 ( _getKBInput ..  ]
-[; ;main.c: 264: sprintf(strLCD, "%c", c2);
+[e ( _escreveLinhaLCD (2 , -> -> 128 `i `uc -> :s 18C `*uc ]
+[; ;main.c: 264: escreveLinhaLCD(192, "Temp:    oC         ");
 "264
-[e ( _sprintf (1 , (. , -> &U _strLCD `*uc :s 19C -> _c2 `i ]
-[; ;main.c: 265: escreveLinhaLCD(192 + 7, strLCD);
-"265
-[e ( _escreveLinhaLCD (2 , -> + -> 192 `i -> 7 `i `uc -> &U _strLCD `*uc ]
-[; ;main.c: 267: if (c1 == '*' || c1 == '#' || c2 == '*' || c2 == '#' || c1 == (0) || c2 == (0))
+[e ( _escreveLinhaLCD (2 , -> -> 192 `i `uc -> :s 19C `*uc ]
+[; ;main.c: 266: c1 = getKBInput();
+"266
+[e = _c1 ( _getKBInput ..  ]
+[; ;main.c: 267: sprintf(strLCD, "%c", c1);
 "267
-[e $ ! || || || || || == -> _c1 `ui -> 42 `ui == -> _c1 `ui -> 35 `ui == -> _c2 `ui -> 42 `ui == -> _c2 `ui -> 35 `ui == -> _c1 `i -> 0 `i == -> _c2 `i -> 0 `i 934  ]
-[; ;main.c: 268: tmp_Alarme = 0;
+[e ( _sprintf (1 , (. , -> &U _strLCD `*uc :s 20C -> _c1 `i ]
+[; ;main.c: 268: escreveLinhaLCD(192 + 6, strLCD);
 "268
-[e = _tmp_Alarme -> -> 0 `i `uc ]
-[e :U 934 ]
-[; ;main.c: 270: c1 = c1 - '0';
+[e ( _escreveLinhaLCD (2 , -> + -> 192 `i -> 6 `i `uc -> &U _strLCD `*uc ]
+[; ;main.c: 269: c2 = getKBInput();
+"269
+[e = _c2 ( _getKBInput ..  ]
+[; ;main.c: 270: sprintf(strLCD, "%c", c2);
 "270
-[e = _c1 -> - -> _c1 `ui -> 48 `ui `uc ]
-[; ;main.c: 271: c2 = c2 - '0';
+[e ( _sprintf (1 , (. , -> &U _strLCD `*uc :s 21C -> _c2 `i ]
+[; ;main.c: 271: escreveLinhaLCD(192 + 7, strLCD);
 "271
-[e = _c2 -> - -> _c2 `ui -> 48 `ui `uc ]
-[; ;main.c: 272: tmp_Alarme = 10 * c1 + c2;
-"272
-[e = _tmp_Alarme -> + * -> 10 `i -> _c1 `i -> _c2 `i `uc ]
+[e ( _escreveLinhaLCD (2 , -> + -> 192 `i -> 7 `i `uc -> &U _strLCD `*uc ]
+[; ;main.c: 273: if (c1 == '*' || c1 == '#' || c2 == '*' || c2 == '#' || c1 == (0) || c2 == (0))
+"273
+[e $ ! || || || || || == -> _c1 `ui -> 42 `ui == -> _c1 `ui -> 35 `ui == -> _c2 `ui -> 42 `ui == -> _c2 `ui -> 35 `ui == -> _c1 `i -> 0 `i == -> _c2 `i -> 0 `i 936  ]
+[; ;main.c: 274: tmp_Alarme = 0;
 "274
-}
-[; ;main.c: 274: } while (tmp_Alarme < 10 || tmp_Alarme > 40);
-[e $ || < -> _tmp_Alarme `i -> 10 `i > -> _tmp_Alarme `i -> 40 `i 933  ]
-[e :U 932 ]
-[; ;main.c: 276: tempAlarme = tmp_Alarme;
+[e = _tmp_Alarme -> -> 0 `i `uc ]
+[e :U 936 ]
+[; ;main.c: 276: c1 = c1 - '0';
 "276
-[e = _tempAlarme _tmp_Alarme ]
-[; ;main.c: 278: _delay((unsigned long)((500)*(6000000/4000.0)));
+[e = _c1 -> - -> _c1 `ui -> 48 `ui `uc ]
+[; ;main.c: 277: c2 = c2 - '0';
+"277
+[e = _c2 -> - -> _c2 `ui -> 48 `ui `uc ]
+[; ;main.c: 278: tmp_Alarme = 10 * c1 + c2;
 "278
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 6000000 `l `d .4000.0 `ul ]
-[; ;main.c: 280: }
+[e = _tmp_Alarme -> + * -> 10 `i -> _c1 `i -> _c2 `i `uc ]
 "280
-[e :UE 930 ]
 }
+[; ;main.c: 280: } while (tmp_Alarme < 10 || tmp_Alarme > 40);
+[e $ || < -> _tmp_Alarme `i -> 10 `i > -> _tmp_Alarme `i -> 40 `i 935  ]
+[e :U 934 ]
+[; ;main.c: 282: tempAlarme = tmp_Alarme;
 "282
+[e = _tempAlarme _tmp_Alarme ]
+[; ;main.c: 284: _delay((unsigned long)((500)*(6000000/4000.0)));
+"284
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 6000000 `l `d .4000.0 `ul ]
+[; ;main.c: 286: }
+"286
+[e :UE 932 ]
+}
+"288
 [v _getKBInput `(uc ~T0 @X0 1 ef ]
 {
-[; ;main.c: 282: char getKBInput(void) {
+[; ;main.c: 288: char getKBInput(void) {
 [e :U _getKBInput ]
 [f ]
-[; ;main.c: 284: do { LATBbits.LATB3 = 1; } while(0);
-"284
-[e :U 938 ]
+[; ;main.c: 290: do { LATBbits.LATB3 = 1; } while(0);
+"290
+[e :U 940 ]
 {
 [e = . . _LATBbits 0 3 -> -> 1 `i `uc ]
 }
-[e :U 937 ]
-[; ;main.c: 286: do {
-"286
-[e :U 941 ]
+[e :U 939 ]
+[; ;main.c: 292: do {
+"292
+[e :U 943 ]
 {
-[; ;main.c: 288: if (LATBbits.LATB3 == 1 && WrEnFl == 0) {
-"288
-[e $ ! && == -> . . _LATBbits 0 3 `i -> 1 `i == -> _WrEnFl `i -> 0 `i 942  ]
+[; ;main.c: 294: if (LATBbits.LATB3 == 1 && WrEnFl == 0) {
+"294
+[e $ ! && == -> . . _LATBbits 0 3 `i -> 1 `i == -> _WrEnFl `i -> 0 `i 944  ]
 {
-[; ;main.c: 289: do { LATBbits.LATB3 = 0; } while(0);
-"289
-[e :U 945 ]
+[; ;main.c: 295: do { LATBbits.LATB3 = 0; } while(0);
+"295
+[e :U 947 ]
 {
 [e = . . _LATBbits 0 3 -> -> 0 `i `uc ]
 }
-[e :U 944 ]
-[; ;main.c: 290: do { LATBbits.LATB4 = 1; } while(0);
-"290
-[e :U 948 ]
+[e :U 946 ]
+[; ;main.c: 296: do { LATBbits.LATB4 = 1; } while(0);
+"296
+[e :U 950 ]
 {
 [e = . . _LATBbits 0 4 -> -> 1 `i `uc ]
 }
-[e :U 947 ]
-"291
+[e :U 949 ]
+"297
 }
-[e :U 942 ]
-[; ;main.c: 291: }
-[; ;main.c: 292: if (LATBbits.LATB4 == 1 && WrEnFl == 0) {
-"292
-[e $ ! && == -> . . _LATBbits 0 4 `i -> 1 `i == -> _WrEnFl `i -> 0 `i 949  ]
+[e :U 944 ]
+[; ;main.c: 297: }
+[; ;main.c: 298: if (LATBbits.LATB4 == 1 && WrEnFl == 0) {
+"298
+[e $ ! && == -> . . _LATBbits 0 4 `i -> 1 `i == -> _WrEnFl `i -> 0 `i 951  ]
 {
-[; ;main.c: 293: do { LATBbits.LATB4 = 0; } while(0);
-"293
-[e :U 952 ]
+[; ;main.c: 299: do { LATBbits.LATB4 = 0; } while(0);
+"299
+[e :U 954 ]
 {
 [e = . . _LATBbits 0 4 -> -> 0 `i `uc ]
 }
-[e :U 951 ]
-[; ;main.c: 294: do { LATBbits.LATB5 = 1; } while(0);
-"294
-[e :U 955 ]
+[e :U 953 ]
+[; ;main.c: 300: do { LATBbits.LATB5 = 1; } while(0);
+"300
+[e :U 957 ]
 {
 [e = . . _LATBbits 0 5 -> -> 1 `i `uc ]
 }
-[e :U 954 ]
-"295
+[e :U 956 ]
+"301
 }
-[e :U 949 ]
-[; ;main.c: 295: }
-[; ;main.c: 296: if (LATBbits.LATB5 == 1 && WrEnFl == 0) {
-"296
-[e $ ! && == -> . . _LATBbits 0 5 `i -> 1 `i == -> _WrEnFl `i -> 0 `i 956  ]
+[e :U 951 ]
+[; ;main.c: 301: }
+[; ;main.c: 302: if (LATBbits.LATB5 == 1 && WrEnFl == 0) {
+"302
+[e $ ! && == -> . . _LATBbits 0 5 `i -> 1 `i == -> _WrEnFl `i -> 0 `i 958  ]
 {
-[; ;main.c: 297: do { LATBbits.LATB5 = 0; } while(0);
-"297
-[e :U 959 ]
+[; ;main.c: 303: do { LATBbits.LATB5 = 0; } while(0);
+"303
+[e :U 961 ]
 {
 [e = . . _LATBbits 0 5 -> -> 0 `i `uc ]
 }
-[e :U 958 ]
-[; ;main.c: 298: do { LATBbits.LATB6 = 1; } while(0);
-"298
-[e :U 962 ]
+[e :U 960 ]
+[; ;main.c: 304: do { LATBbits.LATB6 = 1; } while(0);
+"304
+[e :U 964 ]
 {
 [e = . . _LATBbits 0 6 -> -> 1 `i `uc ]
-}
-[e :U 961 ]
-"299
-}
-[e :U 956 ]
-[; ;main.c: 299: }
-[; ;main.c: 300: if (LATBbits.LATB6 == 1 && WrEnFl == 0) {
-"300
-[e $ ! && == -> . . _LATBbits 0 6 `i -> 1 `i == -> _WrEnFl `i -> 0 `i 963  ]
-{
-[; ;main.c: 301: do { LATBbits.LATB6 = 0; } while(0);
-"301
-[e :U 966 ]
-{
-[e = . . _LATBbits 0 6 -> -> 0 `i `uc ]
-}
-[e :U 965 ]
-[; ;main.c: 302: do { LATBbits.LATB3 = 1; } while(0);
-"302
-[e :U 969 ]
-{
-[e = . . _LATBbits 0 3 -> -> 1 `i `uc ]
-}
-[e :U 968 ]
-"303
 }
 [e :U 963 ]
 "305
 }
-[; ;main.c: 303: }
-[; ;main.c: 305: } while (WrEnFl == 0 && PORTAbits.RA1 != 0);
-[e $ && == -> _WrEnFl `i -> 0 `i != -> . . _PORTAbits 0 1 `i -> 0 `i 941  ]
-[e :U 940 ]
-[; ;main.c: 306: WrEnFl = 0;
+[e :U 958 ]
+[; ;main.c: 305: }
+[; ;main.c: 306: if (LATBbits.LATB6 == 1 && WrEnFl == 0) {
 "306
-[e = _WrEnFl -> -> 0 `i `uc ]
-[; ;main.c: 308: while (PORTBbits.RB0 == 1 || PORTBbits.RB1 == 1 || PORTBbits.RB2 == 1);
-"308
-[e $U 970  ]
-[e :U 971 ]
-[e :U 970 ]
-[e $ || || == -> . . _PORTBbits 0 0 `i -> 1 `i == -> . . _PORTBbits 0 1 `i -> 1 `i == -> . . _PORTBbits 0 2 `i -> 1 `i 971  ]
-[e :U 972 ]
-[; ;main.c: 310: if (PORTAbits.RA1 == 0) {
-"310
-[e $ ! == -> . . _PORTAbits 0 1 `i -> 0 `i 973  ]
+[e $ ! && == -> . . _LATBbits 0 6 `i -> 1 `i == -> _WrEnFl `i -> 0 `i 965  ]
 {
-[; ;main.c: 311: return (0);
+[; ;main.c: 307: do { LATBbits.LATB6 = 0; } while(0);
+"307
+[e :U 968 ]
+{
+[e = . . _LATBbits 0 6 -> -> 0 `i `uc ]
+}
+[e :U 967 ]
+[; ;main.c: 308: do { LATBbits.LATB3 = 1; } while(0);
+"308
+[e :U 971 ]
+{
+[e = . . _LATBbits 0 3 -> -> 1 `i `uc ]
+}
+[e :U 970 ]
+"309
+}
+[e :U 965 ]
 "311
-[e ) -> -> 0 `i `uc ]
-[e $UE 935  ]
+}
+[; ;main.c: 309: }
+[; ;main.c: 311: } while (WrEnFl == 0 && PORTAbits.RA1 != 0);
+[e $ && == -> _WrEnFl `i -> 0 `i != -> . . _PORTAbits 0 1 `i -> 0 `i 943  ]
+[e :U 942 ]
+[; ;main.c: 312: WrEnFl = 0;
 "312
-}
-[e :U 973 ]
-[; ;main.c: 312: }
-[; ;main.c: 314: return TeclaTMP;
+[e = _WrEnFl -> -> 0 `i `uc ]
+[; ;main.c: 314: while (PORTBbits.RB0 == 1 || PORTBbits.RB1 == 1 || PORTBbits.RB2 == 1);
 "314
-[e ) _TeclaTMP ]
-[e $UE 935  ]
-[; ;main.c: 316: }
+[e $U 972  ]
+[e :U 973 ]
+[e :U 972 ]
+[e $ || || == -> . . _PORTBbits 0 0 `i -> 1 `i == -> . . _PORTBbits 0 1 `i -> 1 `i == -> . . _PORTBbits 0 2 `i -> 1 `i 973  ]
+[e :U 974 ]
+[; ;main.c: 316: if (PORTAbits.RA1 == 0) {
 "316
-[e :UE 935 ]
-}
+[e $ ! == -> . . _PORTAbits 0 1 `i -> 0 `i 975  ]
+{
+[; ;main.c: 317: return (0);
+"317
+[e ) -> -> 0 `i `uc ]
+[e $UE 937  ]
 "318
+}
+[e :U 975 ]
+[; ;main.c: 318: }
+[; ;main.c: 320: return TeclaTMP;
+"320
+[e ) _TeclaTMP ]
+[e $UE 937  ]
+[; ;main.c: 322: }
+"322
+[e :UE 937 ]
+}
+"324
 [v _feedbackUSART `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 318: void feedbackUSART(void) {
+[; ;main.c: 324: void feedbackUSART(void) {
 [e :U _feedbackUSART ]
 [f ]
-[; ;main.c: 320: while (BusyXLCD());
-"320
-[e $U 975  ]
-[e :U 976 ]
-[e :U 975 ]
-[e $ != -> ( _BusyXLCD ..  `i -> -> -> 0 `i `uc `i 976  ]
-[e :U 977 ]
-[; ;main.c: 321: WriteCmdXLCD(1);
-"321
-[e ( _WriteCmdXLCD (1 -> -> 1 `i `uc ]
-[; ;main.c: 323: while (PORTAbits.RA1 != 0) {
-"323
-[e $U 978  ]
-[e :U 979 ]
-{
-[; ;main.c: 325: eusart_Tx_On = 1;
-"325
-[e = _eusart_Tx_On -> -> 1 `i `uc ]
-[; ;main.c: 326: eusart_Tx_En = 1;
+[; ;main.c: 326: while (BusyXLCD());
 "326
-[e = _eusart_Tx_En -> -> 1 `i `uc ]
-[; ;main.c: 327: while (eusart_Tx_On == 1);
+[e $U 977  ]
+[e :U 978 ]
+[e :U 977 ]
+[e $ != -> ( _BusyXLCD ..  `i -> -> -> 0 `i `uc `i 978  ]
+[e :U 979 ]
+[; ;main.c: 327: WriteCmdXLCD(1);
 "327
-[e $U 981  ]
-[e :U 982 ]
+[e ( _WriteCmdXLCD (1 -> -> 1 `i `uc ]
+[; ;main.c: 329: while (PORTAbits.RA1 != 0) {
+"329
+[e $U 980  ]
 [e :U 981 ]
-[e $ == -> _eusart_Tx_On `i -> 1 `i 982  ]
-[e :U 983 ]
-[; ;main.c: 330: for (i = 0; i < 42 - 1; i++) {
-"330
 {
-[e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i - -> 42 `i -> 1 `i 984  ]
-[e $U 985  ]
-[e :U 984 ]
-{
-[; ;main.c: 331: strLCD[i] = strUSART[i];
+[; ;main.c: 331: eusart_Tx_On = 1;
 "331
-[e = *U + &U _strLCD * -> _i `ux -> -> # *U &U _strLCD `ui `ux *U + &U _strUSART * -> _i `ux -> -> # *U &U _strUSART `ui `ux ]
+[e = _eusart_Tx_On -> -> 1 `i `uc ]
+[; ;main.c: 332: eusart_Tx_En = 1;
 "332
-}
-"330
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i - -> 42 `i -> 1 `i 984  ]
+[e = _eusart_Tx_En -> -> 1 `i `uc ]
+[; ;main.c: 333: while (eusart_Tx_On == 1);
+"333
+[e $U 983  ]
+[e :U 984 ]
+[e :U 983 ]
+[e $ == -> _eusart_Tx_On `i -> 1 `i 984  ]
 [e :U 985 ]
-"332
-}
-[; ;main.c: 332: }
-[; ;main.c: 335: for (i = 0; strUSART[i] != '\0'; i++) {
-"335
+[; ;main.c: 336: for (i = 0; i < 42 - 1; i++) {
+"336
 {
 [e = _i -> -> 0 `i `uc ]
-[e $U 990  ]
-[e :U 987 ]
+[e $ < -> _i `i - -> 42 `i -> 1 `i 986  ]
+[e $U 987  ]
+[e :U 986 ]
 {
-[; ;main.c: 336: EUSART1_Write(strUSART[i]);
-"336
-[e ( _EUSART1_Write (1 *U + &U _strUSART * -> _i `ux -> -> # *U &U _strUSART `ui `ux ]
-[; ;main.c: 337: strUSART[i] = '\0';
+[; ;main.c: 337: strLCD[i] = strUSART[i];
 "337
-[e = *U + &U _strUSART * -> _i `ux -> -> # *U &U _strUSART `ui `ux -> -> 0 `ui `uc ]
+[e = *U + &U _strLCD * -> _i `ux -> -> # *U &U _strLCD `ui `ux *U + &U _strUSART * -> _i `ux -> -> # *U &U _strUSART `ui `ux ]
 "338
 }
-"335
+"336
 [e ++ _i -> -> 1 `i `uc ]
-[e :U 990 ]
-[e $ != -> *U + &U _strUSART * -> _i `ux -> -> # *U &U _strUSART `ui `ux `ui -> 0 `ui 987  ]
-[e :U 988 ]
+[e $ < -> _i `i - -> 42 `i -> 1 `i 986  ]
+[e :U 987 ]
 "338
 }
 [; ;main.c: 338: }
-[; ;main.c: 341: EUSART1_Write('\r');
+[; ;main.c: 341: for (i = 0; strUSART[i] != '\0'; i++) {
 "341
-[e ( _EUSART1_Write (1 -> -> 13 `ui `uc ]
-[; ;main.c: 343: while (BusyXLCD());
+{
+[e = _i -> -> 0 `i `uc ]
+[e $U 992  ]
+[e :U 989 ]
+{
+[; ;main.c: 342: EUSART1_Write(strUSART[i]);
+"342
+[e ( _EUSART1_Write (1 *U + &U _strUSART * -> _i `ux -> -> # *U &U _strUSART `ui `ux ]
+[; ;main.c: 343: strUSART[i] = '\0';
 "343
-[e $U 991  ]
-[e :U 992 ]
-[e :U 991 ]
-[e $ != -> ( _BusyXLCD ..  `i -> -> -> 0 `i `uc `i 992  ]
-[e :U 993 ]
-[; ;main.c: 344: WriteCmdXLCD(1);
+[e = *U + &U _strUSART * -> _i `ux -> -> # *U &U _strUSART `ui `ux -> -> 0 `ui `uc ]
 "344
-[e ( _WriteCmdXLCD (1 -> -> 1 `i `uc ]
-[; ;main.c: 345: escreveLinhaLCD(128, strLCD);
-"345
-[e ( _escreveLinhaLCD (2 , -> -> 128 `i `uc -> &U _strLCD `*uc ]
-"347
 }
-[e :U 978 ]
-"323
-[e $ != -> . . _PORTAbits 0 1 `i -> 0 `i 979  ]
-[e :U 980 ]
-[; ;main.c: 347: }
-[; ;main.c: 349: while (PORTAbits.RA1 == 0);
+"341
+[e ++ _i -> -> 1 `i `uc ]
+[e :U 992 ]
+[e $ != -> *U + &U _strUSART * -> _i `ux -> -> # *U &U _strUSART `ui `ux `ui -> 0 `ui 989  ]
+[e :U 990 ]
+"344
+}
+[; ;main.c: 344: }
+[; ;main.c: 347: EUSART1_Write('\r');
+"347
+[e ( _EUSART1_Write (1 -> -> 13 `ui `uc ]
+[; ;main.c: 349: while (BusyXLCD());
 "349
-[e $U 994  ]
-[e :U 995 ]
+[e $U 993  ]
 [e :U 994 ]
-[e $ == -> . . _PORTAbits 0 1 `i -> 0 `i 995  ]
-[e :U 996 ]
-[; ;main.c: 351: eusart_Tx_On = 0;
+[e :U 993 ]
+[e $ != -> ( _BusyXLCD ..  `i -> -> -> 0 `i `uc `i 994  ]
+[e :U 995 ]
+[; ;main.c: 350: WriteCmdXLCD(1);
+"350
+[e ( _WriteCmdXLCD (1 -> -> 1 `i `uc ]
+[; ;main.c: 351: escreveLinhaLCD(128, strLCD);
 "351
+[e ( _escreveLinhaLCD (2 , -> -> 128 `i `uc -> &U _strLCD `*uc ]
+"353
+}
+[e :U 980 ]
+"329
+[e $ != -> . . _PORTAbits 0 1 `i -> 0 `i 981  ]
+[e :U 982 ]
+[; ;main.c: 353: }
+[; ;main.c: 355: while (PORTAbits.RA1 == 0);
+"355
+[e $U 996  ]
+[e :U 997 ]
+[e :U 996 ]
+[e $ == -> . . _PORTAbits 0 1 `i -> 0 `i 997  ]
+[e :U 998 ]
+[; ;main.c: 357: eusart_Tx_On = 0;
+"357
 [e = _eusart_Tx_On -> -> 0 `i `uc ]
-[; ;main.c: 352: eusart_Tx_En = 0;
-"352
+[; ;main.c: 358: eusart_Tx_En = 0;
+"358
 [e = _eusart_Tx_En -> -> 0 `i `uc ]
-[; ;main.c: 354: }
-"354
-[e :UE 974 ]
+[; ;main.c: 360: }
+"360
+[e :UE 976 ]
 }
 [p f _sprintf 8945792 ]
-[a 11C 37 50 100 0 ]
-[a 12C 37 50 100 0 ]
+[a 13C 37 50 100 0 ]
+[a 14C 37 50 100 0 ]
 [a 2C 37 100 0 ]
-[a 15C 37 99 0 ]
-[a 18C 37 99 0 ]
-[a 19C 37 99 0 ]
-[a 8C 33 65 76 65 82 77 69 33 32 84 69 77 80 62 0 ]
+[a 17C 37 99 0 ]
+[a 20C 37 99 0 ]
+[a 21C 37 99 0 ]
+[a 10C 33 65 76 65 82 77 69 33 32 84 69 77 80 62 0 ]
 [a 1C 77 101 110 117 32 32 32 32 32 32 32 32 32 79 112 99 97 111 58 0 ]
-[a 5C 77 101 110 117 32 32 32 32 32 32 32 32 32 79 112 99 97 111 58 0 ]
-[a 7C 84 101 109 112 46 32 65 108 97 114 109 101 58 32 37 50 100 32 111 67 32 0 ]
-[a 6C 84 101 109 112 46 32 65 116 117 97 108 58 32 32 37 50 100 32 111 67 32 0 ]
-[a 9C 84 101 109 112 46 32 65 108 97 114 109 101 58 32 0 ]
-[a 10C 84 101 109 112 46 32 65 108 97 114 109 101 58 32 0 ]
-[a 16C 73 110 116 114 111 100 117 122 97 32 111 32 97 108 97 114 109 101 32 32 0 ]
+[a 7C 77 101 110 117 32 32 32 32 32 32 32 32 32 79 112 99 97 111 58 0 ]
+[a 9C 84 101 109 112 46 32 65 108 97 114 109 101 58 32 37 50 100 32 111 67 32 0 ]
+[a 8C 84 101 109 112 46 32 65 116 117 97 108 58 32 32 37 50 100 32 111 67 32 0 ]
+[a 11C 84 101 109 112 46 32 65 108 97 114 109 101 58 32 0 ]
+[a 12C 84 101 109 112 46 32 65 108 97 114 109 101 58 32 0 ]
+[a 18C 73 110 116 114 111 100 117 122 97 32 111 32 97 108 97 114 109 101 32 32 0 ]
+[a 5C 84 101 115 116 101 32 100 111 32 116 101 99 108 97 100 111 32 32 32 32 32 0 ]
 [a 4C 84 101 109 112 46 32 100 101 32 97 108 97 114 109 101 32 32 32 32 32 32 0 ]
-[a 13C 84 101 115 116 101 32 84 101 99 108 97 100 111 32 32 32 32 32 32 32 0 ]
+[a 6C 70 101 101 100 98 97 99 107 32 69 85 83 65 82 84 32 32 32 32 32 32 0 ]
+[a 15C 84 101 115 116 101 32 84 101 99 108 97 100 111 32 32 32 32 32 32 32 0 ]
 [a 3C 77 111 110 105 116 111 114 105 122 97 99 97 111 32 32 32 32 32 32 32 32 0 ]
-[a 17C 84 101 109 112 58 32 32 32 32 111 67 32 32 32 32 32 32 32 32 32 0 ]
-[a 14C 78 117 109 101 114 111 58 32 32 32 32 32 32 32 32 32 32 32 32 32 0 ]
+[a 19C 84 101 109 112 58 32 32 32 32 111 67 32 32 32 32 32 32 32 32 32 0 ]
+[a 16C 78 117 109 101 114 111 58 32 32 32 32 32 32 32 32 32 32 32 32 32 0 ]

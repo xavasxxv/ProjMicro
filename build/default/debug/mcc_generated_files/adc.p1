@@ -1,4 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
+"63 mcc_generated_files/../GlobalDefinitions.h
+[c E7002 0 1 2 3 4 5 6 .. ]
+[n E7002 . I2C1_MESSAGE_COMPLETE I2C1_MESSAGE_FAIL I2C1_MESSAGE_PENDING I2C1_STUCK_START I2C1_MESSAGE_ADDRESS_NO_ACK I2C1_DATA_NO_ACK I2C1_LOST_STATE  ]
 "13575 C:\Program Files (x86)\Microchip\xc8\v1.44\include\pic18f45k22.h
 [v _ADCON0 `Vuc ~T0 @X0 0 e@4034 ]
 "13507
@@ -20,7 +23,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S432 . . . ]
 "9434
 [v _PIE1bits `VS432 ~T0 @X0 0 e@3997 ]
-"81 mcc_generated_files/adc.c
+"82 mcc_generated_files/adc.c
 [c E6975 29 30 31 .. ]
 [n E6975 . channel_CTMU channel_DAC channel_FVRBuf2  ]
 "13581 C:\Program Files (x86)\Microchip\xc8\v1.44\include\pic18f45k22.h
@@ -56,6 +59,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _sprintf `(i ~T0 @X0 0 e1v`*uc`*Cuc ]
 "172 mcc_generated_files/eusart1.h
 [v _EUSART1_Write `(v ~T0 @X0 0 ef1`uc ]
+"259 mcc_generated_files/i2c1.h
+[v _I2C1_MasterWrite `(v ~T0 @X0 0 ef4`*uc`uc`ui`*E7002 ]
 "9495 C:\Program Files (x86)\Microchip\xc8\v1.44\include\pic18f45k22.h
 [s S436 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S436 . TMR1IF TMR2IF CCP1IF SSP1IF TX1IF RC1IF ADIF ]
@@ -6667,6 +6672,52 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eusart1.h: 172: void EUSART1_Write(uint8_t txData);
 [; ;eusart1.h: 193: void EUSART1_Receive_ISR(void);
 [; ;__size_t.h: 4: typedef unsigned size_t;
+[; ;stddef.h: 6: typedef int ptrdiff_t;
+[; ;i2c1.h: 83: typedef enum
+[; ;i2c1.h: 84: {
+[; ;i2c1.h: 85: I2C1_MESSAGE_COMPLETE,
+[; ;i2c1.h: 86: I2C1_MESSAGE_FAIL,
+[; ;i2c1.h: 87: I2C1_MESSAGE_PENDING,
+[; ;i2c1.h: 88: I2C1_STUCK_START,
+[; ;i2c1.h: 89: I2C1_MESSAGE_ADDRESS_NO_ACK,
+[; ;i2c1.h: 90: I2C1_DATA_NO_ACK,
+[; ;i2c1.h: 91: I2C1_LOST_STATE
+[; ;i2c1.h: 92: } I2C1_MESSAGE_STATUS;
+[; ;i2c1.h: 108: typedef struct
+[; ;i2c1.h: 109: {
+[; ;i2c1.h: 110: uint16_t address;
+[; ;i2c1.h: 113: uint8_t length;
+[; ;i2c1.h: 114: uint8_t *pbuffer;
+[; ;i2c1.h: 115: } I2C1_TRANSACTION_REQUEST_BLOCK;
+[; ;i2c1.h: 220: void I2C1_Initialize(void);
+[; ;i2c1.h: 259: void I2C1_MasterWrite(
+[; ;i2c1.h: 260: uint8_t *pdata,
+[; ;i2c1.h: 261: uint8_t length,
+[; ;i2c1.h: 262: uint16_t address,
+[; ;i2c1.h: 263: I2C1_MESSAGE_STATUS *pstatus);
+[; ;i2c1.h: 406: void I2C1_MasterRead(
+[; ;i2c1.h: 407: uint8_t *pdata,
+[; ;i2c1.h: 408: uint8_t length,
+[; ;i2c1.h: 409: uint16_t address,
+[; ;i2c1.h: 410: I2C1_MESSAGE_STATUS *pstatus);
+[; ;i2c1.h: 516: void I2C1_MasterTRBInsert(
+[; ;i2c1.h: 517: uint8_t count,
+[; ;i2c1.h: 518: I2C1_TRANSACTION_REQUEST_BLOCK *ptrb_list,
+[; ;i2c1.h: 519: I2C1_MESSAGE_STATUS *pflag);
+[; ;i2c1.h: 560: void I2C1_MasterReadTRBBuild(
+[; ;i2c1.h: 561: I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
+[; ;i2c1.h: 562: uint8_t *pdata,
+[; ;i2c1.h: 563: uint8_t length,
+[; ;i2c1.h: 564: uint16_t address);
+[; ;i2c1.h: 605: void I2C1_MasterWriteTRBBuild(
+[; ;i2c1.h: 606: I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
+[; ;i2c1.h: 607: uint8_t *pdata,
+[; ;i2c1.h: 608: uint8_t length,
+[; ;i2c1.h: 609: uint16_t address);
+[; ;i2c1.h: 647: bool I2C1_MasterQueueIsEmpty(void);
+[; ;i2c1.h: 685: bool I2C1_MasterQueueIsFull(void);
+[; ;i2c1.h: 686: void I2C1_BusCollisionISR( void );
+[; ;i2c1.h: 687: void I2C1_ISR ( void );
 [; ;string.h: 14: extern void * memcpy(void *, const void *, size_t);
 [; ;string.h: 15: extern void * memmove(void *, const void *, size_t);
 [; ;string.h: 16: extern void * memset(void *, int, size_t);
@@ -6785,323 +6836,400 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;xlcd.h: 132: extern void DelayFor18TCY(void);
 [; ;xlcd.h: 133: extern void DelayPORXLCD(void);
 [; ;xlcd.h: 134: extern void DelayXLCD(void);
-"34 mcc_generated_files/../GlobalDefinitions.h
+"37 mcc_generated_files/../GlobalDefinitions.h
 [v _strLCD `Vuc ~T0 @X0 -> 42 `i e ]
-[; ;GlobalDefinitions.h: 34: volatile char strLCD[42];
-"35
-[v _strUSART `Vuc ~T0 @X0 -> 42 `i e ]
-[; ;GlobalDefinitions.h: 35: volatile char strUSART[42];
-"36
-[v _TeclaTMP `Vuc ~T0 @X0 1 e ]
-[; ;GlobalDefinitions.h: 36: volatile char TeclaTMP;
-"37
-[v _tmpTemp `Vd ~T0 @X0 1 e ]
-[; ;GlobalDefinitions.h: 37: volatile double tmpTemp;
+[; ;GlobalDefinitions.h: 37: volatile char strLCD[42];
 "38
-[v _lastMenu `Vuc ~T0 @X0 1 e ]
-[; ;GlobalDefinitions.h: 38: volatile char lastMenu;
+[v _strUSART `Vuc ~T0 @X0 -> 42 `i e ]
+[; ;GlobalDefinitions.h: 38: volatile char strUSART[42];
 "39
+[v _i2cWriteBlock `Vuc ~T0 @X0 -> 10 `i e ]
+[; ;GlobalDefinitions.h: 39: volatile char i2cWriteBlock[10];
+"40
+[v _TeclaTMP `Vuc ~T0 @X0 1 e ]
+[; ;GlobalDefinitions.h: 40: volatile char TeclaTMP;
+"41
+[v _tmpTemp `Vd ~T0 @X0 1 e ]
+[; ;GlobalDefinitions.h: 41: volatile double tmpTemp;
+"42
+[v _lastMenu `Vuc ~T0 @X0 1 e ]
+[; ;GlobalDefinitions.h: 42: volatile char lastMenu;
+"43
 [v _update `Vuc ~T0 @X0 1 e ]
 [i _update
 -> -> 1 `i `uc
 ]
-[; ;GlobalDefinitions.h: 39: volatile char update = 1;
-"40
+[; ;GlobalDefinitions.h: 43: volatile char update = 1;
+"44
 [v _i `Vuc ~T0 @X0 1 e ]
-[; ;GlobalDefinitions.h: 40: volatile char i;
-"41
+[; ;GlobalDefinitions.h: 44: volatile char i;
+"45
 [v _j `Vc ~T0 @X0 1 e ]
 [i _j
 -> -> 0 `i `c
 ]
-[; ;GlobalDefinitions.h: 41: volatile signed char j = 0;
-"42
+[; ;GlobalDefinitions.h: 45: volatile signed char j = 0;
+"46
 [v _menu_tmp `Vuc ~T0 @X0 1 e ]
 [i _menu_tmp
 -> -> 1 `i `uc
 ]
-[; ;GlobalDefinitions.h: 42: volatile char menu_tmp = 1;
-"43
+[; ;GlobalDefinitions.h: 46: volatile char menu_tmp = 1;
+"47
 [v _tempAlarme `Vuc ~T0 @X0 1 e ]
 [i _tempAlarme
 -> -> 25 `i `uc
 ]
-[; ;GlobalDefinitions.h: 43: volatile char tempAlarme = 25;
-"44
+[; ;GlobalDefinitions.h: 47: volatile char tempAlarme = 25;
+"48
 [v _tempAtual `Vuc ~T0 @X0 1 e ]
 [i _tempAtual
 -> -> 25 `i `uc
 ]
-[; ;GlobalDefinitions.h: 44: volatile char tempAtual = 25;
-"45
+[; ;GlobalDefinitions.h: 48: volatile char tempAtual = 25;
+"49
 [v _clk4Hz `Vuc ~T0 @X0 1 e ]
 [i _clk4Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 45: volatile bool clk4Hz = 0;
-"46
+[; ;GlobalDefinitions.h: 49: volatile bool clk4Hz = 0;
+"50
 [v _clk2Hz `Vuc ~T0 @X0 1 e ]
 [i _clk2Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 46: volatile bool clk2Hz = 0;
-"47
+[; ;GlobalDefinitions.h: 50: volatile bool clk2Hz = 0;
+"51
 [v _clk1Hz `Vuc ~T0 @X0 1 e ]
 [i _clk1Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 47: volatile bool clk1Hz = 0;
-"48
+[; ;GlobalDefinitions.h: 51: volatile bool clk1Hz = 0;
+"52
 [v _clk1_2Hz `Vuc ~T0 @X0 1 e ]
 [i _clk1_2Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 48: volatile bool clk1_2Hz = 0;
-"49
+[; ;GlobalDefinitions.h: 52: volatile bool clk1_2Hz = 0;
+"53
 [v _clk1_4Hz `Vuc ~T0 @X0 1 e ]
 [i _clk1_4Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 49: volatile bool clk1_4Hz = 0;
-"50
+[; ;GlobalDefinitions.h: 53: volatile bool clk1_4Hz = 0;
+"54
 [v _clk1_8Hz `Vuc ~T0 @X0 1 e ]
 [i _clk1_8Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 50: volatile bool clk1_8Hz = 0;
-"51
+[; ;GlobalDefinitions.h: 54: volatile bool clk1_8Hz = 0;
+"55
 [v _alarme `Vuc ~T0 @X0 1 e ]
 [i _alarme
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 51: volatile bool alarme = 0;
-"52
+[; ;GlobalDefinitions.h: 55: volatile bool alarme = 0;
+"56
 [v _binADC `Vi ~T0 @X0 1 e ]
 [i _binADC
 -> 0 `i
 ]
-[; ;GlobalDefinitions.h: 52: volatile int binADC = 0;
-"53
+[; ;GlobalDefinitions.h: 56: volatile int binADC = 0;
+"57
 [v _WrEnFl `Vuc ~T0 @X0 1 e ]
 [i _WrEnFl
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 53: volatile bool WrEnFl = 0;
-"54
+[; ;GlobalDefinitions.h: 57: volatile bool WrEnFl = 0;
+"58
 [v _eusart_Tx_En `Vuc ~T0 @X0 1 e ]
 [i _eusart_Tx_En
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 54: volatile bool eusart_Tx_En = 0;
-"55
+[; ;GlobalDefinitions.h: 58: volatile bool eusart_Tx_En = 0;
+"59
 [v _eusart_Tx_On `Vuc ~T0 @X0 1 e ]
 [i _eusart_Tx_On
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 55: volatile bool eusart_Tx_On = 0;
-[; ;GlobalDefinitions.h: 58: void escreveLinhaLCD(char linha, char texto[42]);
-[; ;GlobalDefinitions.h: 59: void menu(void);
-[; ;GlobalDefinitions.h: 60: void monitorizacao(void);
-[; ;GlobalDefinitions.h: 61: void testeTeclado(void);
-[; ;GlobalDefinitions.h: 62: void defTempAlarme(void);
-[; ;GlobalDefinitions.h: 63: char getKBInput(void);
-[; ;GlobalDefinitions.h: 64: void feedbackUSART(void);
-"59 mcc_generated_files/adc.c
+[; ;GlobalDefinitions.h: 59: volatile bool eusart_Tx_On = 0;
+"60
+[v _memAddr `Vi ~T0 @X0 1 e ]
+[i _memAddr
+-> 0 `i
+]
+[; ;GlobalDefinitions.h: 60: volatile signed int memAddr = 0;
+"61
+[v _memAddrBytes `Vuc ~T0 @X0 -> 2 `i e ]
+[; ;GlobalDefinitions.h: 61: volatile char memAddrBytes[2];
+"62
+[v _regNum `Vi ~T0 @X0 1 e ]
+[i _regNum
+-> 0 `i
+]
+[; ;GlobalDefinitions.h: 62: volatile signed int regNum = 0;
+"63
+[v _stateMsgI2c `VE7002 ~T0 @X0 1 e ]
+[; ;GlobalDefinitions.h: 63: volatile I2C1_MESSAGE_STATUS stateMsgI2c;
+[; ;GlobalDefinitions.h: 66: void escreveLinhaLCD(char linha, char texto[42]);
+[; ;GlobalDefinitions.h: 67: void menu(void);
+[; ;GlobalDefinitions.h: 68: void monitorizacao(void);
+[; ;GlobalDefinitions.h: 69: void testeTeclado(void);
+[; ;GlobalDefinitions.h: 70: void defTempAlarme(void);
+[; ;GlobalDefinitions.h: 71: char getKBInput(void);
+[; ;GlobalDefinitions.h: 72: void feedbackUSART(void);
+"60 mcc_generated_files/adc.c
 [v _ADC_Initialize `(v ~T0 @X0 1 ef ]
 {
-[; ;adc.c: 59: void ADC_Initialize(void) {
+[; ;adc.c: 60: void ADC_Initialize(void) {
 [e :U _ADC_Initialize ]
 [f ]
-[; ;adc.c: 63: ADCON0 = 0x0D;
-"63
+[; ;adc.c: 64: ADCON0 = 0x0D;
+"64
 [e = _ADCON0 -> -> 13 `i `uc ]
-[; ;adc.c: 66: ADCON1 = 0x00;
-"66
+[; ;adc.c: 67: ADCON1 = 0x00;
+"67
 [e = _ADCON1 -> -> 0 `i `uc ]
-[; ;adc.c: 69: ADCON2 = 0x89;
-"69
+[; ;adc.c: 70: ADCON2 = 0x89;
+"70
 [e = _ADCON2 -> -> 137 `i `uc ]
-[; ;adc.c: 72: ADRESL = 0x00;
-"72
+[; ;adc.c: 73: ADRESL = 0x00;
+"73
 [e = _ADRESL -> -> 0 `i `uc ]
-[; ;adc.c: 75: ADRESH = 0x00;
-"75
+[; ;adc.c: 76: ADRESH = 0x00;
+"76
 [e = _ADRESH -> -> 0 `i `uc ]
-[; ;adc.c: 78: PIE1bits.ADIE = 1;
-"78
-[e = . . _PIE1bits 0 6 -> -> 1 `i `uc ]
-[; ;adc.c: 79: }
+[; ;adc.c: 79: PIE1bits.ADIE = 1;
 "79
-[e :UE 852 ]
+[e = . . _PIE1bits 0 6 -> -> 1 `i `uc ]
+[; ;adc.c: 80: }
+"80
+[e :UE 853 ]
 }
-"81
+"82
 [v _ADC_SelectChannel `(v ~T0 @X0 1 ef1`E6975 ]
 {
-[; ;adc.c: 81: void ADC_SelectChannel(adc_channel_t channel) {
+[; ;adc.c: 82: void ADC_SelectChannel(adc_channel_t channel) {
 [e :U _ADC_SelectChannel ]
 [v _channel `E6975 ~T0 @X0 1 r1 ]
 [f ]
-[; ;adc.c: 83: ADCON0bits.CHS = channel;
-"83
+[; ;adc.c: 84: ADCON0bits.CHS = channel;
+"84
 [e = . . _ADCON0bits 1 2 -> _channel `uc ]
-[; ;adc.c: 85: ADCON0bits.ADON = 1;
-"85
-[e = . . _ADCON0bits 1 0 -> -> 1 `i `uc ]
-[; ;adc.c: 86: }
+[; ;adc.c: 86: ADCON0bits.ADON = 1;
 "86
-[e :UE 853 ]
-}
-"88
-[v _ADC_StartConversion `(v ~T0 @X0 1 ef ]
-{
-[; ;adc.c: 88: void ADC_StartConversion() {
-[e :U _ADC_StartConversion ]
-[f ]
-[; ;adc.c: 90: ADCON0bits.GO_nDONE = 1;
-"90
-[e = . . _ADCON0bits 1 1 -> -> 1 `i `uc ]
-[; ;adc.c: 91: }
-"91
+[e = . . _ADCON0bits 1 0 -> -> 1 `i `uc ]
+[; ;adc.c: 87: }
+"87
 [e :UE 854 ]
 }
-"93
-[v _ADC_IsConversionDone `(uc ~T0 @X0 1 ef ]
+"89
+[v _ADC_StartConversion `(v ~T0 @X0 1 ef ]
 {
-[; ;adc.c: 93: bool ADC_IsConversionDone() {
-[e :U _ADC_IsConversionDone ]
+[; ;adc.c: 89: void ADC_StartConversion() {
+[e :U _ADC_StartConversion ]
 [f ]
-[; ;adc.c: 95: return ((bool) (!ADCON0bits.GO_nDONE));
-"95
-[e ) -> -> ! != -> . . _ADCON0bits 1 1 `i -> -> -> 0 `i `Vuc `i `i `uc ]
-[e $UE 855  ]
-[; ;adc.c: 96: }
-"96
+[; ;adc.c: 91: ADCON0bits.GO_nDONE = 1;
+"91
+[e = . . _ADCON0bits 1 1 -> -> 1 `i `uc ]
+[; ;adc.c: 92: }
+"92
 [e :UE 855 ]
 }
-"98
-[v _ADC_GetConversionResult `(ui ~T0 @X0 1 ef ]
+"94
+[v _ADC_IsConversionDone `(uc ~T0 @X0 1 ef ]
 {
-[; ;adc.c: 98: adc_result_t ADC_GetConversionResult(void) {
-[e :U _ADC_GetConversionResult ]
+[; ;adc.c: 94: bool ADC_IsConversionDone() {
+[e :U _ADC_IsConversionDone ]
 [f ]
-[; ;adc.c: 100: return ((adc_result_t) ((ADRESH << 8) + ADRESL));
-"100
-[e ) -> + << -> _ADRESH `i -> 8 `i -> _ADRESL `i `ui ]
+[; ;adc.c: 96: return (( bool ) ( !ADCON0bits.GO_nDONE ) );
+"96
+[e ) -> -> ! != -> . . _ADCON0bits 1 1 `i -> -> -> 0 `i `Vuc `i `i `uc ]
 [e $UE 856  ]
-[; ;adc.c: 101: }
-"101
+[; ;adc.c: 97: }
+"97
 [e :UE 856 ]
 }
-"103
+"99
+[v _ADC_GetConversionResult `(ui ~T0 @X0 1 ef ]
+{
+[; ;adc.c: 99: adc_result_t ADC_GetConversionResult(void) {
+[e :U _ADC_GetConversionResult ]
+[f ]
+[; ;adc.c: 101: return (( adc_result_t ) ( ( ADRESH << 8 ) + ADRESL ) );
+"101
+[e ) -> + << -> _ADRESH `i -> 8 `i -> _ADRESL `i `ui ]
+[e $UE 857  ]
+[; ;adc.c: 102: }
+"102
+[e :UE 857 ]
+}
+"104
 [v _ADC_GetConversion `(ui ~T0 @X0 1 ef1`E6975 ]
 {
-[; ;adc.c: 103: adc_result_t ADC_GetConversion(adc_channel_t channel) {
+[; ;adc.c: 104: adc_result_t ADC_GetConversion(adc_channel_t channel) {
 [e :U _ADC_GetConversion ]
 [v _channel `E6975 ~T0 @X0 1 r1 ]
 [f ]
-[; ;adc.c: 105: ADCON0bits.CHS = channel;
-"105
+[; ;adc.c: 106: ADCON0bits.CHS = channel;
+"106
 [e = . . _ADCON0bits 1 2 -> _channel `uc ]
-[; ;adc.c: 108: ADCON0bits.ADON = 1;
-"108
+[; ;adc.c: 109: ADCON0bits.ADON = 1;
+"109
 [e = . . _ADCON0bits 1 0 -> -> 1 `i `uc ]
-[; ;adc.c: 111: ADCON0bits.GO_nDONE = 1;
-"111
+[; ;adc.c: 112: ADCON0bits.GO_nDONE = 1;
+"112
 [e = . . _ADCON0bits 1 1 -> -> 1 `i `uc ]
-[; ;adc.c: 114: while (ADCON0bits.GO_nDONE) {
-"114
-[e $U 858  ]
-[e :U 859 ]
-{
+[; ;adc.c: 115: while (ADCON0bits.GO_nDONE) {
 "115
-}
-[e :U 858 ]
-"114
-[e $ != -> . . _ADCON0bits 1 1 `i -> -> -> 0 `i `Vuc `i 859  ]
+[e $U 859  ]
 [e :U 860 ]
-[; ;adc.c: 115: }
-[; ;adc.c: 118: return ((adc_result_t) ((ADRESH << 8) + ADRESL));
-"118
-[e ) -> + << -> _ADRESH `i -> 8 `i -> _ADRESL `i `ui ]
-[e $UE 857  ]
-[; ;adc.c: 119: }
-"119
-[e :UE 857 ]
+{
+"116
 }
-"121
+[e :U 859 ]
+"115
+[e $ != -> . . _ADCON0bits 1 1 `i -> -> -> 0 `i `Vuc `i 860  ]
+[e :U 861 ]
+[; ;adc.c: 116: }
+[; ;adc.c: 119: return (( adc_result_t ) ( ( ADRESH << 8 ) + ADRESL ) );
+"119
+[e ) -> + << -> _ADRESH `i -> 8 `i -> _ADRESL `i `ui ]
+[e $UE 858  ]
+[; ;adc.c: 120: }
+"120
+[e :UE 858 ]
+}
+"122
 [v _ADC_ISR `(v ~T0 @X0 1 ef ]
 {
-[; ;adc.c: 121: void ADC_ISR(void) {
+[; ;adc.c: 122: void ADC_ISR(void) {
 [e :U _ADC_ISR ]
 [f ]
-[; ;adc.c: 123: binADC = ADC_GetConversionResult();
-"123
+[; ;adc.c: 124: binADC = ADC_GetConversionResult();
+"124
 [e = _binADC -> ( _ADC_GetConversionResult ..  `i ]
-[; ;adc.c: 126: tmpTemp = (binADC - 83) * (0.24841333435);
-"126
+[; ;adc.c: 127: tmpTemp = ( binADC - 83 ) * ( 0.24841333435 );
+"127
 [e = _tmpTemp * -> - _binADC -> 83 `i `d .0.24841333435 ]
-"130
-[v _var1 `d ~T0 @X0 1 a ]
-[; ;adc.c: 130: double var1 = tmpTemp;
-[e = _var1 _tmpTemp ]
 "131
-[v _var2 `uc ~T0 @X0 1 a ]
-[; ;adc.c: 131: char var2 = (char) tmpTemp;
-[e = _var2 -> _tmpTemp `uc ]
-[; ;adc.c: 132: var1 -= (double) var2;
+[v _var1 `d ~T0 @X0 1 a ]
+[; ;adc.c: 131: double var1 = tmpTemp;
+[e = _var1 _tmpTemp ]
 "132
+[v _var2 `uc ~T0 @X0 1 a ]
+[; ;adc.c: 132: char var2 = ( char ) tmpTemp;
+[e = _var2 -> _tmpTemp `uc ]
+[; ;adc.c: 133: var1 -= ( double ) var2;
+"133
 [e =- _var1 -> _var2 `d ]
-[; ;adc.c: 134: tempAtual = (char) tmpTemp;
-"134
+[; ;adc.c: 135: tempAtual = ( char ) tmpTemp;
+"135
 [e = _tempAtual -> _tmpTemp `uc ]
-[; ;adc.c: 136: if (var1 >= 0.5)
-"136
-[e $ ! >= _var1 .0.5 862  ]
-[; ;adc.c: 137: tempAtual++;
+[; ;adc.c: 137: if (var1 >= 0.5)
 "137
+[e $ ! >= _var1 .0.5 863  ]
+[; ;adc.c: 138: tempAtual++;
+"138
 [e ++ _tempAtual -> -> 1 `i `uc ]
-[e :U 862 ]
-[; ;adc.c: 139: if (eusart_Tx_On == 0 && eusart_Tx_En == 0) {
-"139
-[e $ ! && == -> _eusart_Tx_On `i -> 0 `i == -> _eusart_Tx_En `i -> 0 `i 863  ]
-{
-[; ;adc.c: 140: sprintf(strUSART, "\fTM=%2d_TA=%2d_AA=%1d\r", tempAtual, tempAlarme, alarme);
+[e :U 863 ]
+[; ;adc.c: 140: if (eusart_Tx_On == 0 && eusart_Tx_En == 0) {
 "140
-[e ( _sprintf (1 , , , (. , -> &U _strUSART `*uc :s 1C -> _tempAtual `i -> _tempAlarme `i -> _alarme `i ]
-[; ;adc.c: 141: for (i = 0; strUSART[i] != '\0'; i++) {
+[e $ ! && == -> _eusart_Tx_On `i -> 0 `i == -> _eusart_Tx_En `i -> 0 `i 864  ]
+{
+[; ;adc.c: 141: sprintf(strUSART, "\fTM=%2d_TA=%2d_AA=%1d\r", tempAtual, tempAlarme, alarme);
 "141
+[e ( _sprintf (1 , , , (. , -> &U _strUSART `*uc :s 1C -> _tempAtual `i -> _tempAlarme `i -> _alarme `i ]
+[; ;adc.c: 142: for (i = 0; strUSART[i] != '\0'; i++) {
+"142
 {
 [e = _i -> -> 0 `i `uc ]
-[e $U 867  ]
-[e :U 864 ]
-{
-[; ;adc.c: 142: EUSART1_Write(strUSART[i]);
-"142
-[e ( _EUSART1_Write (1 *U + &U _strUSART * -> _i `ux -> -> # *U &U _strUSART `ui `ux ]
-[; ;adc.c: 143: strUSART[i] = '\0';
-"143
-[e = *U + &U _strUSART * -> _i `ux -> -> # *U &U _strUSART `ui `ux -> -> 0 `ui `uc ]
-"144
-}
-"141
-[e ++ _i -> -> 1 `i `uc ]
-[e :U 867 ]
-[e $ != -> *U + &U _strUSART * -> _i `ux -> -> # *U &U _strUSART `ui `ux `ui -> 0 `ui 864  ]
+[e $U 868  ]
 [e :U 865 ]
+{
+[; ;adc.c: 143: EUSART1_Write(strUSART[i]);
+"143
+[e ( _EUSART1_Write (1 *U + &U _strUSART * -> _i `ux -> -> # *U &U _strUSART `ui `ux ]
+[; ;adc.c: 144: strUSART[i] = '\0';
 "144
-}
+[e = *U + &U _strUSART * -> _i `ux -> -> # *U &U _strUSART `ui `ux -> -> 0 `ui `uc ]
 "145
 }
-[e :U 863 ]
-[; ;adc.c: 144: }
-[; ;adc.c: 145: }
-[; ;adc.c: 148: PIR1bits.ADIF = 0;
-"148
-[e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
-[; ;adc.c: 149: }
-"149
-[e :UE 861 ]
+"142
+[e ++ _i -> -> 1 `i `uc ]
+[e :U 868 ]
+[e $ != -> *U + &U _strUSART * -> _i `ux -> -> # *U &U _strUSART `ui `ux `ui -> 0 `ui 865  ]
+[e :U 866 ]
+"145
 }
-[p f _sprintf 8421504 ]
+"146
+}
+[e :U 864 ]
+[; ;adc.c: 145: }
+[; ;adc.c: 146: }
+[; ;adc.c: 148: if (regNum < 4095)
+"148
+[e $ ! < _regNum -> 4095 `i 869  ]
+[; ;adc.c: 149: regNum++;
+"149
+[e ++ _regNum -> 1 `i ]
+[e $U 870  ]
+"150
+[e :U 869 ]
+[; ;adc.c: 150: else
+[; ;adc.c: 151: regNum = 0;
+"151
+[e = _regNum -> 0 `i ]
+[e :U 870 ]
+[; ;adc.c: 153: memAddr = regNum * 8;
+"153
+[e = _memAddr * _regNum -> 8 `i ]
+[; ;adc.c: 154: memAddrBytes[0] = (memAddr >> 8);
+"154
+[e = *U + &U _memAddrBytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _memAddrBytes `ui `ux -> >> _memAddr -> 8 `i `uc ]
+[; ;adc.c: 155: memAddrBytes[1] = (memAddr & 0xff);
+"155
+[e = *U + &U _memAddrBytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _memAddrBytes `ui `ux -> & _memAddr -> 255 `i `uc ]
+[; ;adc.c: 157: sprintf(i2cWriteBlock, "%c%cM%2dA%2dE%1d", memAddrBytes[0], memAddrBytes[1], tempAtual, tempAlarme, alarme);
+"157
+[e ( _sprintf (1 , , , , , (. , -> &U _i2cWriteBlock `*uc :s 2C -> *U + &U _memAddrBytes * -> -> -> 0 `i `ui `ux -> -> # *U &U _memAddrBytes `ui `ux `i -> *U + &U _memAddrBytes * -> -> -> 1 `i `ui `ux -> -> # *U &U _memAddrBytes `ui `ux `i -> _tempAtual `i -> _tempAlarme `i -> _alarme `i ]
+[; ;adc.c: 159: I2C1_MasterWrite(i2cWriteBlock, 10, 0b01010000, stateMsgI2c);
+"159
+[e ( _I2C1_MasterWrite (4 , , , -> &U _i2cWriteBlock `*uc -> -> 10 `i `uc -> -> 80 `i `ui -> _stateMsgI2c `*E7002 ]
+[; ;adc.c: 161: do {
+"161
+[e :U 873 ]
+{
+[; ;adc.c: 163: while (stateMsgI2c == I2C1_MESSAGE_PENDING);
+"163
+[e $U 874  ]
+[e :U 875 ]
+[e :U 874 ]
+[e $ == -> _stateMsgI2c `i -> . `E7002 2 `i 875  ]
+[e :U 876 ]
+[; ;adc.c: 165: if (stateMsgI2c != I2C1_MESSAGE_PENDING && stateMsgI2c != I2C1_MESSAGE_COMPLETE) {
+"165
+[e $ ! && != -> _stateMsgI2c `i -> . `E7002 2 `i != -> _stateMsgI2c `i -> . `E7002 0 `i 877  ]
+{
+[; ;adc.c: 166: I2C1_MasterWrite(i2cWriteBlock, 10, 0b01010000, stateMsgI2c);
+"166
+[e ( _I2C1_MasterWrite (4 , , , -> &U _i2cWriteBlock `*uc -> -> 10 `i `uc -> -> 80 `i `ui -> _stateMsgI2c `*E7002 ]
+"167
+}
+[e :U 877 ]
+"168
+}
+[; ;adc.c: 167: }
+[; ;adc.c: 168: } while (stateMsgI2c != I2C1_MESSAGE_COMPLETE);
+[e $ != -> _stateMsgI2c `i -> . `E7002 0 `i 873  ]
+[e :U 872 ]
+[; ;adc.c: 171: PIR1bits.ADIF = 0;
+"171
+[e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
+[; ;adc.c: 172: }
+"172
+[e :UE 862 ]
+}
+[p f _sprintf 8945792 ]
+[a 2C 37 99 37 99 77 37 50 100 65 37 50 100 69 37 49 100 0 ]
 [a 1C 12 84 77 61 37 50 100 95 84 65 61 37 50 100 95 65 65 61 37 49 100 13 0 ]
-

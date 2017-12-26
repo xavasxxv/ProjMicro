@@ -8756,9 +8756,80 @@ extern void DelayFor18TCY(void);
 extern void DelayPORXLCD(void);
 extern void DelayXLCD(void);
 
-# 34 "mcc_generated_files/../GlobalDefinitions.h"
+# 6 "C:\Program Files (x86)\Microchip\xc8\v1.44\include\stddef.h"
+typedef int ptrdiff_t;
+
+# 83 "mcc_generated_files/../mcc_generated_files/i2c1.h"
+typedef enum
+{
+I2C1_MESSAGE_COMPLETE,
+I2C1_MESSAGE_FAIL,
+I2C1_MESSAGE_PENDING,
+I2C1_STUCK_START,
+I2C1_MESSAGE_ADDRESS_NO_ACK,
+I2C1_DATA_NO_ACK,
+I2C1_LOST_STATE
+} I2C1_MESSAGE_STATUS;
+
+# 108
+typedef struct
+{
+uint16_t address;
+
+
+uint8_t length;
+uint8_t *pbuffer;
+} I2C1_TRANSACTION_REQUEST_BLOCK;
+
+# 220
+void I2C1_Initialize(void);
+
+# 259
+void I2C1_MasterWrite(
+uint8_t *pdata,
+uint8_t length,
+uint16_t address,
+I2C1_MESSAGE_STATUS *pstatus);
+
+# 406
+void I2C1_MasterRead(
+uint8_t *pdata,
+uint8_t length,
+uint16_t address,
+I2C1_MESSAGE_STATUS *pstatus);
+
+# 516
+void I2C1_MasterTRBInsert(
+uint8_t count,
+I2C1_TRANSACTION_REQUEST_BLOCK *ptrb_list,
+I2C1_MESSAGE_STATUS *pflag);
+
+# 560
+void I2C1_MasterReadTRBBuild(
+I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
+uint8_t *pdata,
+uint8_t length,
+uint16_t address);
+
+# 605
+void I2C1_MasterWriteTRBBuild(
+I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
+uint8_t *pdata,
+uint8_t length,
+uint16_t address);
+
+# 647
+bool I2C1_MasterQueueIsEmpty(void);
+
+# 685
+bool I2C1_MasterQueueIsFull(void);
+void I2C1_BusCollisionISR( void );
+void I2C1_ISR ( void );
+
+# 37 "mcc_generated_files/../GlobalDefinitions.h"
 volatile char strLCD[42];
 volatile char strUSART[42];
+volatile char i2cWriteBlock[10];
 volatile char TeclaTMP;
 volatile double tmpTemp;
 volatile char lastMenu;
@@ -8779,6 +8850,10 @@ volatile int binADC = 0;
 volatile bool WrEnFl = 0;
 volatile bool eusart_Tx_En = 0;
 volatile bool eusart_Tx_On = 0;
+volatile signed int memAddr = 0;
+volatile char memAddrBytes[2];
+volatile signed int regNum = 0;
+volatile I2C1_MESSAGE_STATUS stateMsgI2c;
 
 
 void escreveLinhaLCD(char linha, char texto[42]);

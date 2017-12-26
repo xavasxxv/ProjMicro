@@ -50,6 +50,7 @@
 #include <xc.h>
 #include "adc.h"
 #include "eusart1.h"
+#include "i2c1.h"
 #include "../GlobalDefinitions.h"
 
 /**
@@ -92,12 +93,12 @@ void ADC_StartConversion() {
 
 bool ADC_IsConversionDone() {
     // Start the conversion
-    return ((bool) (!ADCON0bits.GO_nDONE));
+    return (( bool ) ( !ADCON0bits.GO_nDONE ) );
 }
 
 adc_result_t ADC_GetConversionResult(void) {
     // Conversion finished, return the result
-    return ((adc_result_t) ((ADRESH << 8) + ADRESL));
+    return (( adc_result_t ) ( ( ADRESH << 8 ) + ADRESL ) );
 }
 
 adc_result_t ADC_GetConversion(adc_channel_t channel) {
@@ -115,7 +116,7 @@ adc_result_t ADC_GetConversion(adc_channel_t channel) {
     }
 
     // Conversion finished, return the result
-    return ((adc_result_t) ((ADRESH << 8) + ADRESL));
+    return (( adc_result_t ) ( ( ADRESH << 8 ) + ADRESL ) );
 }
 
 void ADC_ISR(void) {
@@ -123,17 +124,17 @@ void ADC_ISR(void) {
     binADC = ADC_GetConversionResult();
 
     //converter ADC -> Temp
-    tmpTemp = (binADC - 83) * (adcLsb);
+    tmpTemp = ( binADC - 83 ) * ( adcLsb );
 
     //tempAtual = round(tmpTemp);
-    
+
     double var1 = tmpTemp;
-    char var2 = (char) tmpTemp;
-    var1 -= (double) var2;
-    
-    tempAtual = (char) tmpTemp;
-    
-    if (var1 >= 0.5) 
+    char var2 = ( char ) tmpTemp;
+    var1 -= ( double ) var2;
+
+    tempAtual = ( char ) tmpTemp;
+
+    if (var1 >= 0.5)
         tempAtual++;
 
     if (eusart_Tx_On == 0 && eusart_Tx_En == 0) {
@@ -143,6 +144,28 @@ void ADC_ISR(void) {
             strUSART[i] = '\0';
         }
     }
+
+    if (regNum < 4095)
+        regNum++;
+    else
+        regNum = 0;
+
+    memAddr = regNum * 8;
+    memAddrBytes[0] = (memAddr >> 8);
+    memAddrBytes[1] = (memAddr & 0xff);
+
+    sprintf(i2cWriteBlock, "%c%cM%2dA%2dE%1d", memAddrBytes[0], memAddrBytes[1], tempAtual, tempAlarme, alarme);
+
+    I2C1_MasterWrite(i2cWriteBlock, 10, eepromAddr, stateMsgI2c);
+
+    do {
+
+        while (stateMsgI2c == I2C1_MESSAGE_PENDING);
+
+        if (stateMsgI2c != I2C1_MESSAGE_PENDING && stateMsgI2c != I2C1_MESSAGE_COMPLETE) {
+            I2C1_MasterWrite(i2cWriteBlock, 10, eepromAddr, stateMsgI2c);
+        }
+    } while (stateMsgI2c != I2C1_MESSAGE_COMPLETE);
 
     // Clear the ADC interrupt flag
     PIR1bits.ADIF = 0;

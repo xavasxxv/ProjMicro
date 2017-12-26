@@ -1,4 +1,7 @@
 Version 3.2 HI-TECH Software Intermediate Code
+"63 mcc_generated_files/../GlobalDefinitions.h
+[c E7270 0 1 2 3 4 5 6 .. ]
+[n E7270 . I2C1_MESSAGE_COMPLETE I2C1_MESSAGE_FAIL I2C1_MESSAGE_PENDING I2C1_STUCK_START I2C1_MESSAGE_ADDRESS_NO_ACK I2C1_DATA_NO_ACK I2C1_LOST_STATE  ]
 "9418 C:\Program Files (x86)\Microchip\xc8\v1.44\include\pic18f45k22.h
 [s S433 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S433 . TMR1IE TMR2IE CCP1IE SSP1IE TX1IE RC1IE ADIE ]
@@ -6757,127 +6760,194 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;xlcd.h: 132: extern void DelayFor18TCY(void);
 [; ;xlcd.h: 133: extern void DelayPORXLCD(void);
 [; ;xlcd.h: 134: extern void DelayXLCD(void);
-"34 mcc_generated_files/../GlobalDefinitions.h
+[; ;stddef.h: 6: typedef int ptrdiff_t;
+[; ;i2c1.h: 83: typedef enum
+[; ;i2c1.h: 84: {
+[; ;i2c1.h: 85: I2C1_MESSAGE_COMPLETE,
+[; ;i2c1.h: 86: I2C1_MESSAGE_FAIL,
+[; ;i2c1.h: 87: I2C1_MESSAGE_PENDING,
+[; ;i2c1.h: 88: I2C1_STUCK_START,
+[; ;i2c1.h: 89: I2C1_MESSAGE_ADDRESS_NO_ACK,
+[; ;i2c1.h: 90: I2C1_DATA_NO_ACK,
+[; ;i2c1.h: 91: I2C1_LOST_STATE
+[; ;i2c1.h: 92: } I2C1_MESSAGE_STATUS;
+[; ;i2c1.h: 108: typedef struct
+[; ;i2c1.h: 109: {
+[; ;i2c1.h: 110: uint16_t address;
+[; ;i2c1.h: 113: uint8_t length;
+[; ;i2c1.h: 114: uint8_t *pbuffer;
+[; ;i2c1.h: 115: } I2C1_TRANSACTION_REQUEST_BLOCK;
+[; ;i2c1.h: 220: void I2C1_Initialize(void);
+[; ;i2c1.h: 259: void I2C1_MasterWrite(
+[; ;i2c1.h: 260: uint8_t *pdata,
+[; ;i2c1.h: 261: uint8_t length,
+[; ;i2c1.h: 262: uint16_t address,
+[; ;i2c1.h: 263: I2C1_MESSAGE_STATUS *pstatus);
+[; ;i2c1.h: 406: void I2C1_MasterRead(
+[; ;i2c1.h: 407: uint8_t *pdata,
+[; ;i2c1.h: 408: uint8_t length,
+[; ;i2c1.h: 409: uint16_t address,
+[; ;i2c1.h: 410: I2C1_MESSAGE_STATUS *pstatus);
+[; ;i2c1.h: 516: void I2C1_MasterTRBInsert(
+[; ;i2c1.h: 517: uint8_t count,
+[; ;i2c1.h: 518: I2C1_TRANSACTION_REQUEST_BLOCK *ptrb_list,
+[; ;i2c1.h: 519: I2C1_MESSAGE_STATUS *pflag);
+[; ;i2c1.h: 560: void I2C1_MasterReadTRBBuild(
+[; ;i2c1.h: 561: I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
+[; ;i2c1.h: 562: uint8_t *pdata,
+[; ;i2c1.h: 563: uint8_t length,
+[; ;i2c1.h: 564: uint16_t address);
+[; ;i2c1.h: 605: void I2C1_MasterWriteTRBBuild(
+[; ;i2c1.h: 606: I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
+[; ;i2c1.h: 607: uint8_t *pdata,
+[; ;i2c1.h: 608: uint8_t length,
+[; ;i2c1.h: 609: uint16_t address);
+[; ;i2c1.h: 647: bool I2C1_MasterQueueIsEmpty(void);
+[; ;i2c1.h: 685: bool I2C1_MasterQueueIsFull(void);
+[; ;i2c1.h: 686: void I2C1_BusCollisionISR( void );
+[; ;i2c1.h: 687: void I2C1_ISR ( void );
+"37 mcc_generated_files/../GlobalDefinitions.h
 [v _strLCD `Vuc ~T0 @X0 -> 42 `i e ]
-[; ;GlobalDefinitions.h: 34: volatile char strLCD[42];
-"35
-[v _strUSART `Vuc ~T0 @X0 -> 42 `i e ]
-[; ;GlobalDefinitions.h: 35: volatile char strUSART[42];
-"36
-[v _TeclaTMP `Vuc ~T0 @X0 1 e ]
-[; ;GlobalDefinitions.h: 36: volatile char TeclaTMP;
-"37
-[v _tmpTemp `Vd ~T0 @X0 1 e ]
-[; ;GlobalDefinitions.h: 37: volatile double tmpTemp;
+[; ;GlobalDefinitions.h: 37: volatile char strLCD[42];
 "38
-[v _lastMenu `Vuc ~T0 @X0 1 e ]
-[; ;GlobalDefinitions.h: 38: volatile char lastMenu;
+[v _strUSART `Vuc ~T0 @X0 -> 42 `i e ]
+[; ;GlobalDefinitions.h: 38: volatile char strUSART[42];
 "39
+[v _i2cWriteBlock `Vuc ~T0 @X0 -> 10 `i e ]
+[; ;GlobalDefinitions.h: 39: volatile char i2cWriteBlock[10];
+"40
+[v _TeclaTMP `Vuc ~T0 @X0 1 e ]
+[; ;GlobalDefinitions.h: 40: volatile char TeclaTMP;
+"41
+[v _tmpTemp `Vd ~T0 @X0 1 e ]
+[; ;GlobalDefinitions.h: 41: volatile double tmpTemp;
+"42
+[v _lastMenu `Vuc ~T0 @X0 1 e ]
+[; ;GlobalDefinitions.h: 42: volatile char lastMenu;
+"43
 [v _update `Vuc ~T0 @X0 1 e ]
 [i _update
 -> -> 1 `i `uc
 ]
-[; ;GlobalDefinitions.h: 39: volatile char update = 1;
-"40
+[; ;GlobalDefinitions.h: 43: volatile char update = 1;
+"44
 [v _i `Vuc ~T0 @X0 1 e ]
-[; ;GlobalDefinitions.h: 40: volatile char i;
-"41
+[; ;GlobalDefinitions.h: 44: volatile char i;
+"45
 [v _j `Vc ~T0 @X0 1 e ]
 [i _j
 -> -> 0 `i `c
 ]
-[; ;GlobalDefinitions.h: 41: volatile signed char j = 0;
-"42
+[; ;GlobalDefinitions.h: 45: volatile signed char j = 0;
+"46
 [v _menu_tmp `Vuc ~T0 @X0 1 e ]
 [i _menu_tmp
 -> -> 1 `i `uc
 ]
-[; ;GlobalDefinitions.h: 42: volatile char menu_tmp = 1;
-"43
+[; ;GlobalDefinitions.h: 46: volatile char menu_tmp = 1;
+"47
 [v _tempAlarme `Vuc ~T0 @X0 1 e ]
 [i _tempAlarme
 -> -> 25 `i `uc
 ]
-[; ;GlobalDefinitions.h: 43: volatile char tempAlarme = 25;
-"44
+[; ;GlobalDefinitions.h: 47: volatile char tempAlarme = 25;
+"48
 [v _tempAtual `Vuc ~T0 @X0 1 e ]
 [i _tempAtual
 -> -> 25 `i `uc
 ]
-[; ;GlobalDefinitions.h: 44: volatile char tempAtual = 25;
-"45
+[; ;GlobalDefinitions.h: 48: volatile char tempAtual = 25;
+"49
 [v _clk4Hz `Vuc ~T0 @X0 1 e ]
 [i _clk4Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 45: volatile bool clk4Hz = 0;
-"46
+[; ;GlobalDefinitions.h: 49: volatile bool clk4Hz = 0;
+"50
 [v _clk2Hz `Vuc ~T0 @X0 1 e ]
 [i _clk2Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 46: volatile bool clk2Hz = 0;
-"47
+[; ;GlobalDefinitions.h: 50: volatile bool clk2Hz = 0;
+"51
 [v _clk1Hz `Vuc ~T0 @X0 1 e ]
 [i _clk1Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 47: volatile bool clk1Hz = 0;
-"48
+[; ;GlobalDefinitions.h: 51: volatile bool clk1Hz = 0;
+"52
 [v _clk1_2Hz `Vuc ~T0 @X0 1 e ]
 [i _clk1_2Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 48: volatile bool clk1_2Hz = 0;
-"49
+[; ;GlobalDefinitions.h: 52: volatile bool clk1_2Hz = 0;
+"53
 [v _clk1_4Hz `Vuc ~T0 @X0 1 e ]
 [i _clk1_4Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 49: volatile bool clk1_4Hz = 0;
-"50
+[; ;GlobalDefinitions.h: 53: volatile bool clk1_4Hz = 0;
+"54
 [v _clk1_8Hz `Vuc ~T0 @X0 1 e ]
 [i _clk1_8Hz
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 50: volatile bool clk1_8Hz = 0;
-"51
+[; ;GlobalDefinitions.h: 54: volatile bool clk1_8Hz = 0;
+"55
 [v _alarme `Vuc ~T0 @X0 1 e ]
 [i _alarme
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 51: volatile bool alarme = 0;
-"52
+[; ;GlobalDefinitions.h: 55: volatile bool alarme = 0;
+"56
 [v _binADC `Vi ~T0 @X0 1 e ]
 [i _binADC
 -> 0 `i
 ]
-[; ;GlobalDefinitions.h: 52: volatile int binADC = 0;
-"53
+[; ;GlobalDefinitions.h: 56: volatile int binADC = 0;
+"57
 [v _WrEnFl `Vuc ~T0 @X0 1 e ]
 [i _WrEnFl
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 53: volatile bool WrEnFl = 0;
-"54
+[; ;GlobalDefinitions.h: 57: volatile bool WrEnFl = 0;
+"58
 [v _eusart_Tx_En `Vuc ~T0 @X0 1 e ]
 [i _eusart_Tx_En
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 54: volatile bool eusart_Tx_En = 0;
-"55
+[; ;GlobalDefinitions.h: 58: volatile bool eusart_Tx_En = 0;
+"59
 [v _eusart_Tx_On `Vuc ~T0 @X0 1 e ]
 [i _eusart_Tx_On
 -> -> 0 `i `uc
 ]
-[; ;GlobalDefinitions.h: 55: volatile bool eusart_Tx_On = 0;
-[; ;GlobalDefinitions.h: 58: void escreveLinhaLCD(char linha, char texto[42]);
-[; ;GlobalDefinitions.h: 59: void menu(void);
-[; ;GlobalDefinitions.h: 60: void monitorizacao(void);
-[; ;GlobalDefinitions.h: 61: void testeTeclado(void);
-[; ;GlobalDefinitions.h: 62: void defTempAlarme(void);
-[; ;GlobalDefinitions.h: 63: char getKBInput(void);
-[; ;GlobalDefinitions.h: 64: void feedbackUSART(void);
+[; ;GlobalDefinitions.h: 59: volatile bool eusart_Tx_On = 0;
+"60
+[v _memAddr `Vi ~T0 @X0 1 e ]
+[i _memAddr
+-> 0 `i
+]
+[; ;GlobalDefinitions.h: 60: volatile signed int memAddr = 0;
+"61
+[v _memAddrBytes `Vuc ~T0 @X0 -> 2 `i e ]
+[; ;GlobalDefinitions.h: 61: volatile char memAddrBytes[2];
+"62
+[v _regNum `Vi ~T0 @X0 1 e ]
+[i _regNum
+-> 0 `i
+]
+[; ;GlobalDefinitions.h: 62: volatile signed int regNum = 0;
+"63
+[v _stateMsgI2c `VE7270 ~T0 @X0 1 e ]
+[; ;GlobalDefinitions.h: 63: volatile I2C1_MESSAGE_STATUS stateMsgI2c;
+[; ;GlobalDefinitions.h: 66: void escreveLinhaLCD(char linha, char texto[42]);
+[; ;GlobalDefinitions.h: 67: void menu(void);
+[; ;GlobalDefinitions.h: 68: void monitorizacao(void);
+[; ;GlobalDefinitions.h: 69: void testeTeclado(void);
+[; ;GlobalDefinitions.h: 70: void defTempAlarme(void);
+[; ;GlobalDefinitions.h: 71: char getKBInput(void);
+[; ;GlobalDefinitions.h: 72: void feedbackUSART(void);
 "64 mcc_generated_files/eusart1.c
 [v _EUSART1_Initialize `(v ~T0 @X0 1 ef ]
 {
@@ -6907,7 +6977,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
 [; ;eusart1.c: 87: }
 "87
-[e :UE 851 ]
+[e :UE 852 ]
 }
 "103
 [v _EUSART1_Write `(v ~T0 @X0 1 ef1`uc ]
@@ -6918,17 +6988,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;eusart1.c: 104: while (!PIR1bits.TX1IF);
 "104
-[e $U 853  ]
-[e :U 854 ]
-[e :U 853 ]
-[e $ ! != -> . . _PIR1bits 0 4 `i -> -> -> 0 `i `Vuc `i 854  ]
+[e $U 854  ]
 [e :U 855 ]
+[e :U 854 ]
+[e $ ! != -> . . _PIR1bits 0 4 `i -> -> -> 0 `i `Vuc `i 855  ]
+[e :U 856 ]
 [; ;eusart1.c: 105: TXREG1 = txData;
 "105
 [e = _TXREG1 _txData ]
 [; ;eusart1.c: 106: }
 "106
-[e :UE 852 ]
+[e :UE 853 ]
 }
 "108
 [v _EUSART1_Receive_ISR `(v ~T0 @X0 1 ef ]
@@ -6938,7 +7008,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;eusart1.c: 110: if (RCSTA1bits.OERR) {
 "110
-[e $ ! != -> . . _RCSTA1bits 0 1 `i -> -> -> 0 `i `Vuc `i 857  ]
+[e $ ! != -> . . _RCSTA1bits 0 1 `i -> -> -> 0 `i `Vuc `i 858  ]
 {
 [; ;eusart1.c: 112: RCSTA1bits.CREN = 0;
 "112
@@ -6948,11 +7018,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . . _RCSTA1bits 0 4 -> -> 1 `i `uc ]
 "114
 }
-[e :U 857 ]
+[e :U 858 ]
 [; ;eusart1.c: 114: }
 [; ;eusart1.c: 116: if (j >= 0 && j < 42 - 1 && strUSART[j] != '\r') {
 "116
-[e $ ! && && >= -> _j `i -> 0 `i < -> _j `i - -> 42 `i -> 1 `i != -> *U + &U _strUSART * -> -> _j `uc `ux -> -> # *U &U _strUSART `ui `ux `ui -> 13 `ui 858  ]
+[e $ ! && && >= -> _j `i -> 0 `i < -> _j `i - -> 42 `i -> 1 `i != -> *U + &U _strUSART * -> -> _j `uc `ux -> -> # *U &U _strUSART `ui `ux `ui -> 13 `ui 859  ]
 {
 [; ;eusart1.c: 118: eusart_Tx_On = 1;
 "118
@@ -6962,41 +7032,41 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = *U + &U _strUSART * -> -> _j `uc `ux -> -> # *U &U _strUSART `ui `ux _RCREG1 ]
 [; ;eusart1.c: 122: if (j == 40) {
 "122
-[e $ ! == -> _j `i -> 40 `i 859  ]
+[e $ ! == -> _j `i -> 40 `i 860  ]
 {
 [; ;eusart1.c: 123: while (!PIR1bits.TX1IF);
 "123
-[e $U 860  ]
-[e :U 861 ]
-[e :U 860 ]
-[e $ ! != -> . . _PIR1bits 0 4 `i -> -> -> 0 `i `Vuc `i 861  ]
+[e $U 861  ]
 [e :U 862 ]
+[e :U 861 ]
+[e $ ! != -> . . _PIR1bits 0 4 `i -> -> -> 0 `i `Vuc `i 862  ]
+[e :U 863 ]
 [; ;eusart1.c: 124: TXREG1 = '\r';
 "124
 [e = _TXREG1 -> -> 13 `ui `uc ]
 "125
 }
 [; ;eusart1.c: 125: } else {
-[e $U 863  ]
-[e :U 859 ]
+[e $U 864  ]
+[e :U 860 ]
 {
 [; ;eusart1.c: 126: while (!PIR1bits.TX1IF);
 "126
-[e $U 864  ]
-[e :U 865 ]
-[e :U 864 ]
-[e $ ! != -> . . _PIR1bits 0 4 `i -> -> -> 0 `i `Vuc `i 865  ]
+[e $U 865  ]
 [e :U 866 ]
+[e :U 865 ]
+[e $ ! != -> . . _PIR1bits 0 4 `i -> -> -> 0 `i `Vuc `i 866  ]
+[e :U 867 ]
 [; ;eusart1.c: 127: TXREG1 = strUSART[j];
 "127
 [e = _TXREG1 *U + &U _strUSART * -> -> _j `uc `ux -> -> # *U &U _strUSART `ui `ux ]
 "128
 }
-[e :U 863 ]
+[e :U 864 ]
 [; ;eusart1.c: 128: }
 [; ;eusart1.c: 131: if (strUSART[j] != '\r' && strUSART[j] == 8) {
 "131
-[e $ ! && != -> *U + &U _strUSART * -> -> _j `uc `ux -> -> # *U &U _strUSART `ui `ux `ui -> 13 `ui == -> *U + &U _strUSART * -> -> _j `uc `ux -> -> # *U &U _strUSART `ui `ux `i -> 8 `i 867  ]
+[e $ ! && != -> *U + &U _strUSART * -> -> _j `uc `ux -> -> # *U &U _strUSART `ui `ux `ui -> 13 `ui == -> *U + &U _strUSART * -> -> _j `uc `ux -> -> # *U &U _strUSART `ui `ux `i -> 8 `i 868  ]
 {
 [; ;eusart1.c: 132: strUSART[j] = '\0';
 "132
@@ -7006,7 +7076,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e -- _j -> -> 1 `i `c ]
 [; ;eusart1.c: 134: if (j >= 0) {
 "134
-[e $ ! >= -> _j `i -> 0 `i 868  ]
+[e $ ! >= -> _j `i -> 0 `i 869  ]
 {
 [; ;eusart1.c: 135: strUSART[j] = '\0';
 "135
@@ -7016,10 +7086,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e -- _j -> -> 1 `i `c ]
 "137
 }
-[e :U 868 ]
+[e :U 869 ]
 "138
 }
-[e :U 867 ]
+[e :U 868 ]
 [; ;eusart1.c: 137: }
 [; ;eusart1.c: 138: }
 [; ;eusart1.c: 139: j++;
@@ -7027,11 +7097,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ++ _j -> -> 1 `i `c ]
 "140
 }
-[e :U 858 ]
+[e :U 859 ]
 [; ;eusart1.c: 140: }
 [; ;eusart1.c: 143: if (( ( strUSART[0] == 'S' ) && ( strUSART[1] == 'A' ) && ( strUSART[2] == '=' ) && ( strUSART[3] != '\0' ) && ( strUSART[4] != '\0' ) && ( strUSART[5] == '\r' ) )) {
 "143
-[e $ ! && && && && && == -> *U + &U _strUSART * -> -> -> 0 `i `ui `ux -> -> # *U &U _strUSART `ui `ux `ui -> 83 `ui == -> *U + &U _strUSART * -> -> -> 1 `i `ui `ux -> -> # *U &U _strUSART `ui `ux `ui -> 65 `ui == -> *U + &U _strUSART * -> -> -> 2 `i `ui `ux -> -> # *U &U _strUSART `ui `ux `ui -> 61 `ui != -> *U + &U _strUSART * -> -> -> 3 `i `ui `ux -> -> # *U &U _strUSART `ui `ux `ui -> 0 `ui != -> *U + &U _strUSART * -> -> -> 4 `i `ui `ux -> -> # *U &U _strUSART `ui `ux `ui -> 0 `ui == -> *U + &U _strUSART * -> -> -> 5 `i `ui `ux -> -> # *U &U _strUSART `ui `ux `ui -> 13 `ui 869  ]
+[e $ ! && && && && && == -> *U + &U _strUSART * -> -> -> 0 `i `ui `ux -> -> # *U &U _strUSART `ui `ux `ui -> 83 `ui == -> *U + &U _strUSART * -> -> -> 1 `i `ui `ux -> -> # *U &U _strUSART `ui `ux `ui -> 65 `ui == -> *U + &U _strUSART * -> -> -> 2 `i `ui `ux -> -> # *U &U _strUSART `ui `ux `ui -> 61 `ui != -> *U + &U _strUSART * -> -> -> 3 `i `ui `ux -> -> # *U &U _strUSART `ui `ux `ui -> 0 `ui != -> *U + &U _strUSART * -> -> -> 4 `i `ui `ux -> -> # *U &U _strUSART `ui `ux `ui -> 0 `ui == -> *U + &U _strUSART * -> -> -> 5 `i `ui `ux -> -> # *U &U _strUSART `ui `ux `ui -> 13 `ui 870  ]
 {
 "145
 [v _i1 `i ~T0 @X0 1 a ]
@@ -7045,7 +7115,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _i2 -> - -> *U + &U _strUSART * -> -> -> 4 `i `ui `ux -> -> # *U &U _strUSART `ui `ux `ui -> 48 `ui `i ]
 [; ;eusart1.c: 150: if (i1 >= 0 && i1 <= 9 && i2 >= 0 && i2 <= 9) {
 "150
-[e $ ! && && && >= _i1 -> 0 `i <= _i1 -> 9 `i >= _i2 -> 0 `i <= _i2 -> 9 `i 870  ]
+[e $ ! && && && >= _i1 -> 0 `i <= _i1 -> 9 `i >= _i2 -> 0 `i <= _i2 -> 9 `i 871  ]
 {
 "152
 [v _tmpAlarme `uc ~T0 @X0 1 a ]
@@ -7053,22 +7123,22 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _tmpAlarme -> + * -> 10 `i _i1 _i2 `uc ]
 [; ;eusart1.c: 154: if (tmpAlarme >= 10 && tmpAlarme <= 40)
 "154
-[e $ ! && >= -> _tmpAlarme `i -> 10 `i <= -> _tmpAlarme `i -> 40 `i 871  ]
+[e $ ! && >= -> _tmpAlarme `i -> 10 `i <= -> _tmpAlarme `i -> 40 `i 872  ]
 [; ;eusart1.c: 155: tempAlarme = tmpAlarme;
 "155
 [e = _tempAlarme _tmpAlarme ]
-[e :U 871 ]
+[e :U 872 ]
 "156
 }
-[e :U 870 ]
+[e :U 871 ]
 "158
 }
-[e :U 869 ]
+[e :U 870 ]
 [; ;eusart1.c: 156: }
 [; ;eusart1.c: 158: }
 [; ;eusart1.c: 160: if (j == 42 - 1 || strUSART[( j - 1 )] == '\r') {
 "160
-[e $ ! || == -> _j `i - -> 42 `i -> 1 `i == -> *U + &U _strUSART * -> -> - -> _j `i -> 1 `i `ui `ux -> -> # *U &U _strUSART `ui `ux `ui -> 13 `ui 872  ]
+[e $ ! || == -> _j `i - -> 42 `i -> 1 `i == -> *U + &U _strUSART * -> -> - -> _j `i -> 1 `i `ui `ux -> -> # *U &U _strUSART `ui `ux `ui -> 13 `ui 873  ]
 {
 [; ;eusart1.c: 161: strUSART[j - 1] = '\0';
 "161
@@ -7081,9 +7151,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _eusart_Tx_On -> -> 0 `i `uc ]
 "164
 }
-[e :U 872 ]
+[e :U 873 ]
 [; ;eusart1.c: 164: }
 [; ;eusart1.c: 166: }
 "166
-[e :UE 856 ]
+[e :UE 857 ]
 }

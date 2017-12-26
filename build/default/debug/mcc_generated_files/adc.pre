@@ -8599,6 +8599,76 @@ void EUSART1_Receive_ISR(void);
 # 4 "C:\Program Files (x86)\Microchip\xc8\v1.44\include\__size_t.h"
 typedef unsigned size_t;
 
+# 6 "C:\Program Files (x86)\Microchip\xc8\v1.44\include\stddef.h"
+typedef int ptrdiff_t;
+
+# 83 "mcc_generated_files/i2c1.h"
+typedef enum
+{
+I2C1_MESSAGE_COMPLETE,
+I2C1_MESSAGE_FAIL,
+I2C1_MESSAGE_PENDING,
+I2C1_STUCK_START,
+I2C1_MESSAGE_ADDRESS_NO_ACK,
+I2C1_DATA_NO_ACK,
+I2C1_LOST_STATE
+} I2C1_MESSAGE_STATUS;
+
+# 108
+typedef struct
+{
+uint16_t address;
+
+
+uint8_t length;
+uint8_t *pbuffer;
+} I2C1_TRANSACTION_REQUEST_BLOCK;
+
+# 220
+void I2C1_Initialize(void);
+
+# 259
+void I2C1_MasterWrite(
+uint8_t *pdata,
+uint8_t length,
+uint16_t address,
+I2C1_MESSAGE_STATUS *pstatus);
+
+# 406
+void I2C1_MasterRead(
+uint8_t *pdata,
+uint8_t length,
+uint16_t address,
+I2C1_MESSAGE_STATUS *pstatus);
+
+# 516
+void I2C1_MasterTRBInsert(
+uint8_t count,
+I2C1_TRANSACTION_REQUEST_BLOCK *ptrb_list,
+I2C1_MESSAGE_STATUS *pflag);
+
+# 560
+void I2C1_MasterReadTRBBuild(
+I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
+uint8_t *pdata,
+uint8_t length,
+uint16_t address);
+
+# 605
+void I2C1_MasterWriteTRBBuild(
+I2C1_TRANSACTION_REQUEST_BLOCK *ptrb,
+uint8_t *pdata,
+uint8_t length,
+uint16_t address);
+
+# 647
+bool I2C1_MasterQueueIsEmpty(void);
+
+# 685
+bool I2C1_MasterQueueIsFull(void);
+void I2C1_BusCollisionISR( void );
+void I2C1_ISR ( void );
+
 # 14 "C:\Program Files (x86)\Microchip\xc8\v1.44\include\string.h"
 extern void * memcpy(void *, const void *, size_t);
 extern void * memmove(void *, const void *, size_t);
@@ -8795,9 +8865,10 @@ extern void DelayFor18TCY(void);
 extern void DelayPORXLCD(void);
 extern void DelayXLCD(void);
 
-# 34 "mcc_generated_files/../GlobalDefinitions.h"
+# 37 "mcc_generated_files/../GlobalDefinitions.h"
 volatile char strLCD[42];
 volatile char strUSART[42];
+volatile char i2cWriteBlock[10];
 volatile char TeclaTMP;
 volatile double tmpTemp;
 volatile char lastMenu;
@@ -8818,6 +8889,10 @@ volatile int binADC = 0;
 volatile bool WrEnFl = 0;
 volatile bool eusart_Tx_En = 0;
 volatile bool eusart_Tx_On = 0;
+volatile signed int memAddr = 0;
+volatile char memAddrBytes[2];
+volatile signed int regNum = 0;
+volatile I2C1_MESSAGE_STATUS stateMsgI2c;
 
 
 void escreveLinhaLCD(char linha, char texto[42]);
@@ -8828,7 +8903,7 @@ void defTempAlarme(void);
 char getKBInput(void);
 void feedbackUSART(void);
 
-# 59 "mcc_generated_files/adc.c"
+# 60 "mcc_generated_files/adc.c"
 void ADC_Initialize(void) {
 
 
@@ -8865,12 +8940,12 @@ ADCON0bits.GO_nDONE = 1;
 
 bool ADC_IsConversionDone() {
 
-return ((bool) (!ADCON0bits.GO_nDONE));
+return (( bool ) ( !ADCON0bits.GO_nDONE ) );
 }
 
 adc_result_t ADC_GetConversionResult(void) {
 
-return ((adc_result_t) ((ADRESH << 8) + ADRESL));
+return (( adc_result_t ) ( ( ADRESH << 8 ) + ADRESL ) );
 }
 
 adc_result_t ADC_GetConversion(adc_channel_t channel) {
@@ -8888,7 +8963,7 @@ while (ADCON0bits.GO_nDONE) {
 }
 
 
-return ((adc_result_t) ((ADRESH << 8) + ADRESL));
+return (( adc_result_t ) ( ( ADRESH << 8 ) + ADRESL ) );
 }
 
 void ADC_ISR(void) {
@@ -8896,15 +8971,15 @@ void ADC_ISR(void) {
 binADC = ADC_GetConversionResult();
 
 
-tmpTemp = (binADC - 83) * (0.24841333435);
+tmpTemp = ( binADC - 83 ) * ( 0.24841333435 );
 
 
 
 double var1 = tmpTemp;
-char var2 = (char) tmpTemp;
-var1 -= (double) var2;
+char var2 = ( char ) tmpTemp;
+var1 -= ( double ) var2;
 
-tempAtual = (char) tmpTemp;
+tempAtual = ( char ) tmpTemp;
 
 if (var1 >= 0.5)
 tempAtual++;
@@ -8916,6 +8991,28 @@ EUSART1_Write(strUSART[i]);
 strUSART[i] = '\0';
 }
 }
+
+if (regNum < 4095)
+regNum++;
+else
+regNum = 0;
+
+memAddr = regNum * 8;
+memAddrBytes[0] = (memAddr >> 8);
+memAddrBytes[1] = (memAddr & 0xff);
+
+sprintf(i2cWriteBlock, "%c%cM%2dA%2dE%1d", memAddrBytes[0], memAddrBytes[1], tempAtual, tempAlarme, alarme);
+
+I2C1_MasterWrite(i2cWriteBlock, 10, 0b01010000, stateMsgI2c);
+
+do {
+
+while (stateMsgI2c == I2C1_MESSAGE_PENDING);
+
+if (stateMsgI2c != I2C1_MESSAGE_PENDING && stateMsgI2c != I2C1_MESSAGE_COMPLETE) {
+I2C1_MasterWrite(i2cWriteBlock, 10, 0b01010000, stateMsgI2c);
+}
+} while (stateMsgI2c != I2C1_MESSAGE_COMPLETE);
 
 
 PIR1bits.ADIF = 0;
