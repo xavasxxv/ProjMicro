@@ -85,6 +85,22 @@ void main(void) {
     //INTERRUPT_PeripheralInterruptDisable();
      */
 
+    i2cReadAddr[0] = 0;
+    i2cReadAddr[1] = 0;
+
+    I2C1_MasterWrite(i2cReadAddr, 2, eepromAddr, stateMsgI2c);
+    I2C1_MasterRead(i2cReadBlock, 4, eepromAddr, stateMsgI2c);
+
+    if (( i2cReadBlock[0] == 0xff && i2cReadBlock[1] == 0xff && i2cReadBlock[2] == 0xff && i2cReadBlock[3] == 0xff ) || ( i2cReadAddr[0] != 0 || i2cReadAddr[1] != 0 )) {
+        regNum = 0;
+        regCountAux = 0;
+        memAddr = 0;
+    } else {
+        memAddr = ( ( i2cReadBlock[0] << 8 ) + i2cReadBlock[1] );
+        regNum = ( ( i2cReadBlock[2] << 8 ) + i2cReadBlock[3] );
+        regCountAux = memAddr >> 3;
+    }
+
     while (BusyXLCD());
     OpenXLCD(FOUR_BIT & LINES_5X7);
 
@@ -280,7 +296,7 @@ void defTempAlarme(void) {
     } while (tmp_Alarme < 10 || tmp_Alarme > 40);
 
     tempAlarme = tmp_Alarme;
-    
+
     __delay_ms(500);
 
 }

@@ -30,14 +30,15 @@ extern "C" {
 
     //Equivalente em ºC de 1LSB
 #define adcLsb 0.24841333435
-    
+
 #define eepromAddr 0b01010000
 
     //Variaveis globais
     volatile char strLCD[StrSIZE];
     volatile char strUSART[StrSIZE];
     volatile char i2cWriteBlock[10];
-    volatile char i2cWriteInit[4];
+    volatile char i2cReadAddr[2];
+    volatile char i2cReadBlock[8];
     volatile char TeclaTMP;
     volatile double tmpTemp;
     volatile char lastMenu;
@@ -60,7 +61,9 @@ extern "C" {
     volatile bool eusart_Tx_On = 0;
     volatile signed int memAddr = 0;
     volatile signed int regNum = 0;
+    volatile signed int regCountAux = 4090;
     volatile I2C1_MESSAGE_STATUS stateMsgI2c;
+    volatile int numLeituras;
 
     //prototipos das funcoes
     void escreveLinhaLCD(char linha, char texto[StrSIZE]);

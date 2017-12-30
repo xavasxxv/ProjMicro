@@ -150,12 +150,14 @@ void ADC_ISR(void) {
         }
     }
 
+    if (regCountAux == 4095)
+        regCountAux = 0;
     if (regNum < 4095)
         regNum++;
-    else
-        regNum = 0;
 
-    memAddr = regNum * 8;
+    regCountAux++;
+
+    memAddr = regCountAux * 8;
 
     i2cWriteBlock[0] = ( memAddr >> 8 ); //byte high do endereço de memória
     i2cWriteBlock[1] = ( memAddr & 0xff ); //byte low do endereço de memória
@@ -165,8 +167,8 @@ void ADC_ISR(void) {
     i2cWriteBlock[5] = tempAlarme;
     i2cWriteBlock[6] = 'E';
     i2cWriteBlock[7] = alarme;
-    i2cWriteBlock[8] = 0;
-    i2cWriteBlock[9] = 0;
+    i2cWriteBlock[8] = ( regNum >> 8 ); //byte high do nr de registos
+    i2cWriteBlock[9] = ( regNum & 0xff ); //byte low do nr de registos
 
     I2C1_MasterWrite(i2cWriteBlock, 10, eepromAddr, stateMsgI2c);
 
@@ -177,17 +179,19 @@ void ADC_ISR(void) {
 
     } while (( stateMsgI2c != I2C1_MESSAGE_COMPLETE ) == ( stateMsgI2c != I2C1_MESSAGE_PENDING ));
 
-    i2cWriteInit[0] = 0;
-    i2cWriteInit[1] = 0;
-    i2cWriteInit[2] = ( regNum >> 8 );
-    i2cWriteInit[3] = ( regNum & 0xff );
+    i2cWriteBlock[0] = 0; //endereço 0x0000
+    i2cWriteBlock[1] = 0; //endereço 0x0000
+    i2cWriteBlock[2] = ( memAddr >> 8 ); //byte high do endereço de memória
+    i2cWriteBlock[3] = ( memAddr & 0xff ); //byte low do endereço de memória
+    i2cWriteBlock[4] = ( regNum >> 8 ); //byte high do nr de registos
+    i2cWriteBlock[5] = ( regNum & 0xff ); //byte low do nr de registos
 
-    I2C1_MasterWrite(i2cWriteInit, 4, eepromAddr, stateMsgI2c);
+    I2C1_MasterWrite(i2cWriteBlock, 6, eepromAddr, stateMsgI2c);
 
     do {
 
         if (stateMsgI2c != I2C1_MESSAGE_PENDING && stateMsgI2c != I2C1_MESSAGE_COMPLETE)
-            I2C1_MasterWrite(i2cWriteInit, 4, eepromAddr, stateMsgI2c);
+            I2C1_MasterWrite(i2cWriteBlock, 6, eepromAddr, stateMsgI2c);
 
     } while (( stateMsgI2c != I2C1_MESSAGE_COMPLETE ) == ( stateMsgI2c != I2C1_MESSAGE_PENDING ));
 

@@ -140,27 +140,97 @@ void EUSART1_Receive_ISR(void) {
     }
 
     //se a entrada for do tipo "SA=xx\r" calcular a nova temp de alarme
-    if (( ( strUSART[0] == 'S' ) && ( strUSART[1] == 'A' ) && ( strUSART[2] == '=' ) && ( strUSART[3] != '\0' ) && ( strUSART[4] != '\0' ) && ( strUSART[5] == '\r' ) )) {
+    if (( strUSART[0] == 'S' ) && ( strUSART[1] == 'A' ) && ( strUSART[2] == '=' ) && ( strUSART[5] == '\r' )) {
 
         int i1, i2;
 
         i1 = strUSART[3] - '0';
         i2 = strUSART[4] - '0';
-        
+
         if (i1 >= 0 && i1 <= 9 && i2 >= 0 && i2 <= 9) {
-            
+
             char tmpAlarme = 10 * i1 + i2;
 
             if (tmpAlarme >= 10 && tmpAlarme <= 40)
                 tempAlarme = tmpAlarme;
         }
-        
+
+    }
+
+    if (( strUSART[0] == 'R' ) && ( strUSART[1] == 'H' ) && ( strUSART[2] == '=' ) && ( strUSART[4] == '\r' || strUSART[5] == '\r' || strUSART[6] == '\r' || strUSART[7] == '\r' )) {
+        if (strUSART[4] == '\r' || strUSART[5] == '\r' || strUSART[6] == '\r' || strUSART[7] == '\r') {
+            if (strUSART[3] >= '0' && strUSART[3] <= '9')
+                numLeituras = strUSART[3] - '0';
+        }
+        if (strUSART[5] == '\r' || strUSART[6] == '\r' || strUSART[7] == '\r') {
+            if (strUSART[4] >= '0' && strUSART[4] <= '9')
+                numLeituras = ( numLeituras * 10 ) + strUSART[4] - '0';
+        }
+        if (strUSART[6] == '\r' || strUSART[7] == '\r') {
+            if (strUSART[5] >= '0' && strUSART[5] <= '9')
+                numLeituras = ( numLeituras * 10 ) + strUSART[5] - '0';
+        }
+        if (strUSART[7] == '\r') {
+            if (strUSART[6] >= '0' && strUSART[6] <= '9')
+                numLeituras = ( numLeituras * 10 ) + strUSART[6] - '0';
+        }
+        if (numLeituras > regNum)
+            numLeituras = 0;
     }
 
     if (j == StrSIZE - 1 || strUSART[( j - 1 )] == '\r') {
         strUSART[j - 1] = '\0'; //ultimo caracter vai ser sempre o nulo
         j = 0;
         eusart_Tx_On = 0;
+    }
+
+    if (numLeituras > 0) {
+
+        sprintf(strUSART, "\f!ATENCAO!ATENCAO!ATENCAO!\rAPENAS ALARME A FUNCIONAR DE MOMENTO!\rPOR FAVOR AGUARDE\r");
+        for (i = 0; strUSART[i] != '\0'; i++) {
+            EUSART1_Write(strUSART[i]);
+            strUSART[i] = '\0';
+        }
+
+        for (int k = numLeituras; k != 0; k--) {
+
+            memAddr = regCountAux * 8;
+
+            i2cReadAddr[0] = ( memAddr >> 8 );
+            i2cReadAddr[1] = ( memAddr & 0xff );
+
+            I2C1_MasterWrite(i2cReadAddr, 2, eepromAddr, stateMsgI2c);
+            I2C1_MasterRead(i2cReadBlock, 8, eepromAddr, stateMsgI2c);
+
+            sprintf(strUSART, "TM=%2d_TA=%2d_AA=%1d_RN=%04d\r", i2cReadBlock[1], i2cReadBlock[3], i2cReadBlock[5], regNum);
+            for (i = 0; strUSART[i] != '\0'; i++) {
+                EUSART1_Write(strUSART[i]);
+                strUSART[i] = '\0';
+            }
+
+            regCountAux--;
+            regNum--;
+
+            if (regCountAux == 0)
+                regCountAux = 4095;
+
+        }
+
+        i2cReadAddr[0] = 0;
+        i2cReadAddr[1] = 0;
+
+        I2C1_MasterWrite(i2cReadAddr, 2, eepromAddr, stateMsgI2c);
+        I2C1_MasterRead(i2cReadBlock, 4, eepromAddr, stateMsgI2c);
+
+        memAddr = ( ( i2cReadBlock[0] << 8 ) + i2cReadBlock[1] );
+        regNum = ( ( i2cReadBlock[2] << 8 ) + i2cReadBlock[3] );
+        regCountAux = memAddr >> 3;
+
+        RCREG1 = 0;
+        while (RCREG1 != '\r');
+
+        numLeituras = 0;
+
     }
 
 }
