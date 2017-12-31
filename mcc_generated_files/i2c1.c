@@ -579,6 +579,7 @@ void I2C1_FunctionComplete(void)
 
 }
 
+//esta função foi alterada para forçar a atualizar a variável global do estado do módulo I2C, pois nas transmissões não alterava o estado
 void I2C1_Stop(I2C1_MESSAGE_STATUS completion_code)
 {
     // then send a stop
@@ -591,6 +592,7 @@ void I2C1_Stop(I2C1_MESSAGE_STATUS completion_code)
         *(p_i2c1_current->pTrFlag) = completion_code;
     }
 
+    //atualiza o estado do módulo I2C para o estado que recebeu
     stateMsgI2c = completion_code;
     
     // Done, back to idle

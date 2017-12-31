@@ -43,9 +43,12 @@ void (*INT0_InterruptHandler)(void);
 /**
   Interrupt Handler for EXT_INT1 - INT1
  */
+
+//interrupção externa nr.1, correspondente a RB1
 void INT1_ISR(void) {
     //***User Area Begin->code***
 
+    //averigua qual foi o último pino que esteve a 1 e atribui um caractér consoante a resposta
     if (RB3_GetValue() == 1) {
         TeclaTMP = '2';
     }
@@ -58,6 +61,7 @@ void INT1_ISR(void) {
     if (RB6_GetValue() == 1) {
         TeclaTMP = '0';
     }
+    //habilita a escrita com teclas, de modo a não ser possível haver múltiplas entradas
     WrEnFl = 1;
 
     //***User Area End->code***
@@ -96,9 +100,12 @@ void INT1_DefaultInterruptHandler(void) {
 /**
   Interrupt Handler for EXT_INT2 - INT2
  */
+
+//interrupção externa nr.2, correspondente a RB2
 void INT2_ISR(void) {
     //***User Area Begin->code***
 
+    //averigua qual foi o último pino que esteve a 1 e atribui um caractér consoante a resposta
     if (RB3_GetValue() == 1) {
         TeclaTMP = '3';
     }
@@ -111,6 +118,7 @@ void INT2_ISR(void) {
     if (RB6_GetValue() == 1) {
         TeclaTMP = '#';
     }
+    //habilita a escrita com teclas, de modo a não ser possível haver múltiplas entradas
     WrEnFl = 1;
 
     //***User Area End->code***
@@ -149,9 +157,12 @@ void INT2_DefaultInterruptHandler(void) {
 /**
   Interrupt Handler for EXT_INT0 - INT0
  */
+
+//interrupção externa nr.0, correspondente a RB0
 void INT0_ISR(void) {
     //***User Area Begin->code***
 
+    //averigua qual foi o último pino que esteve a 1 e atribui um caractér consoante a resposta
     if (RB3_GetValue() == 1) {
         TeclaTMP = '1';
     }
@@ -164,6 +175,7 @@ void INT0_ISR(void) {
     if (RB6_GetValue() == 1) {
         TeclaTMP = '*';
     }
+    //habilita a escrita com teclas, de modo a não ser possível haver múltiplas entradas
     WrEnFl = 1;
 
     //***User Area End->code***

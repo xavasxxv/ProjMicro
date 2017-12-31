@@ -54,6 +54,7 @@ void PIN_MANAGER_Initialize(void)
     /**
     LATx registers
     */   
+    //nenhum destes registos precisa de valores inicias, configurados a 0
     LATE = 0x00;    
     LATD = 0x00;    
     LATA = 0x00;    
@@ -62,32 +63,29 @@ void PIN_MANAGER_Initialize(void)
 
     /**
     TRISx registers
-    */    
-    TRISE = 0x07;
-    TRISA = 0xBF;
-    TRISB = 0x07;
-    TRISC = 0xBB;
-    TRISD = 0x00;
+    */
+    //registos que indicam a "direção" do pino
+    TRISE = 0x07; //apenas RE3 usado como entrada, restantes não usados são configurados como entradas
+    TRISA = 0xBF; //RA0, 1 e 2 usados como entradas (botões); RA3 usado como entrada (ADC); RA4 e 5 não usados, configurados como entradas, RA6 como saida e RA7 como entrada(OSC)
+    TRISB = 0x07; //RB0, 1 e 2 usados para interrupções externas, RB 3 a 6 usados como saídas para teclado matricial, RB7 usado como ssída para LED de alarme
+    TRISC = 0xBB; //RC2 como saída para PWM, RC6 como saída, RC7 como entrada, ambos para EUSART, RC3 e 4 para I2C, não interessa, configurados como entrada, restantes, não usados, configurados como entrada
+    TRISD = 0x00; //todo o porto é usado para o LCD, tudo configurado como saída
 
     /**
     ANSELx registers
     */   
-    ANSELC = 0x20;
-    ANSELB = 0x00;
-    ANSELD = 0x00;
-    ANSELE = 0x07;
-    ANSELA = 0x28;
+    ANSELC = 0x20; //nenhum é usado como analógico, mas como RC5 pode ser analógico e não é configurado, o seu default é ser analógico, restantes são digitais ou default
+    ANSELB = 0x00; //nenhum é usado como analógico
+    ANSELD = 0x00; //nenhum é usado como analógico
+    ANSELE = 0x07; //nenhum é usado como analógico, mas como RE0, 1 e 2 podem ser analógicos e não são configurados, o seu default é serem analógicos, RE3 é digital
+    ANSELA = 0x28; //apenas RA3 é usado como analógico, mas como RA5 pode ser analógico e não é configurado, o seu default é ser analógico, restantes são digitais ou default
 
     /**
     WPUx registers
     */ 
+    //não são usadas resistências de pull-up internas
     WPUB = 0x00;
-    INTCON2bits.nRBPU = 0;
-
-    
-
-
-   
+    INTCON2bits.nRBPU = 0;   
     
 }       
 
