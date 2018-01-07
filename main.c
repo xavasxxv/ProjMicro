@@ -85,7 +85,7 @@ void main(void) {
     //INTERRUPT_PeripheralInterruptDisable();
      */
 
-    //lê o último registo de memória gravado e o nr de registos gravados
+    //lê o último registo de memória gravado e o nr. de registos gravados
     iniciarValoresEEPROM();
 
     //inicializa o LCD
@@ -98,30 +98,11 @@ void main(void) {
     while (BusyXLCD());
     WriteCmdXLCD(SHIFT_CUR_RIGHT);
 
+    //loop principal
     while (1) {
 
-        //corre o menu, funciona tudo a partir daqui
-        menu();
-
-    }
-}
-
-//função que permite escrever para o LCD, dado a linha/posição e o texto
-void escreveLinhaLCD(char linha, char texto[StrSIZE]) {
-
-    while (BusyXLCD());
-    WriteCmdXLCD(linha);
-    while (BusyXLCD());
-    putsXLCD(texto);
-
-}
-
-//função do menu, que apenas atualiza após uma mudança no texto
-void menu(void) {
-
-    escreveLinhaLCD(LINE1, "Menu         Opcao:");
-
-    while (1) {
+        //funcionalidades auxiliares às interrupções que "tratam" de tarefas que demoram demasiado tempo para as interrupções
+        extrasInterrupoes();
 
         //obtém a posição da função que se pretende usar através dos botões
         if (BOTAO_UP_GetValue() == 0) {
@@ -134,20 +115,34 @@ void menu(void) {
             while (BOTAO_DOWN_GetValue() == 0);
         }
 
-        if (menu_tmp > 4)
-            menu_tmp = 1;
-        if (menu_tmp < 1)
-            menu_tmp = 4;
-
-        if (lastMenu != menu_tmp) {
-            update = 1;
-            lastMenu = menu_tmp;
+        //caso excessa o nr. de opções, volta ao extremo oposto, no caso do menu, entre 1 e 4, noutras funções entre 1 e 5
+        if (menu_sel == 5) {
+            if (menu_tmp > 4)
+                menu_tmp = 1;
+            if (menu_tmp < 1)
+                menu_tmp = 4;
+        } else {
+            if (menu_tmp > 5)
+                menu_tmp = 1;
+            if (menu_tmp < 1)
+                menu_tmp = 5;
         }
 
-        //mostra o novo texto no LCD dado que foi alterado
-        if (update) {
-            sprintf(strLCD, "%d", menu_tmp);
-            escreveLinhaLCD(LINE1 + 19, strLCD);
+        //caso o última opção seja diferente da atual
+        if (lastMenu != menu_tmp) {
+            //diz para atualizar o LCD
+            update = 1;
+            //iguala a última opção à atual
+            lastMenu = menu_tmp;
+            //escreve o nr. da opção no canto superior direito do LCD
+            escreveCharLCD(LINE1 + 19, menu_tmp + 48);
+        }
+
+        //no caso de ser preciso atualizar o LCD e o menu selecionado seja o 5, ou o próprio menu
+        if (update && menu_sel == 5) {
+            //escreve para 1º linha o texto do menu
+            escreveLinhaLCD(LINE1, "Menu         Opcao:");
+            //e a opção selecionada temporáriamente
             switch (menu_tmp) {
                 case 1:
                     escreveLinhaLCD(LINE2, "Monitorizacao        ");
@@ -165,228 +160,249 @@ void menu(void) {
             update = 0;
         }
 
-        //chama a função pretendida
+        //no caso de querer entrar numa função
         if (BOTAO_SEL_GetValue() == 0) {
-            while (BOTAO_SEL_GetValue() == 0);
-            switch (menu_tmp) {
-                case 1:
-                    monitorizacao();
-                    break;
-                case 2:
-                    defTempAlarme();
-                    break;
-                case 3:
-                    testeTeclado();
-                    break;
-                case 4:
-                    feedbackUSART();
-                    break;
+            //desbloqueio manual do estado da EUSART, no caso da última opção selecionada ter sido a 4
+            if (menu_sel == 4) {
+                estadoEUSART = 0;
+                bloqueiaEUSART = 0;
             }
-            update = 1;
-            escreveLinhaLCD(LINE1, "Menu         Opcao:");
+            //a opção temporária passa a ser a selecionada
+            menu_sel = menu_tmp;
+            //diz às funções para correr os estados iniciais de variáveis e LCD
+            startFunc = 1;
+        }
+
+        //vai à função selecionada
+        switch (menu_sel) {
+            case 1:
+                monitorizacao();
+                break;
+            case 2:
+                defTempAlarme();
+                break;
+            case 3:
+                testeTeclado();
+                break;
+            case 4:
+                feedbackUSART();
+                break;
+            case 5:
+                //no caso da função ser o menu, diz para atualizar o LCD, de modo a escrever por cima das últimas frases
+                if (menu_tmp == 5)
+                    update = 1;
+                break;
         }
 
     }
+}
+
+//função que permite escrever para o LCD, dado a linha/posição e o texto
+void escreveLinhaLCD(char linha, char texto[StrSIZE]) {
+
+    while (BusyXLCD());
+    WriteCmdXLCD(linha);
+    while (BusyXLCD());
+    putsXLCD(texto);
+
+}
+
+//função que permite escrever um caractér para o LCD, dado a linha/posição e o caractér
+void escreveCharLCD(char linha, char caracter) {
+
+    while (BusyXLCD());
+    WriteCmdXLCD(linha);
+    while (BusyXLCD());
+    putcXLCD(caracter);
+
 }
 
 //função que mostra as temps. medidas e de alarme e alterna a informação se o alarme estiver ativo
 void monitorizacao(void) {
 
-    //escreve para o LCD as strings iniciais
-    sprintf(strLCD, "Temp. Atual:  %2d oC ", tempAtual);
-    escreveLinhaLCD(LINE1, strLCD);
-    sprintf(strLCD, "Temp. Alarme: %2d oC ", tempAlarme);
-    escreveLinhaLCD(LINE2, strLCD);
+    //caso seja a 1º vez a entrar na função, inicia o LCD e/ou as variáveis necessárias, e leva o estado a 0
+    if (startFunc) {
+        //escreve para o LCD as strings iniciais
+        sprintf(strLCD, "Temp. Atual:  %2d oC", tempAtual);
+        escreveLinhaLCD(LINE1, strLCD);
+        sprintf(strLCD, "Temp. Alarme: %2d oC", tempAlarme);
+        escreveLinhaLCD(LINE2, strLCD);
+        startFunc = 0;
 
-    //enquanto não for pressionado o botão SEL, fica na função
-    do {
-        //atualiza o LCD a 4Hz (4 vezes por s)
-        while (clk4Hz) {
+    }
 
-            //se o alarme estiver ativo, alternar entre mostrar a temp. de alarme e o aviso de alarme ativo
-            if (alarme) {
-                switch (clk1_2Hz) {
-                    case 1:
-                        sprintf(strLCD, "!ALARME! TEMP>");
-                        update = 1;
-                        break;
-                    case 0:
-                        sprintf(strLCD, "Temp. Alarme: ");
-                        break;
-                }
-                escreveLinhaLCD(LINE2, strLCD);
-                //se o último texto no LCD for o de aviso, mostrar a temp. de alarme
-            } else if (update) {
-                sprintf(strLCD, "Temp. Alarme: ");
-                escreveLinhaLCD(LINE2, strLCD);
-                update = 0;
+    //atualiza o LCD a 4Hz (4 vezes por s) ou no caso de ter sido mandado atualizar
+    if (update4hZ || update) {
+        //se o alarme estiver ativo, alternar entre mostrar a temp. de alarme e o aviso de alarme ativo
+        if (alarme) {
+            switch (clk1_2Hz) {
+                case 1:
+                    sprintf(strLCD, "!ALARME! TEMP>");
+                    break;
+                case 0:
+                    sprintf(strLCD, "Temp. Alarme: ");
+                    break;
             }
-
-            //atualiza os valores das temps. de alarme e medida
-            sprintf(strLCD, "%2d", tempAtual);
-            escreveLinhaLCD(LINE1 + 14, strLCD);
-            sprintf(strLCD, "%2d", tempAlarme);
-            escreveLinhaLCD(LINE2 + 14, strLCD);
-
-            while (clk4Hz);
+            escreveLinhaLCD(LINE2, strLCD);
+            //se o último estado do alarme tiver sido 1, mostrar a temp. de alarme
+        } else if (lastAlarme) {
+            sprintf(strLCD, "Temp. Alarme: ");
+            escreveLinhaLCD(LINE2, strLCD);
         }
-    } while (BOTAO_SEL_GetValue() != 0);
 
-    while (BOTAO_SEL_GetValue() == 0);
+        //atualiza os valores das temps. de alarme e medida
+        sprintf(strLCD, "%2d", tempAtual);
+        escreveLinhaLCD(LINE1 + 14, strLCD);
+        sprintf(strLCD, "%2d", tempAlarme);
+        escreveLinhaLCD(LINE2 + 14, strLCD);
 
+
+    }
+
+    //limpa as variáveis de atualização
+    update4hZ = 0;
+    update = 0;
+    
 }
 
 //função de teste para a introdução de caractéres através do teclado matricial
 void testeTeclado(void) {
 
-    //variável de teste que guarda o caractér obtido do teclado
-    char input;
-
-    //escreve as strings iniciais
-    escreveLinhaLCD(LINE1, "Teste Teclado       ");
-    escreveLinhaLCD(LINE2, "Numero:             ");
-
-    //enquanto não for pressionado o botão SEL, fica na função
-    while (BOTAO_SEL_GetValue() != 0) {
-        
-        //chama a função para obtenção do caractér
-        input = getKBInput();
-        
-        //e mostra-o
-        sprintf(strLCD, "%c", input);
-        escreveLinhaLCD(LINE2 + 8, strLCD);
+    //caso seja a 1º vez a entrar na função, inicia o LCD e/ou as variáveis necessárias, e leva o estado a 0
+    if (startFunc) {
+        escreveLinhaLCD(LINE1, "Teste Teclado      ");
+        escreveLinhaLCD(LINE2, "Numero:             ");
+        startFunc = 0;
     }
 
-    while (BOTAO_SEL_GetValue() == 0);
+
+    //caso seja habilitada a escrita de um caractér, escreve-o para o LCD e volta a limpar a variável
+    if (WrEnFl) {
+        escreveCharLCD(LINE2 + 8, TeclaTMP);
+        WrEnFl = 0;
+    }
 
 }
 
 //função que permite definir nova temp. de alarme através do teclado matricial
 void defTempAlarme(void) {
 
-    //variáveis locais
-    char c1, c2; //caractéres recebidos do teclado
-    char tmp_Alarme = 0; //temp. temporária para testes
+    //variável local de temperatura temporária para testes
+    char tmp_Alarme;
 
-    //código comentado que informa que a temp. de alarme tem de estar entre 10 e 40 graus
-    /**
-    while (BusyXLCD());
-    WriteCmdXLCD(CLEAR_LCD);
-    escreveLinhaLCD(LINE1, "A temp. deve ser entre os 10 e os 40 oC");
-    escreveLinhaLCD(LINE2, "                   Press SEL           ");
-    __delay_ms(1500);
-    for (int i = 0; i < 19; i++) {
-
-        WriteCmdXLCD(SHIFT_DISP_LEFT);
-        while (BusyXLCD());
-            __delay_ms(150);
-    }
-    while (BOTAO_SEL != 0);
-    while (BOTAO_SEL == 0);
-     */
-
-    //enquanto a temp. não for entre 10 e 40 gruas, não atualiza a temp. de alarme
-    do {
-
+    //caso seja a 1º vez a entrar na função, inicia o LCD e/ou as variáveis necessárias, e leva o estado a 0
+    if (startFunc) {
+        //assere o estado a 0
+        estado = 0;
         //escreve as strings iniciais
-        escreveLinhaLCD(LINE1, "Introduza o alarme  ");
+        escreveLinhaLCD(LINE1, "Introduza o alarme ");
         escreveLinhaLCD(LINE2, "Temp:    oC         ");
-
-        //chama a função para obtenção do caractér
-        c1 = getKBInput();
-        //mostra-o no LCD
-        sprintf(strLCD, "%c", c1);
-        escreveLinhaLCD(LINE2 + 6, strLCD);
-        //e mesma coisa para o segundo caractér
-        c2 = getKBInput();
-        sprintf(strLCD, "%c", c2);
-        escreveLinhaLCD(LINE2 + 7, strLCD);
-
-        //se os caractéres recebidos não forem digitos, a temp. temporária será 0
-        if (c1 == '*' || c1 == '#' || c2 == '*' || c2 == '#' || c1 == NULL || c2 == NULL)
-            tmp_Alarme = 0;
-
-        //ao caractér recebido em ASCII, subtrai o "excesso", neste caso '0', que correponde a 48
-        c1 = c1 - '0';
-        c2 = c2 - '0';
-        //a nova temp, será 10 vezes o 1º caractér recebido mais o 2º
-        tmp_Alarme = 10 * c1 + c2;
-
-    } while (tmp_Alarme < 10 || tmp_Alarme > 40);
-
-    //se a nova temp. for dentro dos limites, escreve a temp. temporária na variável global do sistema
-    tempAlarme = tmp_Alarme;
-
-    //pequeno delay, uma vez que se a temp. estiver dentro dos limites, vai sair imediatamente da função, assim mostra a nova temp. durante 0.5 seg
-    __delay_ms(500);
-
-}
-
-//função que trata da aquisição do caratér do teclado matricial e conjunção com as interrupções externas
-char getKBInput(void) {
-
-    //começa por definir RB3 a HIGH, de modo a o restante código poder alternar os estados dos pinos
-    RB3_SetHigh();
-
-    //enquanto a flag WrEnFl estiver a zero ou o botão SEL for premido, altera o estado dos pinos
-    do {
-
-        //se o pino anterior estiver a HIGH, passa esse a LOW e passa o correspondente a HIGH, enquanto a flah WrEnFl estiver a 0
-        if (RB3_LAT == 1 && WrEnFl == 0) {
-            RB3_SetLow();
-            RB4_SetHigh();
-        }
-        if (RB4_LAT == 1 && WrEnFl == 0) {
-            RB4_SetLow();
-            RB5_SetHigh();
-        }
-        if (RB5_LAT == 1 && WrEnFl == 0) {
-            RB5_SetLow();
-            RB6_SetHigh();
-        }
-        if (RB6_LAT == 1 && WrEnFl == 0) {
-            RB6_SetLow();
-            RB3_SetHigh();
-        }
-
-    } while (WrEnFl == 0 && BOTAO_SEL_GetValue() != 0);
-    //as interrupções externas levam a flag WrEnFl a 1, e esta tem de ser limpo por SW
-    WrEnFl = 0;
-
-    //esquanto os botões do teclado estiverem premidos, não avança
-    while (RB0_GetValue() == 1 || RB1_GetValue() == 1 || RB2_GetValue() == 1);
-
-    //se foi premido o botão SEL, devolve NULL
-    if (BOTAO_SEL_GetValue() == 0) {
-        return NULL;
+        startFunc = 0;
+        //variáveis globais de caractéres recebidos, assere valores iniciais
+        c1 = 0;
+        c2 = 0;
     }
 
-    //devlove a tecla pressionada, que foi atribuída nas interrupções externas
-    return TeclaTMP;
+    //caso 1º estado (estado 0)
+    if (estado == 0) {
+        //e seja habilitada a escrita de um caractér
+        if (WrEnFl) {
+            //copia-o
+            c1 = TeclaTMP;
+            if (c1 != 0) {
+                //e mostra-o no LCD
+                escreveCharLCD(LINE2 + 6, c1);
+                //o estado passa a 1, para receber o próximo caractér
+                estado = 1;
+                //limpa a flag de escrita
+                WrEnFl = 0;
+            }
+        }
+    }
 
+    //caso 2º estado (estado 1)
+    if (estado == 1) {
+        //e seja habilitada a escrita de um caractér
+        if (WrEnFl) {
+            //copia-o
+            c2 = TeclaTMP;
+            if (c2 != 0) {
+                //e mostra-o no LCD
+                escreveCharLCD(LINE2 + 7, c2);
+                //o estado passa a 2, para calcular a temperatura introduzida
+                estado = 2;
+                //limpa a flag de escrita
+                WrEnFl = 0;
+            }
+        }
+    }
+    
+    //caso 3º estado (estado 2)
+    if (estado == 2) {
+        //se os caractéres recebidos não forem digitos, a temp. temporária será 0
+        if (c1 == '*' || c1 == '#' || c2 == '*' || c2 == '#' || c1 == 0 || c2 == 0)
+            tmp_Alarme = 0;
+        else {
+            //enquanto a temp. não for entre 10 e 40 gruas, não atualiza a temp. de alarme
+            //ao caractér recebido em ASCII, subtrai o "excesso", neste caso '0', que correponde a 48
+            c1 = c1 - '0';
+            c2 = c2 - '0';
+            //a nova temp, será 10 vezes o 1º caractér recebido mais o 2º
+            tmp_Alarme = 10 * c1 + c2;
+
+            //se a nova temp. for dentro dos limites, escreve a temp. temporária na variável global do sistema, e "manda" de volta para o menu principal
+            if (tmp_Alarme >= 10 && tmp_Alarme <= 40) {
+                tempAlarme = tmp_Alarme;
+                menu_sel = 5;
+            }
+        }
+        //como vai para o menu principal, reinicia a variável de estado para não causar problemas noutras funções, e as variáveis de atualização geral e do LCD
+        startFunc = 1;
+        estado = 0;
+        update = 1;
+    }
 }
 
 //função de teste da EUSART, obtém uma string através da EUSART e repete-a para o terminal virtual e para o LCD
 void feedbackUSART(void) {
 
-    //limpa o LCD
-    while (BusyXLCD());
-    WriteCmdXLCD(CLEAR_LCD);
-
-    //enquanto o botão SEL não for pressionado, fica na função
-    //NOTA: devido á maneira como é executado, apenas depois de receber um ENTER e o botão estiver pressionado é que sái da função
-    while (BOTAO_SEL_GetValue() != 0) {
-
+    //caso seja a 1º vez a entrar na função, inicia o LCD e/ou as variáveis necessárias, e leva o estado a 0
+    if (startFunc) {
+        escreveLinhaLCD(LINE1, "Feedback EUSART    ");
+        escreveLinhaLCD(LINE2, "                    ");
+        EUSART1_Write('\f');
+        startFunc = 0;
+        //variável de estados a 0
+        estado = 0;
         //flags de conflito entre a EUSART, uma vez que sempre que é efetuada uma medição,
         //pretende-se escrever para o terminal virtual, estas flags desabilitam esta funcionalidade, de modo a não haver conflitos
-        eusart_Tx_On = 1;
-        eusart_Tx_En = 1;
-        //espera pela introdução da string, que é tradada na interrupção da EUSART_Receive
-        while (eusart_Tx_On == 1);
+        estadoEUSART = 2;
+        bloqueiaEUSART = 2;
+    }
 
-        //copia a string USART para string do LCD
+    //caso 1º estado (estado 0)
+    if (estado == 0 ) {   
+        //e o estado da EUSART seja 1 (pausa)
+        if (estadoEUSART == 1)
+            estado = 1;
+        else 
+            //caso contrário, continua no mesmo estado
+            estado = 0;
+    }
+
+    //caso 2º estado (estado 1)
+    if (estado == 1) {
+
+        //como só escreve a string depois de ter terminado de a receber, e tem de estar pronto para receber outra, reinicia os estado da EUSART e geral
+        estadoEUSART = 2;
+        estado = 0;
+
+        //copia a string da EUSART para string do LCD
         for (i = 0; i < StrSIZE - 1; i++) {
-            strLCD[i] = strUSART[i];
+            if (strUSART[i] == '\0')
+                strLCD[i] = ' ';
+            else
+                strLCD[i] = strUSART[i];
         }
 
         //repete a string toda para o terminal virtual
@@ -396,21 +412,284 @@ void feedbackUSART(void) {
             strUSART[i] = '\0';
         }
 
-        //no final de escrever a string toda, manda um CARRIAGE RETURN, para mudar de linha no terminal
-        EUSART1_Write('\r');
-
         //escreve a string LCD no LCD
-        while (BusyXLCD());
-        WriteCmdXLCD(CLEAR_LCD);
-        escreveLinhaLCD(LINE1, strLCD);
+        escreveLinhaLCD(LINE2, strLCD);
+        
+    }
+}
 
+//função auxiliar às interrupções, com código extenso ou que demoraria demasiado tempo para uma interrupção
+void extrasInterrupoes(void) {
+
+    //caso a interrupção da EUSART precise de executar código auxiliar, no caso de entradas específicas
+    if (intEUSART) {
+        
+        //se a entrada no terminal virtual for do tipo "SA=xx\r",  calcula a nova temp. de alarme
+        if (( strUSART[0] == 'S' ) && ( strUSART[1] == 'A' ) && ( strUSART[2] == '=' ) && ( strUSART[5] == '\r' ) && bloqueiaEUSART != 2) {
+
+            //variáveis locais, que guardam o valor "real"/literal do caractér recebido, tal como no caso do teclado matricial
+            unsigned char i1, i2;
+
+            //subtrai ao caracter '0', ou seja 48 "literal"
+            i1 = strUSART[3] - '0';
+            i2 = strUSART[4] - '0';
+
+            //se os caracéteres corresponderem a digitos, tenta calcular a nova temp. de alarme
+            if (i1 >= 0 && i1 <= 9 && i2 >= 0 && i2 <= 9) {
+
+                //cálculo local e temporário da temp. de alarme, de modo a ser possível testar
+                char tmpAlarme = 10 * i1 + i2;
+
+                //se a nova temp. estiver dentro dos limites, então escreve a temp. temporária na variável global do sistema
+                if (tmpAlarme >= 10 && tmpAlarme <= 40)
+                    tempAlarme = tmpAlarme;
+            }
+
+        }
+
+        //se a entrada no terminal virtual for do tipo "RH=x\r", "RH=xx\r", "RH=xxx\r" ou "RH=xxxx\r", calcula o nr. de registo que se pretende ler
+        if (( strUSART[0] == 'R' ) && ( strUSART[1] == 'H' ) && ( strUSART[2] == '=' ) && ( strUSART[4] == '\r' || strUSART[5] == '\r' || strUSART[6] == '\r' || strUSART[7] == '\r' ) && bloqueiaEUSART != 2) {
+
+            //se a entrada for de qualquer tipo ("RH=x\r", "RH=xx\r", "RH=xxx\r" ou "RH=xxxx\r")
+            if (strUSART[4] == '\r' || strUSART[5] == '\r' || strUSART[6] == '\r' || strUSART[7] == '\r') {
+
+                //se os caratéres recebidos são entre '0' e '9', uma vez que são sequencias na tabelas ASCII, pode se fazer este teste
+                //o mesmo é feito para os restantes casos, apenas em posições diferentes
+                if (strUSART[3] >= '0' && strUSART[3] <= '9')
+
+                    //o nr. de leituras é o caractér menos '0', ou 48 "literal"
+                    numLeituras = strUSART[3] - '0';
+            }
+
+            //se a entrada for do tipo "RH=xx\r", "RH=xxx\r" ou "RH=xxxx\r"
+            if (strUSART[5] == '\r' || strUSART[6] == '\r' || strUSART[7] == '\r') {
+
+                //mesma verificação que no 1º caso, apenas para a posição seguinte
+                if (strUSART[4] >= '0' && strUSART[4] <= '9')
+
+                    //o nr. de leituras é igual ao número anterior vezes dez, uma vez que este avançou uma casa, mais o caractér recebido menos '0'
+                    numLeituras = ( numLeituras * 10 ) + strUSART[4] - '0';
+            }
+
+            //se a entrada for do tipo "RH=xxx\r" ou "RH=xxxx\r"
+            if (strUSART[6] == '\r' || strUSART[7] == '\r') {
+
+                //mesma verificação que no 2º caso, apenas para a posição seguinte
+                if (strUSART[5] >= '0' && strUSART[5] <= '9')
+
+                    //o nr. de leituras é igual ao número anterior vezes dez, uma vez que este avançou uma casa, mais o caractér recebido menos '0'
+                    numLeituras = ( numLeituras * 10 ) + strUSART[5] - '0';
+            }
+
+            //se a entrada for do tipo "RH=xxxx\r"
+            if (strUSART[7] == '\r') {
+
+                //mesma verificação que no 3º caso, apenas para a posição seguinte
+                if (strUSART[6] >= '0' && strUSART[6] <= '9')
+
+                    //o nr. de leituras é igual ao número anterior vezes dez, uma vez que este avançou uma casa, mais o caractér recebido menos '0'
+                    numLeituras = ( numLeituras * 10 ) + strUSART[6] - '0';
+            }
+
+            //se o nr. de leituras pretendido for maior que o nr. de registos guardados, então não mostra nenhum, IE. mostra 0
+            if (numLeituras > regNum)
+                numLeituras = 0;
+        }
+
+        //caso se trate do fim da receção (caso ENTER ou fim de string), a última posição da string USART tem de ser null ('\0'), para que seja possível copiar para o LCD
+        if (j == StrSIZE - 1 || strUSART[( j - 1 )] == '\r')
+            //último caractér passa a null ('\0')
+            strUSART[j - 1] = '\0';
+
+
+        //caso o nr. de leituras seja maior que 0, pretende-se mostrar esse nr. de leituras
+        if (numLeituras > 0) {
+
+            //aviso inicial para aguardar, dado as limitações de velocidade de transmissão EUSART e I2C
+            sprintf(strUSART, "\fPOR FAVOR AGUARDE\r");
+            for (i = 0; strUSART[i] != '\0'; i++) {
+                EUSART1_Write(strUSART[i]);
+                strUSART[i] = '\0';
+            }
+
+            //novo contador local, que começa com o valor de leituras pretendido e decrementa até 0
+            for (int k = numLeituras; k != 0; k--) {
+
+                //o endereço a ler corresponde à posição do registo relativa no bloco de memória
+                memAddr = regCountAux * 8;
+
+                //divide o endereço pretendido em 2 bytes
+                //para o 1º byte, tem de se fazer um shift register à direita em 8 bits, para se obter apenas os 1ºs 8 bits
+                i2cReadAddr[0] = ( memAddr >> 8 );
+                //para o 2º byte, é aplicada uma máscara E de 0x00ff, ou seja, bit a bit, uma operação E entre o bit que está na variável e o da máscara
+                i2cReadAddr[1] = ( memAddr & 0xff );
+
+                //manda à EEPROM o comando para mudar para a linha pretendida
+                I2C1_MasterWrite(i2cReadAddr, 2, eepromAddr, stateMsgI2c);
+                //e depois lê os 8 bytes sequenciais, onde estão guardadas as variáveis
+                I2C1_MasterRead(i2cReadBlock, 8, eepromAddr, stateMsgI2c);
+
+                //copia para a string da EUSARTa temp. medida, a temp. de alarme e o seu estado, bem como o nr de registo correspondente
+                //as variáveis são guardadas como "literias" e a temperatura medida como char com sinal pois pode ser -9ºC
+                //a temp. medida é guardada no 2º byte, a de alarme no 4º e o estado deste no 6º
+                sprintf(strUSART, "TM=%02d_TA=%02d_AA=%1d_RN=%04d\r", (signed char) i2cReadBlock[1], i2cReadBlock[3], i2cReadBlock[5], regNum);
+                for (i = 0; strUSART[i] != '\0'; i++) {
+                    EUSART1_Write(strUSART[i]);
+                    strUSART[i] = '\0';
+                }
+
+                //diminui os contadores
+                regCountAux--;
+                regNum--;
+
+                //se a posição relativa no registo já estiver na 1º, passa para a última e continua a subtrair
+                if (regCountAux == 0)
+                    regCountAux = 4095;
+
+            }
+
+            //no final, volta a ler o último endereço escrito e o nr. de registo da EEPROM, de modo a continuar a operar
+            //faz praticamente a mesma coisa como no inicio de operação, exceto que como já esteve a funcionar
+            //assume-se que foi registado pelo menos 1 registo, pelo que não é verificado se a memória está vazia
+
+            //endereço de memória a ler, o 1º, que é onde estão guardados o último registo de memória usado e o nr. de registos guardados até ao momento
+            i2cReadAddr[0] = 0;
+            i2cReadAddr[1] = 0;
+
+            //manda à EEPROM o comando para mudar para a linha 0x0000
+            I2C1_MasterWrite(i2cReadAddr, 2, eepromAddr, stateMsgI2c);
+            //e depois lê os quatro bytes sequenciais, onde estão guardadas as variáveis
+            I2C1_MasterRead(i2cReadBlock, 4, eepromAddr, stateMsgI2c);
+
+            //o último endereço de memória é do tipo INT, logo leva 2 bytes, o 1º leva um shift de 8 bits à esquerda e em seguida é somado ao segundo byte
+            memAddr = ( ( i2cReadBlock[0] << 8 ) + i2cReadBlock[1] );
+            //o nr. de registos é do tipo INT, logo leva 2 bytes, o 1º leva um shift de 8 bits à esquerda e em seguida é somado ao segundo byte
+            regNum = ( ( i2cReadBlock[2] << 8 ) + i2cReadBlock[3] );
+            //esta variável corresponde à posição relativa ao inicio do bloco de memória e está diretamente relacionada com o último endereço de memória
+            //uma vez que cada registo tem de tamanho 8 bytes, trata-se de uma divisão por 8, o que corresponde a um shift de 3 bits para a direita
+            regCountAux = memAddr >> 3;
+
+            //bloqueia a escrita para o terminal virtual por outros módulos, de modo a ser possível visualizar os registos
+            estadoEUSART = 2;
+            bloqueiaEUSART = 1;
+
+            //reinicia o nr. de leituras a 0, para não reentrar na função numa nova interrupção
+            numLeituras = 0;
+
+        }
+
+        //executou o que precisou, flag a 0 para não executar novamente até nova interrupção
+        intEUSART = 0;
     }
 
-    while (BOTAO_SEL_GetValue() == 0);
+    //caso a interrupção do ADC precise de executar código auxiliar, que é mostrar a saída no terminal virtual e gravar os dados na EEPROM
+    if (intADC) {
 
-    //habilita a escrita para o terminal por outros módulos
-    eusart_Tx_On = 0;
-    eusart_Tx_En = 0;
+        //caso a escrita para a EUSART não esteja bloqueada por outra função, escreve para o terminal os dados
+        if (estadoEUSART == 0 && bloqueiaEUSART == 0) {
+            //copia para a string EUSART os valores das temps. e o estado do alarme, e limpa o ecrã de cada vez que manda a mensagem
+            sprintf(strUSART, "\fTM=%02d_TA=%02d_AA=%1d\r", tempAtual, tempAlarme, alarme);
+            for (i = 0; strUSART[i] != '\0'; i++) {
+                //escreve o caractér e limpa-o da string, para esta não ter lixo lá dentro
+                EUSART1_Write(strUSART[i]);
+                strUSART[i] = '\0';
+            }
+        }
+
+        //escrita na EEPROM de um novo registo de dados
+
+        //caso a posição relativa do registo seja no fim da EEPROM, esta tem de "dar a volta", IE: voltar à 1º possição
+        if (regCountAux == 4095)
+            regCountAux = 0;
+        //enquanto a memória não estiver cheia de registos , pode-se aumentar o número de registos
+        //nr. de registos MÁXIMO
+        //256k bits = 32768 bytes
+        //32768 bytes - (1ºs 8 bytes para guardar as variáveis iniciais) = 32760
+        //32760 / (8bytes por registo) = 4095 registos)
+        if (regNum < 4095)
+            regNum++;
+
+        //aumenta sempre a posição relativa na EEPROM
+        regCountAux++;
+
+        //o endereço inicial para a escrita do registo está diretamente relacionado com a posição relativa do registo
+        //como este é de 8 bytes e cada endereço corresponde a 1 bytes, basta multiplicar por 8
+        memAddr = regCountAux * 8;
+
+        //composição do bloco de dados de um registo para a função de escrita para a EEPROM
+        //os 1ºs 2 bytes a enviar correspondem ao endereço inicial do registo a ser escrito
+        //os seguites 8 são os dados de registo, mais umas letras para "fácil" leitura a partir da janela de debug do PROTEUS
+
+        //o 1º byte correspondente ao byte high do endereço de memória, tem de se fazer um shift register à direita em 8 bits, para se obter apenas os 1ºs 8 bits
+        i2cWriteBlock[0] = ( memAddr >> 8 ); //byte high do endereço de memória
+        //o 2º byte correspondente ao byte low do endereço de memória, é aplicada uma máscara E de 0x00ff, ou seja, bit a bit, uma operação E entre o bit que está na variável e o da máscara
+        i2cWriteBlock[1] = ( memAddr & 0xff ); //byte low do endereço de memória
+        //letra M, correspondente a "medição", para diferenciação e separação das variáveis e mais fácil leitura a partir da janela de debug da EEPROM do PROTEUS
+        i2cWriteBlock[2] = 'M';
+        //escrita da temp. medida, uma vez que esta cabe dentro de um byte, não é necessário fazer mais nada
+        i2cWriteBlock[3] = tempAtual;
+        //letra A, correspondente a "alarme", para diferenciação e separação das variáveis e mais fácil leitura a partir da janela de debug da EEPROM do PROTEUS
+        i2cWriteBlock[4] = 'A';
+        //escrita da temp. de alarme, uma vez que esta cabe dentro de um byte, não é necessário fazer mais nada
+        i2cWriteBlock[5] = tempAlarme;
+        //letra 3, correspondente a "estado", para diferenciação e separação das variáveis e mais fácil leitura a partir da janela de debug da EEPROM do PROTEUS
+        i2cWriteBlock[6] = 'E';
+        //escrita do estado do alarme, uma vez que este cabe dentro de um byte, não é necessário fazer mais nada
+        i2cWriteBlock[7] = alarme;
+        //1º byte do nr. de registos gravados até agora, é aplicada a mesma técnica que no byte high do endereço de memória
+        i2cWriteBlock[8] = ( regNum >> 8 ); //byte high do nr de registos
+        //2º byte do nr. de registos gravados até agora, é aplicada a mesma técnica que no byte low do endereço de memória
+        i2cWriteBlock[9] = ( regNum & 0xff ); //byte low do nr de registos
+
+        //começa a transação de dados do módulo I2C com a EEPROM
+        I2C1_MasterWrite(i2cWriteBlock, 10, eepromAddr, stateMsgI2c);
+
+        //caso haja algum percalço, atraso ou ainda esteja a decorer a escrita de outro bloco de dados, recomeça a transação até ter sucesso, com o mesmo conjunto de dados
+        do {
+
+            if (stateMsgI2c != I2C1_MESSAGE_PENDING && stateMsgI2c != I2C1_MESSAGE_COMPLETE)
+                I2C1_MasterWrite(i2cWriteBlock, 10, eepromAddr, stateMsgI2c);
+
+        } while (( stateMsgI2c != I2C1_MESSAGE_COMPLETE ) == ( stateMsgI2c != I2C1_MESSAGE_PENDING ));
+
+        //o estado do I2C tem de ser diferente de 1 e 3, sem ser os restantes 5, logo será 8, para ser forçado a reescrever o estado do módulo
+        stateMsgI2c = 8;
+
+        //composição do bloco de dados para os valores iniciais para a função de escrita para a EEPROM
+        //o endereço de memória a escrever será sempre 0x0000, ou seja os primeiros 8
+        //apesar de se deixar espaço para 8 bytes, apenas 4 são usados, os restantes não são usados de modo a facilitar cálculos
+
+        //1º byte do endereço, que será sempre 0x0000, correspondente então a 0x00
+        i2cWriteBlock[0] = 0;
+        //2º byte do endereço, que será sempre 0x0000, correspondente então a 0x00
+        i2cWriteBlock[1] = 0;
+        //o 1º byte correspondente ao byte high do endereço de memória, é aplicada a mesma técnica que na composição do bloco para a escrita de um registo
+        i2cWriteBlock[2] = ( memAddr >> 8 );
+        //o 2º byte correspondente ao byte low do endereço de memória, é aplicada a mesma técnica que na composição do bloco para a escrita de um registo
+        i2cWriteBlock[3] = ( memAddr & 0xff );
+        //1º byte do nr. de registos gravados até agora, é aplicada a mesma técnica que na composição do bloco para a escrita de um registo
+        i2cWriteBlock[4] = ( regNum >> 8 );
+        //2º byte do nr. de registos gravados até agora, é aplicada a mesma técnica que na composição do bloco para a escrita de um registo
+        i2cWriteBlock[5] = ( regNum & 0xff );
+
+        //começa uma nova transação de dados do módulo I2C com a EEPROM
+        I2C1_MasterWrite(i2cWriteBlock, 6, eepromAddr, stateMsgI2c);
+
+        //caso haja algum percalço, atraso ou ainda esteja a decorer a escrita de outro bloco de dados, recomeça a transação até ter sucesso, com o mesmo conjunto de dados
+        do {
+
+            if (stateMsgI2c != I2C1_MESSAGE_PENDING && stateMsgI2c != I2C1_MESSAGE_COMPLETE)
+                I2C1_MasterWrite(i2cWriteBlock, 6, eepromAddr, stateMsgI2c);
+
+        } while (( stateMsgI2c != I2C1_MESSAGE_COMPLETE ) == ( stateMsgI2c != I2C1_MESSAGE_PENDING ));
+
+        //mesma coisa que na 1º escrita, para forçar a reescrever o estado do módulo
+        stateMsgI2c = 8;
+
+        //executou o que precisou, flag a 0 para não executar novamente até nova interrupção
+        intADC = 0;
+
+    }
 
 }
 

@@ -49,18 +49,30 @@ void INT1_ISR(void) {
     //***User Area Begin->code***
 
     //averigua qual foi o último pino que esteve a 1 e atribui um caractér consoante a resposta
-    if (RB3_GetValue() == 1) {
+    RB3_SetLow();
+    if (RB1_GetValue() == 0) {
         TeclaTMP = '2';
     }
-    if (RB4_GetValue() == 1) {
+    RB3_SetHigh();
+    
+    RB4_SetLow();
+    if (RB1_GetValue() == 0) {
         TeclaTMP = '5';
     }
-    if (RB5_GetValue() == 1) {
+    RB4_SetHigh();
+    
+    RB5_SetLow();
+    if (RB1_GetValue() == 0) {
         TeclaTMP = '8';
     }
-    if (RB6_GetValue() == 1) {
+    RB5_SetHigh();
+    
+    RB6_SetLow();
+    if (RB1_GetValue() == 0) {
         TeclaTMP = '0';
     }
+    RB6_SetHigh();
+    
     //habilita a escrita com teclas, de modo a não ser possível haver múltiplas entradas
     WrEnFl = 1;
 
@@ -106,18 +118,30 @@ void INT2_ISR(void) {
     //***User Area Begin->code***
 
     //averigua qual foi o último pino que esteve a 1 e atribui um caractér consoante a resposta
-    if (RB3_GetValue() == 1) {
+    RB3_SetLow();
+    if (RB2_GetValue() == 0) {
         TeclaTMP = '3';
     }
-    if (RB4_GetValue() == 1) {
+    RB3_SetHigh();
+    
+    RB4_SetLow();
+    if (RB2_GetValue() == 0) {
         TeclaTMP = '6';
     }
-    if (RB5_GetValue() == 1) {
+    RB4_SetHigh();
+    
+    RB5_SetLow();
+    if (RB2_GetValue() == 0) {
         TeclaTMP = '9';
     }
-    if (RB6_GetValue() == 1) {
+    RB5_SetHigh();
+    
+    RB6_SetLow();
+    if (RB2_GetValue() == 0) {
         TeclaTMP = '#';
     }
+    RB6_SetHigh();
+    
     //habilita a escrita com teclas, de modo a não ser possível haver múltiplas entradas
     WrEnFl = 1;
 
@@ -163,18 +187,30 @@ void INT0_ISR(void) {
     //***User Area Begin->code***
 
     //averigua qual foi o último pino que esteve a 1 e atribui um caractér consoante a resposta
-    if (RB3_GetValue() == 1) {
+    RB3_SetLow();
+    if (RB0_GetValue() == 0) {
         TeclaTMP = '1';
     }
-    if (RB4_GetValue() == 1) {
+    RB3_SetHigh();
+
+    RB4_SetLow();
+    if (RB0_GetValue() == 0) {
         TeclaTMP = '4';
     }
-    if (RB5_GetValue() == 1) {
+    RB4_SetHigh();
+
+    RB5_SetLow();
+    if (RB0_GetValue() == 0) {
         TeclaTMP = '7';
     }
-    if (RB6_GetValue() == 1) {
+    RB5_SetHigh();
+    
+    RB6_SetLow();
+    if (RB0_GetValue() == 0) {
         TeclaTMP = '*';
     }
+    RB6_SetHigh();
+    
     //habilita a escrita com teclas, de modo a não ser possível haver múltiplas entradas
     WrEnFl = 1;
 

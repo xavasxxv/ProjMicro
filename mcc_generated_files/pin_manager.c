@@ -54,11 +54,11 @@ void PIN_MANAGER_Initialize(void)
     /**
     LATx registers
     */   
-    //nenhum destes registos precisa de valores inicias, configurados a 0
+    //nenhum destes registos precisa de valores inicias, excepto o porto B, configurados a 0
     LATE = 0x00;    
     LATD = 0x00;    
     LATA = 0x00;    
-    LATB = 0x00;    
+    LATB = 0x78; //linhas 3, 4, 5, 6 e 7 a HIGH   
     LATC = 0x00;    
 
     /**

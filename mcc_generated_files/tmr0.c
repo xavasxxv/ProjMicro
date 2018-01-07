@@ -147,10 +147,11 @@ void TMR0_ISR(void) {
     //divisores de relógio, que permitem que tenha várias "frequências" com base no tempo de interrupção definido (8 vezes por segundo)
     //divisor para 4Hz
     clk4Hz = !clk4Hz;
-    //caso o relógio de 4Hz esteja a 1, manda iniciar uma conversão do ADC, e divide também para os 2Hz
+    //caso o relógio de 4Hz esteja a 1, manda iniciar uma conversão do ADC, e divide também para os 2Hz, assere a variável auxiliar de update do LCD a 1
     if (clk4Hz) {
         ADC_StartConversion();
         clk2Hz = !clk2Hz;
+        update4hZ = 1;
     }
     //divisor para 1Hz
     if (clk2Hz && clk4Hz)
