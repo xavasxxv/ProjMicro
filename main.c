@@ -815,8 +815,8 @@ void extrasInterrupoes(void) {
 void iniciarValoresEEPROM(void) {
 
     //endereço de memória a ler, o 1º, que é onde estão guardados o último registo de memória usado e o nr. de registos guardados até ao momento
-    i2cReadAddr[0] = 0x7F;
-    i2cReadAddr[1] = 0xF8;
+    i2cReadAddr[0] = 0;
+    i2cReadAddr[1] = 0;
 
     //manda à EEPROM o comando para mudar para a linha 0x0000
     I2C1_MasterWrite(i2cReadAddr, 2, eepromAddr, stateMsgI2c);
@@ -824,14 +824,14 @@ void iniciarValoresEEPROM(void) {
     I2C1_MasterRead(i2cReadBlock, 4, eepromAddr, stateMsgI2c);
 
     //caso a memória esteja vazia, inicializa as variáveis a 0
-    if (( i2cReadBlock[0] == 0xff && i2cReadBlock[1] == 0xff && i2cReadBlock[2] == 0xff && i2cReadBlock[3] == 0xff ) || ( i2cReadAddr[0] != 0x7F || i2cReadAddr[1] != 0xF8 )) {
+    if (( i2cReadBlock[0] == 0xff && i2cReadBlock[1] == 0xff && i2cReadBlock[2] == 0xff && i2cReadBlock[3] == 0xff ) || ( i2cReadAddr[0] != 0 || i2cReadAddr[1] != 0 )) {
         regNum = 0;
         regCountAux = 0;
         memAddr = 0;
         //caso contrário, passa os valores para as variáveis
     } else {
         //o último endereço de memória é do tipo INT, logo leva 2 bytes, o 1º leva um shift de 8 bits à esquerda e em seguida é somado ao segundo byte
-        memAddr = ( ( i2cReadBlock[0] << 8 ) + i2cReadBlock[1] ) + 8;
+        memAddr = ( ( i2cReadBlock[0] << 8 ) + i2cReadBlock[1] );
         //o nr. de registos é do tipo INT, logo leva 2 bytes, o 1º leva um shift de 8 bits à esquerda e em seguida é somado ao segundo byte
         regNum = ( ( i2cReadBlock[2] << 8 ) + i2cReadBlock[3] );
         //esta variável corresponde à posição relativa ao inicio do bloco de memória e está diretamente relacionada com o último endereço de memória
