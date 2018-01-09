@@ -49,6 +49,7 @@ void INT1_ISR(void) {
     //***User Area Begin->code***
 
     //averigua qual foi o último pino que esteve a 1 e atribui um caractér consoante a resposta
+    //escreve o estado do pin a 0 e verifica se a entrada da interrupção foi a zero, caso contrário, foi outro caractér
     RB3_SetLow();
     if (RB1_GetValue() == 0) {
         TeclaTMP = '2';
@@ -118,6 +119,7 @@ void INT2_ISR(void) {
     //***User Area Begin->code***
 
     //averigua qual foi o último pino que esteve a 1 e atribui um caractér consoante a resposta
+    //escreve o estado do pin a 0 e verifica se a entrada da interrupção foi a zero, caso contrário, foi outro caractér
     RB3_SetLow();
     if (RB2_GetValue() == 0) {
         TeclaTMP = '3';
@@ -187,6 +189,7 @@ void INT0_ISR(void) {
     //***User Area Begin->code***
 
     //averigua qual foi o último pino que esteve a 1 e atribui um caractér consoante a resposta
+    //escreve o estado do pin a 0 e verifica se a entrada da interrupção foi a zero, caso contrário, foi outro caractér
     RB3_SetLow();
     if (RB0_GetValue() == 0) {
         TeclaTMP = '1';

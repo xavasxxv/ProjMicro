@@ -39,7 +39,7 @@ extern "C" {
     volatile char strUSART[StrSIZE];            //strinf para a EUSART
     volatile char i2cWriteBlock[10];            //bloco de dados (mais endereço) a escrever para a EEPROM
     volatile char i2cReadAddr[2];               //bloco de dados que guarda endereços para mandar ler da EEPROM
-    volatile char i2cReadBlock[8];              //bloco de dados a ler da EEPROM
+    volatile char i2cReadBlock[4];              //bloco de dados a ler da EEPROM
     volatile char TeclaTMP;                     //variável que guarda a última tecla pressionada no teclado matricial
     volatile char c1;                           //caractér recebido do teclado
     volatile char c2;                           //caractér recebido do teclado   
@@ -65,7 +65,7 @@ extern "C" {
     volatile bool clk1_4Hz = 0;                 //relógio global de 1/4Hz (4s)
     volatile bool clk1_8Hz = 0;                 //relógio global de 1/8Hz (8s)
     volatile bool lastAlarme = 0;               //variável que guarda o anterior estado de alarme
-    volatile bool startFunc = 0;                //flag de autalização que indica às funções para iniciarem os seus estados/texto
+    volatile bool startFunc = 0;                //flag de atualização que indica às funções para iniciarem os seus estados/texto
     volatile bool alarme = 0;                   //variável global que guarda o mais recente estado de alarme
     volatile int binADC = 0;                    //variável que guarda o valor binário recebido do ADC
     volatile bool WrEnFl = 0;                   //flag global de escrita do teclado matricial

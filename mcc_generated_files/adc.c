@@ -124,7 +124,7 @@ adc_result_t ADC_GetConversion(adc_channel_t channel) {
 
 void ADC_ISR(void) {
 
-    //recebe o valor binário da leitura do ADC
+    //recebe o valor binário da leitura do ADC menos o valor binário equilavente a zero graus 
     binADC = ADRES - 138;
 
     //a interrupção executou, falta o código auxiliar assim que possível

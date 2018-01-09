@@ -101,7 +101,7 @@ void main(void) {
     //loop principal
     while (1) {
 
-        //funcionalidades auxiliares às interrupções que "tratam" de tarefas que demoram demasiado tempo para as interrupções
+        //funcionalidades auxiliares às interrupções que "tratam" de tarefas das interrupções
         extrasInterrupoes();
 
         //obtém a posição da função que se pretende usar através dos botões
@@ -220,18 +220,19 @@ void escreveCharLCD(char linha, char caracter) {
 //função que mostra as temps. medidas e de alarme e alterna a informação se o alarme estiver ativo
 void monitorizacao(void) {
 
-    //caso seja a 1º vez a entrar na função, inicia o LCD e/ou as variáveis necessárias, e leva o estado a 0
+    //caso seja a 1º vez a entrar na função, inicia o LCD e/ou as variáveis necessárias
     if (startFunc) {
         //escreve para o LCD as strings iniciais
         sprintf(strLCD, "Temp. Atual:  %2d oC", tempAtual);
         escreveLinhaLCD(LINE1, strLCD);
         sprintf(strLCD, "Temp. Alarme: %2d oC", tempAlarme);
         escreveLinhaLCD(LINE2, strLCD);
+        //já inicializou, não volta a correr
         startFunc = 0;
 
     }
 
-    //atualiza o LCD a 4Hz (4 vezes por s) ou no caso de ter sido mandado atualizar
+    //atualiza o LCD a 1Hz (1 vezes por s) ou no caso de ter sido mandado atualizar
     if (update1hZ || update) {
         //se o alarme estiver ativo, alternar entre mostrar a temp. de alarme e o aviso de alarme ativo
         if (alarme) {
@@ -255,11 +256,9 @@ void monitorizacao(void) {
         escreveLinhaLCD(LINE1 + 14, strLCD);
         sprintf(strLCD, "%2d", tempAlarme);
         escreveLinhaLCD(LINE2 + 14, strLCD);
-
-
     }
 
-    //limpa as variáveis de atualização
+    //limpa semrpe as variáveis de atualização
     update1hZ = 0;
     update = 0;
 
@@ -272,6 +271,7 @@ void testeTeclado(void) {
     if (startFunc) {
         escreveLinhaLCD(LINE1, "Teste Teclado      ");
         escreveLinhaLCD(LINE2, "Numero:             ");
+        //já inicializou, não volta a correr
         startFunc = 0;
     }
 
@@ -297,6 +297,7 @@ void defTempAlarme(void) {
         //escreve as strings iniciais
         escreveLinhaLCD(LINE1, "Introduza o alarme ");
         escreveLinhaLCD(LINE2, "Temp:    oC         ");
+        //já inicializou, não volta a correr
         startFunc = 0;
         //variáveis globais de caractéres recebidos, assere valores iniciais
         c1 = 0;
@@ -371,6 +372,7 @@ void feedbackUSART(void) {
         escreveLinhaLCD(LINE1, "Feedback EUSART    ");
         escreveLinhaLCD(LINE2, "                    ");
         EUSART1_Write('\f');
+        //já inicializou, não volta a correr
         startFunc = 0;
         //variável de estados a 0
         estado = 0;
@@ -421,11 +423,12 @@ void feedbackUSART(void) {
 //função auxiliar às interrupções, com código extenso ou que demoraria demasiado tempo para uma interrupção
 void extrasInterrupoes(void) {
 
+    ///caso a interrupção do TMR0 precise de executar código auxiliar, no caso de entradas específicas
     if (intTMR0) {
 
         //calcula a temperatura atual
-        //faz um cast de um char com sinal do valor binário deslocado vezes o equivalente em graus de 1 LSB e adiciona 0.5
-        //de modo a arrendondar no caso de ser por exemplo, 26.6ºC, passa a 27.1 e o cast trunca a parte decimal excedente
+        //faz um cast de um char com sinal do valor binário deslocado vezes o equivalente em graus de 1 LSB e adiciona 0.5ºC
+        //de modo a arrendondar no caso de ser por exemplo, 26.6ºC, passa a 27.1ºC e o cast trunca a parte decimal excedente
         tempAtual = ( signed char ) ( ( binADC * adcLsb ) + 0.5 );
 
         //antes de verificar o novo estado do alarme, guarda o último estado
@@ -440,13 +443,13 @@ void extrasInterrupoes(void) {
         //divisores de relógio, que permitem que tenha várias "frequências" com base no tempo de interrupção definido (8 vezes por segundo)
         //divisor para 4Hz
         clk4Hz = !clk4Hz;
-        //caso o relógio de 4Hz esteja a 1, manda iniciar uma conversão do ADC, e divide também para os 2Hz, assere a variável auxiliar de update do LCD a 1
+        //divisor para 2Hz
         if (clk4Hz)
             clk2Hz = !clk2Hz;
         //divisor para 1Hz
         if (clk2Hz && clk4Hz)
             clk1Hz = !clk1Hz;
-        //divisor para 1/2Hz (2 seg)
+        //caso o relógio de 1Hz esteja a 1, manda iniciar uma conversão do ADC, e divide também para os 1/2Hz, assere a variável auxiliar de update do LCD a 1
         if (clk1Hz && clk2Hz && clk4Hz) {
             clk1_2Hz = !clk1_2Hz;
             ADC_StartConversion();
@@ -482,7 +485,6 @@ void extrasInterrupoes(void) {
             }
             //caso o alarme esteja a 0
         } else {
-
             //inicia o Timer2, do qual é dependente o módulo ECCP1, responsável pelo PWM do buzzer
             TMR2_StopTimer();
             //e desliga forçosamente o LED
@@ -542,7 +544,6 @@ void extrasInterrupoes(void) {
         //no caso de haver algum tipo de problema, recebe o caractér recebido, de modo a puder ser limpa a flag de interrupção da EUSART
         lixoEUSART = RCREG1;
 
-        //a interrupção executou, falta o código auxiliar assim que possível
         //se a entrada no terminal virtual for do tipo "SA=xx\r",  calcula a nova temp. de alarme
         if (( strUSART[0] == 'S' ) && ( strUSART[1] == 'A' ) && ( strUSART[2] == '=' ) && ( strUSART[5] == '\r' ) && bloqueiaEUSART != 2) {
 
@@ -553,7 +554,7 @@ void extrasInterrupoes(void) {
             i1 = strUSART[3] - '0';
             i2 = strUSART[4] - '0';
 
-            //se os caracéteres corresponderem a digitos, tenta calcular a nova temp. de alarme
+            //se os caracéteres corresponderem a dígitos, tenta calcular a nova temp. de alarme
             if (i1 >= 0 && i1 <= 9 && i2 >= 0 && i2 <= 9) {
 
                 //cálculo local e temporário da temp. de alarme, de modo a ser possível testar
@@ -634,13 +635,13 @@ void extrasInterrupoes(void) {
             //novo contador local, que começa com o valor de leituras pretendido e decrementa até 0
             for (int k = numLeituras; k != 0; k--) {
 
-                //o endereço a ler corresponde à posição do registo relativa no bloco de memória
-                memAddr = regCountAux * 8;
+                //o endereço a ler corresponde à posição do registo relativa no bloco de memória vezes 8, ou deslocada à esquerda 3 bits
+                memAddr = regCountAux << 3;
 
                 //divide o endereço pretendido em 2 bytes
                 //para o 1º byte, tem de se fazer um shift register à direita em 8 bits, para se obter apenas os 1ºs 8 bits
                 i2cReadAddr[0] = ( memAddr >> 8 );
-                //para o 2º byte, é aplicada uma máscara E de 0x00ff, ou seja, bit a bit, uma operação E entre o bit que está na variável e o da máscara
+                //para o 2º byte, é aplicada uma máscara E de 0xff, ou seja, bit a bit, uma operação E entre o bit que está na variável e o da máscara
                 i2cReadAddr[1] = ( memAddr & 0xff );
 
                 //manda à EEPROM o comando para mudar para a linha pretendida
@@ -732,8 +733,8 @@ void extrasInterrupoes(void) {
         regCountAux++;
 
         //o endereço inicial para a escrita do registo está diretamente relacionado com a posição relativa do registo
-        //como este é de 8 bytes e cada endereço corresponde a 1 bytes, basta multiplicar por 8
-        memAddr = regCountAux * 8;
+        //como cada registo é de 8 bytes e cada endereço corresponde a 1 byte, basta multiplicar por 8 ou fazer shift register por 3 bits à esquerda
+        memAddr = regCountAux << 3;
 
         //composição do bloco de dados de um registo para a função de escrita para a EEPROM
         //os 1ºs 2 bytes a enviar correspondem ao endereço inicial do registo a ser escrito
