@@ -66,7 +66,7 @@ void PIN_MANAGER_Initialize(void)
     */
     //registos que indicam a "direção" do pino
     TRISE = 0x07; //apenas RE3 usado como entrada, restantes não usados são configurados como entradas
-    TRISA = 0xBF; //RA0, 1 e 2 usados como entradas (botões); RA3 usado como entrada (ADC); RA4 e 5 não usados, configurados como entradas, RA6 como saida e RA7 como entrada(OSC)
+    TRISA = 0xBF; //RA0, 1 e 2 usados como entradas (botões);RA3 usado como Vref+, configurado como entrada; RA5 usado como entrada (ADC); RA4 não usado, configurado como entrada, RA6 como saida e RA7 como entrada(OSC)
     TRISB = 0x07; //RB0, 1 e 2 usados para interrupções externas, RB 3 a 6 usados como saídas para teclado matricial, RB7 usado como ssída para LED de alarme
     TRISC = 0xBB; //RC2 como saída para PWM, RC6 como saída, RC7 como entrada, ambos para EUSART, RC3 e 4 para I2C, não interessa, configurados como entrada, restantes, não usados, configurados como entrada
     TRISD = 0x00; //todo o porto é usado para o LCD, tudo configurado como saída
@@ -78,7 +78,7 @@ void PIN_MANAGER_Initialize(void)
     ANSELB = 0x00; //nenhum é usado como analógico
     ANSELD = 0x00; //nenhum é usado como analógico
     ANSELE = 0x07; //nenhum é usado como analógico, mas como RE0, 1 e 2 podem ser analógicos e não são configurados, o seu default é serem analógicos, RE3 é digital
-    ANSELA = 0x28; //apenas RA3 é usado como analógico, mas como RA5 pode ser analógico e não é configurado, o seu default é ser analógico, restantes são digitais ou default
+    ANSELA = 0x28; //RA3 é usado como analógico para o Vref+, RA5 usado como entrada analógica para o ADC; restantes são digitais ou default
 
     /**
     WPUx registers

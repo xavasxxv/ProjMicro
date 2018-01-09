@@ -144,57 +144,8 @@ void TMR0_ISR(void) {
         TMR0_InterruptHandler();
     }
 
-    //divisores de relógio, que permitem que tenha várias "frequências" com base no tempo de interrupção definido (8 vezes por segundo)
-    //divisor para 4Hz
-    clk4Hz = !clk4Hz;
-    //caso o relógio de 4Hz esteja a 1, manda iniciar uma conversão do ADC, e divide também para os 2Hz, assere a variável auxiliar de update do LCD a 1
-    if (clk4Hz) {
-        ADC_StartConversion();
-        clk2Hz = !clk2Hz;
-        update4hZ = 1;
-    }
-    //divisor para 1Hz
-    if (clk2Hz && clk4Hz)
-        clk1Hz = !clk1Hz;
-    //divisor para 1/2Hz (2 seg)
-    if (clk1Hz && clk2Hz && clk4Hz)
-        clk1_2Hz = !clk1_2Hz;
-    //divisor para 1/4Hz (4 seg)
-    if (clk1_2Hz && clk1Hz && clk2Hz && clk4Hz)
-        clk1_4Hz = !clk1_4Hz;
-    //divisor para 1/8Hz (8 seg)
-    if (clk1_4Hz && clk1_2Hz && clk1Hz && clk2Hz && clk4Hz)
-        clk1_8Hz = !clk1_8Hz;
-
-    //caso o alarme esteja a 1
-    if (alarme == 1) {
-
-        //inicia o Timer2, do qual é dependente o módulo ECCP1, responsável pelo PWM do buzzer
-        TMR2_StartTimer();
-
-        //alterna o LED e o buzzer a cada ciclo relógio de 2hz, o buzzer funciona sempre a 12.5% de duty-cycle
-        switch (clk2Hz) {
-            //no ciclo negativo, o LED desliga e o buzzer apita a uma freq. mais baixa (375Hz)
-            case 0:
-                EPWM1_LoadDutyValue(124); //1/8 do PR2
-                TMR2_LoadPeriodRegister(249); //xF9 b11111001
-                RB7_SetLow();
-                break;
-            //no ciclo positivo, o LED liga e o buzzer apita a uma freq. mais alta (625Hz)
-            case 1:
-                EPWM1_LoadDutyValue(74); //1/8 do PR2
-                TMR2_LoadPeriodRegister(149); //x95 b10010101
-                RB7_SetHigh();
-                break;
-        }
-    //caso o alarme esteja a 0
-    } else {
-        
-        //inicia o Timer2, do qual é dependente o módulo ECCP1, responsável pelo PWM do buzzer
-        TMR2_StopTimer();
-        //e desliga forçosamente o LED
-        RB7_SetLow();
-    }
+    //a interrupção executou, falta o código auxiliar assim que possível
+    intTMR0 = 1;
 
 }
 

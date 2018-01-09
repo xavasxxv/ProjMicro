@@ -60,11 +60,11 @@
 void ADC_Initialize(void) {
     // set the ADC to the options selected in the User Interface
 
-    // GO_nDONE stop; ADON enabled; CHS AN3; 
-    ADCON0 = 0x0D;
+    // GO_nDONE stop; ADON enabled; CHS AN4; 
+    ADCON0 = 0x11;
 
-    // TRIGSEL CCP5; NVCFG VSS; PVCFG VDD; 
-    ADCON1 = 0x00;
+    // TRIGSEL CCP5; NVCFG VSS; PVCFG external; 
+    ADCON1 = 0x04;
 
     // ADFM right; ACQT 2; ADCS FOSC/8; 
     ADCON2 = 0x89;
@@ -77,6 +77,9 @@ void ADC_Initialize(void) {
 
     // Enabling ADC interrupt.
     PIE1bits.ADIE = 1;
+    
+    // Obter 1º medição do ADC
+    ADCON0bits.GO = 1;
 }
 
 void ADC_SelectChannel(adc_channel_t channel) {
@@ -122,21 +125,7 @@ adc_result_t ADC_GetConversion(adc_channel_t channel) {
 void ADC_ISR(void) {
 
     //recebe o valor binário da leitura do ADC
-    binADC = ADC_GetConversionResult();
-
-    //calcula a temperatura atual
-    //faz um cast de um char com sinal do valor binário deslocado vezes o equivalente em graus de 1 LSB e adiciona 0.5
-    //de modo a arrendondar no caso de ser por exemplo, 26.6ºC, passa a 27.1 e o cast trunca a parte decimal excedente
-    tempAtual = ( signed char ) ( ( ( binADC - 83 ) * ( adcLsb ) ) + 0.5 );
-
-    //antes de verificar o novo estado do alarme, guarda o último estado
-    lastAlarme = alarme;
-
-    //passa o estado do alarme para 1 caso a temp. medida seja maior à de alarme, caso contrário, o alarme está a 0
-    if (tempAtual > tempAlarme)
-        alarme = 1;
-    else
-        alarme = 0;
+    binADC = ADRES - 138;
 
     //a interrupção executou, falta o código auxiliar assim que possível
     intADC = 1;

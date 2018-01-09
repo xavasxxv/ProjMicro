@@ -104,52 +104,6 @@ void EUSART1_Receive_ISR(void) {
     //copia o caractér recebido para a posição correspondente na string EUSART
     strUSART[j] = RCREG1;
 
-    //enquanto o caractér não for ENTER ou a string não atingir o tamanho máximo de 40 (mais o ENTER)
-    if (j >= 0 && j < StrSIZE - 1) {
-
-        //indica que está no meio da receção de uma string
-        estadoEUSART = 1;
-
-        //repete o caractér para o terminal virtual
-        //caso esteja no limite de caractéres manda um ENTER
-        if (j == 40) {
-            while (!PIR1bits.TX1IF);
-            TXREG1 = '\r';
-            //se não repete o caractér recebido
-        } else {
-            while (!PIR1bits.TX1IF);
-            TXREG1 = strUSART[j];
-        }
-
-        //apaga o caractér recebido da string no caso de se ter apagado (BACKSPACE)
-        //apaga 1º o BACKSPACE em si da string
-        if (strUSART[j] != '\r' && strUSART[j] == 8) {
-            strUSART[j] = '\0';
-            j--;
-            //se não estiver na posição zero da string já, apaga então efetivamente o caractér pretendido
-            if (j >= 0) {
-                strUSART[j] = '\0';
-                j--;
-            }
-        }
-        //acerta a posição de receção
-        j++;
-    }
-
-    //caso se trate do fim da receção (caso ENTER ou fim de string)
-    if (j == StrSIZE - 1 || strUSART[( j - 1 )] == '\r') {
-        //o contador passa a 0, para puder receber outra string
-        j = 0;
-        //no caso de ter estado bloqueada anteriormente, desbloqueia a escrita da EUSART
-        if (bloqueiaEUSART == 1)
-            bloqueiaEUSART = 0;
-        //indica que terminou de recebar a string
-        estadoEUSART = 0;
-    }
-
-    //no caso de haver algum tipo de problema, recebe o caractér recebido, de modo a puder ser limpa a flag de interrupção da EUSART
-    lixoEUSART = RCREG1;
-    
     //a interrupção executou, falta o código auxiliar assim que possível
     intEUSART = 1;
 

@@ -51,12 +51,12 @@
 #include <stdbool.h>
 #include "interrupt_manager.h"
 #include "i2c1.h"
-#include "tmr0.h"
+#include "ext_int.h"
 #include "eusart1.h"
 #include "epwm1.h"
-#include "ext_int.h"
-#include "tmr2.h"
 #include "adc.h"
+#include "tmr2.h"
+#include "tmr0.h"
 
 #define _XTAL_FREQ  6000000
 

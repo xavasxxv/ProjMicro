@@ -29,7 +29,7 @@ extern "C" {
 #define StrSIZE 42
 
     //Equivalente em ºC de 1 LSB
-#define adcLsb 0.24841333435
+#define adcLsb 0.1504472215
 
     //endereço I2C da EEPROM
 #define eepromAddr 0b01010000
@@ -46,16 +46,18 @@ extern "C" {
     volatile char lastMenu;                     //variável que guarda qual a última função que foi pedida no menu
     volatile char update = 1;                   //variável de atualizações do LCD
     volatile char i;                            //contador global, usado em vários sítios
+    volatile signed char e = 0;                 //contador local no auxílio das interrupções
     volatile signed char j = 0;                 //contador global, mas que só é usado na interrupção da EUSART, e que corresponde á posição de um caractér numa string
     volatile char menu_tmp = 5;                 //variável que guarda a opção temporária pretendida
     volatile char menu_sel = 5;                 //variável que guarda a opção atual selecionada
-    volatile char update4hZ = 1;                //variável auxiliar de atualização do LCD periodicamente
+    volatile char update1hZ = 1;                //variável auxiliar de atualização do LCD periodicamente
     volatile char tempAlarme = 25;              //variável global que guarda a mais recente temperatura de alarme
     volatile signed char tempAtual = 25;        //variável global que guarda a mais recente temperatura medida
     volatile char estado = 0;                   //variável de estados global, dentro desta função não entra em conflitos com outras funções
     volatile char lixoEUSART;                   //variável que recebe sempre o caractér da EUSART, de modo a asserir sempre a flag de interrupçção a 0
     volatile bool intEUSART = 0;                //flag auxiliar à interrupção da EUSART, que diz que é preciso executar o código auxiliar
     volatile bool intADC = 0;                   //flag auxiliar à interrupção do ADC, que diz que é preciso executar o código auxiliar
+    volatile bool intTMR0 = 0;                  //flag auxiliar à interrupção do TMR0, que diz que é preciso executar o código auxiliar
     volatile bool clk4Hz = 0;                   //relógio global de 4Hz (0.25s ou 250ms)
     volatile bool clk2Hz = 0;                   //relógio global de 2Hz (0.5s ou 500ms)
     volatile bool clk1Hz = 0;                   //relógio global de 1Hz (1s)
@@ -71,7 +73,7 @@ extern "C" {
     volatile char bloqueiaEUSART = 0;           //flag global de bloqueio forçado da escrita para a EUSART
     volatile signed int memAddr = 0;            //variável global que guarda o endereço de memória usado para as funcionalidades da EEPROM
     volatile signed int regNum = 0;             //variável global que guarda o nr. de registos total, usado para as funcionalidades da EEPROM
-    volatile signed int regCountAux = 4090;     //variável global que guarda a posição relativa no bloco da EEPROM do último registo, usado para as funcionalidades da EEPROM
+    volatile signed int regCountAux = 4088;     //variável global que guarda a posição relativa no bloco da EEPROM do último registo, usado para as funcionalidades da EEPROM
     volatile I2C1_MESSAGE_STATUS stateMsgI2c;   //variável que guarda o estado do módulo I2C
     volatile int numLeituras;                   //variável que guarda o nr. de leituras pertendidas a partir do terminal virtual
 

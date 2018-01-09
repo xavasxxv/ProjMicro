@@ -232,7 +232,7 @@ void monitorizacao(void) {
     }
 
     //atualiza o LCD a 4Hz (4 vezes por s) ou no caso de ter sido mandado atualizar
-    if (update4hZ || update) {
+    if (update1hZ || update) {
         //se o alarme estiver ativo, alternar entre mostrar a temp. de alarme e o aviso de alarme ativo
         if (alarme) {
             switch (clk1_2Hz) {
@@ -260,9 +260,9 @@ void monitorizacao(void) {
     }
 
     //limpa as variáveis de atualização
-    update4hZ = 0;
+    update1hZ = 0;
     update = 0;
-    
+
 }
 
 //função de teste para a introdução de caractéres através do teclado matricial
@@ -336,7 +336,7 @@ void defTempAlarme(void) {
             }
         }
     }
-    
+
     //caso 3º estado (estado 2)
     if (estado == 2) {
         //se os caractéres recebidos não forem digitos, a temp. temporária será 0
@@ -381,11 +381,11 @@ void feedbackUSART(void) {
     }
 
     //caso 1º estado (estado 0)
-    if (estado == 0 ) {   
+    if (estado == 0) {
         //e o estado da EUSART seja 1 (pausa)
         if (estadoEUSART == 1)
             estado = 1;
-        else 
+        else
             //caso contrário, continua no mesmo estado
             estado = 0;
     }
@@ -414,16 +414,135 @@ void feedbackUSART(void) {
 
         //escreve a string LCD no LCD
         escreveLinhaLCD(LINE2, strLCD);
-        
+
     }
 }
 
 //função auxiliar às interrupções, com código extenso ou que demoraria demasiado tempo para uma interrupção
 void extrasInterrupoes(void) {
 
+    if (intTMR0) {
+
+        //calcula a temperatura atual
+        //faz um cast de um char com sinal do valor binário deslocado vezes o equivalente em graus de 1 LSB e adiciona 0.5
+        //de modo a arrendondar no caso de ser por exemplo, 26.6ºC, passa a 27.1 e o cast trunca a parte decimal excedente
+        tempAtual = ( signed char ) ( ( binADC * adcLsb ) + 0.5 );
+
+        //antes de verificar o novo estado do alarme, guarda o último estado
+        lastAlarme = alarme;
+
+        //passa o estado do alarme para 1 caso a temp. medida seja maior à de alarme, caso contrário, o alarme está a 0
+        if (tempAtual > tempAlarme)
+            alarme = 1;
+        else
+            alarme = 0;
+
+        //divisores de relógio, que permitem que tenha várias "frequências" com base no tempo de interrupção definido (8 vezes por segundo)
+        //divisor para 4Hz
+        clk4Hz = !clk4Hz;
+        //caso o relógio de 4Hz esteja a 1, manda iniciar uma conversão do ADC, e divide também para os 2Hz, assere a variável auxiliar de update do LCD a 1
+        if (clk4Hz)
+            clk2Hz = !clk2Hz;
+        //divisor para 1Hz
+        if (clk2Hz && clk4Hz)
+            clk1Hz = !clk1Hz;
+        //divisor para 1/2Hz (2 seg)
+        if (clk1Hz && clk2Hz && clk4Hz) {
+            clk1_2Hz = !clk1_2Hz;
+            ADC_StartConversion();
+            update1hZ = 1;
+        }
+        //divisor para 1/4Hz (4 seg)
+        if (clk1_2Hz && clk1Hz && clk2Hz && clk4Hz)
+            clk1_4Hz = !clk1_4Hz;
+        //divisor para 1/8Hz (8 seg)
+        if (clk1_4Hz && clk1_2Hz && clk1Hz && clk2Hz && clk4Hz)
+            clk1_8Hz = !clk1_8Hz;
+
+        //caso o alarme esteja a 1
+        if (alarme == 1) {
+
+            //inicia o Timer2, do qual é dependente o módulo ECCP1, responsável pelo PWM do buzzer
+            TMR2_StartTimer();
+
+            //alterna o LED e o buzzer a cada ciclo relógio de 2hz, o buzzer funciona sempre a 12.5% de duty-cycle
+            switch (clk2Hz) {
+                    //no ciclo negativo, o LED desliga e o buzzer apita a uma freq. mais baixa (375Hz)
+                case 0:
+                    EPWM1_LoadDutyValue(124); //1/8 do PR2
+                    TMR2_LoadPeriodRegister(249); //xF9 b11111001
+                    RB7_SetLow();
+                    break;
+                    //no ciclo positivo, o LED liga e o buzzer apita a uma freq. mais alta (625Hz)
+                case 1:
+                    EPWM1_LoadDutyValue(74); //1/8 do PR2
+                    TMR2_LoadPeriodRegister(149); //x95 b10010101
+                    RB7_SetHigh();
+                    break;
+            }
+            //caso o alarme esteja a 0
+        } else {
+
+            //inicia o Timer2, do qual é dependente o módulo ECCP1, responsável pelo PWM do buzzer
+            TMR2_StopTimer();
+            //e desliga forçosamente o LED
+            RB7_SetLow();
+        }
+
+        //executou o que precisou, flag a 0 para não executar novamente até nova interrupção
+        intTMR0 = 0;
+    }
+
     //caso a interrupção da EUSART precise de executar código auxiliar, no caso de entradas específicas
     if (intEUSART) {
-        
+
+        //enquanto o caractér não for ENTER ou a string não atingir o tamanho máximo de 40 (mais o ENTER)
+        if (j >= 0 && j < StrSIZE - 1) {
+
+            //indica que está no meio da receção de uma string
+            estadoEUSART = 1;
+
+            //repete o caractér para o terminal virtual
+            //caso esteja no limite de caractéres manda um ENTER
+            if (j == 40) {
+                while (!PIR1bits.TX1IF);
+                TXREG1 = '\r';
+                //se não repete o caractér recebido
+            } else {
+                while (!PIR1bits.TX1IF);
+                TXREG1 = strUSART[j];
+            }
+
+            //apaga o caractér recebido da string no caso de se ter apagado (BACKSPACE)
+            //apaga 1º o BACKSPACE em si da string
+            if (strUSART[j] != '\r' && strUSART[j] == 8) {
+                strUSART[j] = '\0';
+                j--;
+                //se não estiver na posição zero da string já, apaga então efetivamente o caractér pretendido
+                if (j >= 0) {
+                    strUSART[j] = '\0';
+                    j--;
+                }
+            }
+            //acerta a posição de receção
+            j++;
+        }
+
+        //caso se trate do fim da receção (caso ENTER ou fim de string)
+        if (j == StrSIZE - 1 || strUSART[( j - 1 )] == '\r') {
+            //o contador passa a 0, para puder receber outra string
+            j = 0;
+            //no caso de ter estado bloqueada anteriormente, desbloqueia a escrita da EUSART
+            if (bloqueiaEUSART == 1)
+                bloqueiaEUSART = 0;
+            //indica que terminou de recebar a string
+            estadoEUSART = 0;
+        }
+
+        //no caso de haver algum tipo de problema, recebe o caractér recebido, de modo a puder ser limpa a flag de interrupção da EUSART
+        lixoEUSART = RCREG1;
+
+        //a interrupção executou, falta o código auxiliar assim que possível
         //se a entrada no terminal virtual for do tipo "SA=xx\r",  calcula a nova temp. de alarme
         if (( strUSART[0] == 'S' ) && ( strUSART[1] == 'A' ) && ( strUSART[2] == '=' ) && ( strUSART[5] == '\r' ) && bloqueiaEUSART != 2) {
 
@@ -690,15 +809,14 @@ void extrasInterrupoes(void) {
         intADC = 0;
 
     }
-
 }
 
 //função que lê o último registo de memória usado para gravar dados na EEPROM, bem como o nr de registos nela guardado
 void iniciarValoresEEPROM(void) {
 
     //endereço de memória a ler, o 1º, que é onde estão guardados o último registo de memória usado e o nr. de registos guardados até ao momento
-    i2cReadAddr[0] = 0;
-    i2cReadAddr[1] = 0;
+    i2cReadAddr[0] = 0x7F;
+    i2cReadAddr[1] = 0xF8;
 
     //manda à EEPROM o comando para mudar para a linha 0x0000
     I2C1_MasterWrite(i2cReadAddr, 2, eepromAddr, stateMsgI2c);
@@ -706,19 +824,19 @@ void iniciarValoresEEPROM(void) {
     I2C1_MasterRead(i2cReadBlock, 4, eepromAddr, stateMsgI2c);
 
     //caso a memória esteja vazia, inicializa as variáveis a 0
-    if (( i2cReadBlock[0] == 0xff && i2cReadBlock[1] == 0xff && i2cReadBlock[2] == 0xff && i2cReadBlock[3] == 0xff ) || ( i2cReadAddr[0] != 0 || i2cReadAddr[1] != 0 )) {
+    if (( i2cReadBlock[0] == 0xff && i2cReadBlock[1] == 0xff && i2cReadBlock[2] == 0xff && i2cReadBlock[3] == 0xff ) || ( i2cReadAddr[0] != 0x7F || i2cReadAddr[1] != 0xF8 )) {
         regNum = 0;
         regCountAux = 0;
         memAddr = 0;
         //caso contrário, passa os valores para as variáveis
     } else {
         //o último endereço de memória é do tipo INT, logo leva 2 bytes, o 1º leva um shift de 8 bits à esquerda e em seguida é somado ao segundo byte
-        memAddr = ( ( i2cReadBlock[0] << 8 ) + i2cReadBlock[1] );
+        memAddr = ( ( i2cReadBlock[0] << 8 ) + i2cReadBlock[1] ) + 8;
         //o nr. de registos é do tipo INT, logo leva 2 bytes, o 1º leva um shift de 8 bits à esquerda e em seguida é somado ao segundo byte
         regNum = ( ( i2cReadBlock[2] << 8 ) + i2cReadBlock[3] );
         //esta variável corresponde à posição relativa ao inicio do bloco de memória e está diretamente relacionada com o último endereço de memória
         //uma vez que cada registo tem de tamanho 8 bytes, trata-se de uma divisão por 8, o que corresponde a um shift de 3 bits para a direita
-        regCountAux = memAddr >> 3;
+        regCountAux = ( memAddr >> 3 );
     }
 
 }
